@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>3513DACC-D456-48DB-AAB6-07D1F84A063E</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Halfway</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>752B5F17F6F9D123DA114D792E7BB5A0124D3038</key>
+		<string>https://github.com/mitasray/Halfway.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Halfway.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>752B5F17F6F9D123DA114D792E7BB5A0124D3038</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/mitasray/Halfway.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>752B5F17F6F9D123DA114D792E7BB5A0124D3038</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>752B5F17F6F9D123DA114D792E7BB5A0124D3038</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Halfway</string>
+		</dict>
+	</array>
+</dict>
+</plist>

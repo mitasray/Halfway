@@ -17,15 +17,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var targetLocation = CLLocation(latitude: 0, longitude: 0)
     var currentLocation = CLLocation(latitude: 0, longitude: 0)
     
-    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var currentMapView: MKMapView!
+    @IBOutlet weak var halfwayMapView: MKMapView!
     @IBOutlet var address : UITextField!
     @IBOutlet var city : UITextField!
     @IBOutlet var state : UITextField!
-    @IBOutlet weak var currentLatitude: UILabel!
-    @IBOutlet weak var currentLongitude: UILabel!
-    @IBOutlet weak var halfwayLatitude: UILabel!
-    @IBOutlet weak var halfwayLongitude: UILabel!
-    
     /**
      * IBAction for when the done button is pressed. Creates the full address and calls findLatLong() to find the latitude and longitude coordinates of this full address.
      */
@@ -36,8 +32,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         targetLocation = CLLocation(latitude: currLatitude, longitude: currLongitude)
         
         var halfwayLocation = halfway(targetLocation, location2: currentLocation)
-        halfwayLatitude.text = String(stringInterpolationSegment: halfwayLocation.coordinate.latitude)
-        halfwayLongitude.text = String(stringInterpolationSegment: halfwayLocation.coordinate.longitude)
+        map(halfwayLocation, view: halfwayMapView)
+        annotate(halfwayLocation, view: halfwayMapView)
     }
     
     private func halfway(location1: CLLocation, location2: CLLocation) -> CLLocation {
@@ -60,7 +56,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
-        self.mapView?.showsUserLocation = true
+        self.currentMapView?.showsUserLocation = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -74,16 +70,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         var currLatitude = currentCoordinates.latitude
         var currLongitude = currentCoordinates.longitude
         
-        currentLatitude.text = String(format: "%.4f", currLatitude)
-        currentLongitude.text = String(format: "%.4f", currLongitude)
-        
         var location = CLLocation(latitude: currLatitude, longitude: currLongitude)
-        centerMapOnLocation(location)
+        map(location, view: currentMapView)
     }
 
-    private func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 2000, 2000)
-        mapView.setRegion(coordinateRegion, animated: true)
+    private func map(location: CLLocation, view: MKMapView) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 200, 200)
+        view.setRegion(coordinateRegion, animated: true)
+    }
+    
+    private func annotate(location: CLLocation, view: MKMapView) {
+        var annotation = MKPointAnnotation()
+        annotation.coordinate = location.coordinate
+        annotation.title = "Halfway"
+        view.addAnnotation(annotation)
     }
 }
 

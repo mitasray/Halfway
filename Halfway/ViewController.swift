@@ -8,8 +8,8 @@
 
 import UIKit
 import CoreLocation
-import MapKit
 // Map Tutorial: http://www.raywenderlich.com/90971/introduction-mapkit-swift-tutorial
+import MapKit
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
 
@@ -22,6 +22,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet var address : UITextField!
     @IBOutlet var city : UITextField!
     @IBOutlet var state : UITextField!
+    
     /**
      * IBAction for when the done button is pressed. Creates the full address and calls findLatLong() to find the latitude and longitude coordinates of this full address.
      */
@@ -52,6 +53,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // The following lines are used for obtaining the current location and using MapKit with this location. Setup.
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()

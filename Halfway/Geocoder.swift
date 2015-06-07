@@ -31,9 +31,9 @@ public class Geocoder {
     }
     
     /**
-    * Finding the latitude and longitude coordinates from a given address.
-    * HTML source code obtained form getHTML(). This HTML code is then parsed for the correct latitude and longitude coordinates.
-    */
+     * Finding the latitude and longitude coordinates from a given address.
+     * HTML source code obtained form getHTML(). This HTML code is then parsed for the correct latitude and longitude coordinates.
+     */
     private func findLatLong(fullAddress : String) -> [Double] {
         var HTMLString = String(getHTML(fullAddress))
         
@@ -49,9 +49,9 @@ public class Geocoder {
     }
     
     /**
-    * http://stackoverflow.com/questions/26134884/how-to-get-html-source-from-url-with-swift
-    * Returns the HTML source code of the geocoder.us webpage with the proper address.
-    */
+     * http://stackoverflow.com/questions/26134884/how-to-get-html-source-from-url-with-swift
+     * Returns the HTML source code of the geocoder.us webpage with the proper address.
+     */
     private func getHTML(fullAddress : String) -> NSString {
         var urlAddress = fullAddress.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.LiteralSearch, range: nil)
         
@@ -74,9 +74,9 @@ public class Geocoder {
     }
     
     /**
-    * Helper method for findLatLong().
-    * Removes the </h3></td>\n    <td> HTML code and the excess end HTML code from the latitude and longitude coordinates to only extract the numbers.
-    */
+     * Helper method for findLatLong().
+     * Removes the </h3></td>\n    <td> HTML code and the excess end HTML code from the latitude and longitude coordinates to only extract the numbers.
+     */
     private func numFinder(coord : String) -> Double {
         var finalCoord = coord.substringFromIndex(advance(coord.startIndex, 19))
         var posOfSpace = posOfChar(coord, char: " ");
@@ -86,10 +86,10 @@ public class Geocoder {
     }
     
     /**
-    * Solution #3 from: http://stackoverflow.com/questions/24029163/finding-index-of-character-in-swift-string
-    * Helper method for numFinder().
-    * Returns the position of a character in a string, where the character and string are parameters. If character not found, returns -1.
-    */
+     * Solution #3 from: http://stackoverflow.com/questions/24029163/finding-index-of-character-in-swift-string
+     * Helper method for numFinder().
+     * Returns the position of a character in a string, where the character and string are parameters. If character not found, returns -1.
+     */
     func posOfChar(string : String, char : Character) -> Int {
         if let index = find(string, char) {
             let pos = distance(string.startIndex, index)

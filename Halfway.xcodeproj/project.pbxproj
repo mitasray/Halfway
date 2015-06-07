@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0AEC20AD1B23C33100E37E21 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEC20AC1B23C33100E37E21 /* Location.swift */; };
+		0AEC20AF1B2423CB00E37E21 /* Geocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEC20AE1B2423CB00E37E21 /* Geocoder.swift */; };
 		6094D5941B1F85FA00EAA02A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6094D5931B1F85FA00EAA02A /* AppDelegate.swift */; };
 		6094D5961B1F85FA00EAA02A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6094D5951B1F85FA00EAA02A /* ViewController.swift */; };
 		6094D5991B1F85FA00EAA02A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6094D5971B1F85FA00EAA02A /* Main.storyboard */; };
 		6094D59B1B1F85FA00EAA02A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6094D59A1B1F85FA00EAA02A /* Images.xcassets */; };
 		6094D59E1B1F85FA00EAA02A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6094D59C1B1F85FA00EAA02A /* LaunchScreen.xib */; };
-		6094D5AA1B1F85FA00EAA02A /* LocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6094D5A91B1F85FA00EAA02A /* LocationTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,7 +26,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0AEC20AC1B23C33100E37E21 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Location.swift; path = ../../../Documents/Location.swift; sourceTree = "<group>"; };
+		0AEC20AE1B2423CB00E37E21 /* Geocoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geocoder.swift; sourceTree = "<group>"; };
 		6094D58E1B1F85FA00EAA02A /* Halfway.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Halfway.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6094D5921B1F85FA00EAA02A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6094D5931B1F85FA00EAA02A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -37,7 +36,6 @@
 		6094D59D1B1F85FA00EAA02A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		6094D5A31B1F85FA00EAA02A /* HalfwayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HalfwayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6094D5A81B1F85FA00EAA02A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6094D5A91B1F85FA00EAA02A /* LocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +59,7 @@
 		0AEC20AB1B23C30000E37E21 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0AEC20AC1B23C33100E37E21 /* Location.swift */,
+				0AEC20AE1B2423CB00E37E21 /* Geocoder.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -109,7 +107,6 @@
 		6094D5A61B1F85FA00EAA02A /* HalfwayTests */ = {
 			isa = PBXGroup;
 			children = (
-				6094D5A91B1F85FA00EAA02A /* LocationTests.swift */,
 				6094D5A71B1F85FA00EAA02A /* Supporting Files */,
 			);
 			path = HalfwayTests;
@@ -224,7 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6094D5961B1F85FA00EAA02A /* ViewController.swift in Sources */,
-				0AEC20AD1B23C33100E37E21 /* Location.swift in Sources */,
+				0AEC20AF1B2423CB00E37E21 /* Geocoder.swift in Sources */,
 				6094D5941B1F85FA00EAA02A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -233,7 +230,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6094D5AA1B1F85FA00EAA02A /* LocationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

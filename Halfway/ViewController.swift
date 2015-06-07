@@ -8,12 +8,16 @@
 
 import UIKit
 import CoreLocation
+import MapKit
 // Map Tutorial: http://www.raywenderlich.com/90971/introduction-mapkit-swift-tutorial
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
-    
+
     let locationManager = CLLocationManager()
+    var targetLocation = CLLocation(latitude: 0, longitude: 0)
+    var currentLocation = CLLocation(latitude: 0, longitude: 0)
     
+    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet var address : UITextField!
     @IBOutlet var city : UITextField!
     @IBOutlet var state : UITextField!
@@ -22,89 +26,26 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var halfwayLatitude: UILabel!
     @IBOutlet weak var halfwayLongitude: UILabel!
     
-    var targetLocation: Location = Location(latitude: 0, longitude: 0)
-    var currentLocation: Location = Location(latitude: 0, longitude: 0)
-    
     /**
      * IBAction for when the done button is pressed. Creates the full address and calls findLatLong() to find the latitude and longitude coordinates of this full address.
      */
     @IBAction func donePressed(sender: AnyObject) {
-        var target = findLatLong(fullAddress())
-        targetLocation.setLatitude(target[0])
-        targetLocation.setLongitude(target[1])
-        halfwayLatitude.text = String(stringInterpolationSegment: currentLocation.halfway(targetLocation).latitude())
-        halfwayLongitude.text = String(stringInterpolationSegment: currentLocation.halfway(targetLocation).longitude())
-    }
-    
-    /**
-     * http://stackoverflow.com/questions/26134884/how-to-get-html-source-from-url-with-swift
-     * Returns the HTML source code of the geocoder.us webpage with the proper address.
-     */
-    func getHTML(fullAddress : String) -> NSString {
-        var urlAddress = fullAddress.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        var geocode = Geocoder(address: address.text, city: city.text, state: state.text)
+        var currLatitude = geocode.getLatitude()
+        var currLongitude = geocode.getLongitude()
+        targetLocation = CLLocation(latitude: currLatitude, longitude: currLongitude)
         
-        let myURLString = "http://geocoder.us/demo.cgi?address=" + urlAddress
-        
-        if let myURL = NSURL(string: myURLString) {
-            var error: NSError?
-            let myHTMLString = NSString(contentsOfURL: myURL, encoding: NSUTF8StringEncoding, error: &error)
-            
-            if let error = error {
-                println("Error : \(error)")
-            } else {
-                // println("HTML : \(myHTMLString)")
-                return myHTMLString!
-            }
-        } else {
-            println("Error: \(myURLString) doesn't seem to be a valid URL")
-        }
-        return NSString(string: "") // Empty NSString is returned if HTML is not a valid URL
+        var halfwayLocation = halfway(targetLocation, location2: currentLocation)
+        halfwayLatitude.text = String(stringInterpolationSegment: halfwayLocation.coordinate.latitude)
+        halfwayLongitude.text = String(stringInterpolationSegment: halfwayLocation.coordinate.longitude)
     }
     
-    /**
-     * Finding the latitude and longitude coordinates from a given address.
-     * HTML source code obtained form getHTML(). This HTML code is then parsed for the correct latitude and longitude coordinates.
-     */
-    func findLatLong(fullAddress : String) -> [Double] {
-        var HTMLString = String(getHTML(fullAddress))
-        
-        // String split method from: http://stackoverflow.com/questions/25678373/swift-split-a-string-into-an-array
-        var latArr = HTMLString.componentsSeparatedByString("Latitude")
-        var longArr = HTMLString.componentsSeparatedByString("Longitude")
-        var latitude = numFinder(latArr[1])
-        var longitude = numFinder(longArr[1])
-        var coordinates = [Double]()
-        coordinates.append(latitude)
-        coordinates.append(longitude)
-        return coordinates
+    private func halfway(location1: CLLocation, location2: CLLocation) -> CLLocation {
+        var lat = (location1.coordinate.latitude + location2.coordinate.latitude) / 2
+        var long = (location1.coordinate.longitude + location2.coordinate.longitude) / 2
+        return CLLocation(latitude: lat, longitude: long)
     }
-    
-    /**
-     * Helper method for findLatLong(). 
-     * Removes the </h3></td>\n    <td> HTML code and the excess end HTML code from the latitude and longitude coordinates to only extract the numbers.
-     */
-    func numFinder(coord : String) -> Double {
-        var finalCoord = coord.substringFromIndex(advance(coord.startIndex, 19))
-        var posOfSpace = posOfChar(coord, char: " ");
-        finalCoord = finalCoord.substringToIndex(advance(coord.startIndex, posOfSpace))
-        var finalCoordDouble : Double = (finalCoord as NSString).doubleValue // String to Double
-        return finalCoordDouble
-    }
-    
-    /**
-     * Solution #3 from: http://stackoverflow.com/questions/24029163/finding-index-of-character-in-swift-string
-     * Helper method for numFinder().
-     * Returns the position of a character in a string, where the character and string are parameters. If character not found, returns -1.
-     */
-    func posOfChar(string : String, char : Character) -> Int {
-        if let index = find(string, char) {
-            let pos = distance(string.startIndex, index)
-            return pos
-        } else {
-            return -1
-        }
-    }
-    
+
     /**
      * Empty IBAction for when the outside view is tapped. Removes the keyboard from the display.
      */
@@ -119,6 +60,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
+        self.mapView?.showsUserLocation = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -126,8 +68,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        var currentLocation: AnyObject = locations[locations.count - 1]
-        
+        var currentLocation = locations.last as! CLLocation
+        self.currentLocation = currentLocation
         var currentCoordinates = currentLocation.coordinate
         var currLatitude = currentCoordinates.latitude
         var currLongitude = currentCoordinates.longitude
@@ -135,12 +77,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         currentLatitude.text = String(format: "%.4f", currLatitude)
         currentLongitude.text = String(format: "%.4f", currLongitude)
         
-        self.currentLocation.setLatitude(currLatitude)
-        self.currentLocation.setLongitude(currLongitude)
+        var location = CLLocation(latitude: currLatitude, longitude: currLongitude)
+        centerMapOnLocation(location)
     }
-    
-    private func fullAddress() -> String {
-        return address.text + " " + city.text + " " + state.text
+
+    private func centerMapOnLocation(location: CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 2000, 2000)
+        mapView.setRegion(coordinateRegion, animated: true)
     }
 }
 

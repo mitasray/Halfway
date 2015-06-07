@@ -7,21 +7,33 @@
 //
 
 import UIKit
+import CoreLocation
 // Map Tutorial: http://www.raywenderlich.com/90971/introduction-mapkit-swift-tutorial
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CLLocationManagerDelegate {
+    
+    let locationManager = CLLocationManager()
     
     @IBOutlet var address : UITextField!
     @IBOutlet var city : UITextField!
     @IBOutlet var state : UITextField!
+    @IBOutlet weak var currentLatitude: UILabel!
+    @IBOutlet weak var currentLongitude: UILabel!
+    @IBOutlet weak var halfwayLatitude: UILabel!
+    @IBOutlet weak var halfwayLongitude: UILabel!
+    
+    var targetLocation: Location = Location(latitude: 0, longitude: 0)
+    var currentLocation: Location = Location(latitude: 0, longitude: 0)
     
     /**
      * IBAction for when the done button is pressed. Creates the full address and calls findLatLong() to find the latitude and longitude coordinates of this full address.
      */
     @IBAction func donePressed(sender: AnyObject) {
-        var fullAddress = address.text + " " + city.text + " " + state.text
-        // println(fullAddress)
-        findLatLong(fullAddress)
+        var target = findLatLong(fullAddress())
+        targetLocation.setLatitude(target[0])
+        targetLocation.setLongitude(target[1])
+        halfwayLatitude.text = String(stringInterpolationSegment: currentLocation.halfway(targetLocation).latitude())
+        halfwayLongitude.text = String(stringInterpolationSegment: currentLocation.halfway(targetLocation).longitude())
     }
     
     /**
@@ -53,7 +65,7 @@ class ViewController: UIViewController {
      * Finding the latitude and longitude coordinates from a given address.
      * HTML source code obtained form getHTML(). This HTML code is then parsed for the correct latitude and longitude coordinates.
      */
-    func findLatLong(fullAddress : String) {
+    func findLatLong(fullAddress : String) -> [Double] {
         var HTMLString = String(getHTML(fullAddress))
         
         // String split method from: http://stackoverflow.com/questions/25678373/swift-split-a-string-into-an-array
@@ -61,8 +73,10 @@ class ViewController: UIViewController {
         var longArr = HTMLString.componentsSeparatedByString("Longitude")
         var latitude = numFinder(latArr[1])
         var longitude = numFinder(longArr[1])
-        println(latitude)
-        println(longitude)
+        var coordinates = [Double]()
+        coordinates.append(latitude)
+        coordinates.append(longitude)
+        return coordinates
     }
     
     /**
@@ -100,14 +114,33 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        self.locationManager.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.startUpdatingLocation()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
     
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        var currentLocation: AnyObject = locations[locations.count - 1]
+        
+        var currentCoordinates = currentLocation.coordinate
+        var currLatitude = currentCoordinates.latitude
+        var currLongitude = currentCoordinates.longitude
+        
+        currentLatitude.text = String(format: "%.4f", currLatitude)
+        currentLongitude.text = String(format: "%.4f", currLongitude)
+        
+        self.currentLocation.setLatitude(currLatitude)
+        self.currentLocation.setLongitude(currLongitude)
+    }
+    
+    private func fullAddress() -> String {
+        return address.text + " " + city.text + " " + state.text
+    }
 }
 

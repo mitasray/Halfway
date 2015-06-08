@@ -64,7 +64,36 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
      * IBAction for when yelp button is pressed. Redirects the user into the Yelp app or the yelp mobile website depending on whether the Yelp app downloaded on their device.
      */
     @IBAction func yelpPressed(sender: AnyObject) {
-        doSomethingWithYelp(String(format: "%f", midpointLat), longitude: String(format: "%f", midpointLong))
+        var midpointLoc = CLLocation(latitude: midpointLat, longitude: midpointLong)
+        
+        // Parts of the following code are largely based on http://stackoverflow.com/questions/27495328/reverse-geocode-location-in-swift
+        CLGeocoder().reverseGeocodeLocation(midpointLoc, completionHandler: {(placemarks, error) -> Void in
+            if error != nil {
+                println("Reverse geocoder failed with error" + error.localizedDescription)
+                return
+            }
+            if placemarks.count > 0 {
+                let pm = (placemarks[0] as! CLPlacemark).addressDictionary
+                var addressString: String = (pm["Street"] as! String) + "%2C" + (pm["City"] as! String) + "%2C" + (pm["State"] as! String)
+                
+                // The following code is largely based on https://www.yelp.com/developers/documentation/v2/iphone
+                var yelpString = "search?find_desc=Restaurants&find_loc="
+                addressString = addressString.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                yelpString += addressString + "&ns=1"
+                if (self.isYelpInstalled()) {
+                    // Call into the Yelp app
+                    UIApplication.sharedApplication().openURL(NSURL(string: "yelp4:///" + yelpString)!);
+                } else {
+                    // Use the Yelp touch site
+                    UIApplication.sharedApplication().openURL(NSURL(string: "http://yelp.com/" + yelpString)!);
+                }
+                
+            }
+            else {
+                println("Problem with the data received from geocoder")
+            }
+        })
+
     }
     
     /**
@@ -72,20 +101,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
      */
     func isYelpInstalled() -> Bool {
         return UIApplication.sharedApplication().canOpenURL(NSURL(string: "yelp4:")!);
-    }
-    
-    /**
-     * Enters the location and runs the search.
-     */
-    func doSomethingWithYelp(latitude: String, longitude: String) {
-        var yelpString = "search?category=restaurants&location="
-        if (isYelpInstalled()) {
-            // Call into the Yelp app
-            UIApplication.sharedApplication().openURL(NSURL(string: "yelp4:///" + yelpString)!);
-        } else {
-            // Use the Yelp touch site
-            UIApplication.sharedApplication().openURL(NSURL(string: "http://yelp.com/" + yelpString)!);
-        }
     }
     
     override func viewDidLoad() {

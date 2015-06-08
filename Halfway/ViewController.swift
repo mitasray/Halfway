@@ -17,6 +17,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var targetLocation = CLLocation(latitude: 0, longitude: 0)
     var currentLocation = CLLocation(latitude: 0, longitude: 0)
     
+    // Global variables. Initializers.
+    var midpointLat : Double = 0.0
+    var midpointLong : Double = 0.0
+    
+    // IBOutlets.
     @IBOutlet weak var currentMapView: MKMapView!
     @IBOutlet weak var halfwayMapView: MKMapView!
     @IBOutlet var address : UITextField!
@@ -33,6 +38,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         targetLocation = CLLocation(latitude: currLatitude, longitude: currLongitude)
         
         var halfwayLocation = halfway(targetLocation, location2: currentLocation)
+        
+        midpointLat = halfwayLocation.coordinate.latitude
+        midpointLong = halfwayLocation.coordinate.longitude
+        
         map(halfwayLocation, view: halfwayMapView)
         annotate(halfwayLocation, view: halfwayMapView)
     }
@@ -48,6 +57,35 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
      */
     @IBAction func viewTapped(sender: AnyObject) {
         // Empty.
+    }
+    
+    /**
+     * https://www.yelp.com/developers/documentation/v2/iphone
+     * IBAction for when yelp button is pressed. Redirects the user into the Yelp app or the yelp mobile website depending on whether the Yelp app downloaded on their device.
+     */
+    @IBAction func yelpPressed(sender: AnyObject) {
+        doSomethingWithYelp(String(format: "%f", midpointLat), longitude: String(format: "%f", midpointLong))
+    }
+    
+    /**
+     * Checks to see whether the user has Yelp installed on their device.
+     */
+    func isYelpInstalled() -> Bool {
+        return UIApplication.sharedApplication().canOpenURL(NSURL(string: "yelp4:")!);
+    }
+    
+    /**
+     * Enters the location and runs the search.
+     */
+    func doSomethingWithYelp(latitude: String, longitude: String) {
+        var yelpString = "search?category=restaurants&location="
+        if (isYelpInstalled()) {
+            // Call into the Yelp app
+            UIApplication.sharedApplication().openURL(NSURL(string: "yelp4:///" + yelpString)!);
+        } else {
+            // Use the Yelp touch site
+            UIApplication.sharedApplication().openURL(NSURL(string: "http://yelp.com/" + yelpString)!);
+        }
     }
     
     override func viewDidLoad() {

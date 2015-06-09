@@ -39,7 +39,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     /**
      * Empty IBAction for when the outside view is tapped. Removes the keyboard from the display.
      */
-    @IBAction func viewTapped(sender: AnyObject) {
+    @IBAction func viewTapped(sender: AnyObject) { 
     }
     
     /**

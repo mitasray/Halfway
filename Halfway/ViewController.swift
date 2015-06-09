@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreLocation
-// Map Tutorial: http://www.raywenderlich.com/90971/introduction-mapkit-swift-tutorial
 import MapKit
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
@@ -18,7 +17,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var currentLocation = CLLocation(latitude: 0, longitude: 0)
     var halfwayLocation = CLLocation(latitude: 0, longitude: 0)
     
-    // IBOutlets.
     @IBOutlet weak var currentMapView: MKMapView!
     @IBOutlet weak var halfwayMapView: MKMapView!
     @IBOutlet var address : UITextField!
@@ -33,24 +31,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         var currLatitude = geocode.getLatitude()
         var currLongitude = geocode.getLongitude()
         targetLocation = CLLocation(latitude: currLatitude, longitude: currLongitude)
-        
         halfwayLocation = halfway(targetLocation, location2: currentLocation)
-        
         map(halfwayLocation, view: halfwayMapView)
         annotate(halfwayLocation, view: halfwayMapView)
-    }
-    
-    private func halfway(location1: CLLocation, location2: CLLocation) -> CLLocation {
-        var lat = (location1.coordinate.latitude + location2.coordinate.latitude) / 2
-        var long = (location1.coordinate.longitude + location2.coordinate.longitude) / 2
-        return CLLocation(latitude: lat, longitude: long)
     }
 
     /**
      * Empty IBAction for when the outside view is tapped. Removes the keyboard from the display.
      */
     @IBAction func viewTapped(sender: AnyObject) {
-        // Empty.
     }
     
     /**
@@ -70,7 +59,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // The following lines are used for obtaining the current location and using MapKit with this location. Setup.
+        // Sets up MapKit to track current location
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
@@ -83,14 +72,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        var currentLocation = locations.last as! CLLocation
-        self.currentLocation = currentLocation
-        var currentCoordinates = currentLocation.coordinate
-        var currLatitude = currentCoordinates.latitude
-        var currLongitude = currentCoordinates.longitude
-        
-        var location = CLLocation(latitude: currLatitude, longitude: currLongitude)
-        map(location, view: currentMapView)
+        self.currentLocation = locations.last as! CLLocation
+        map(currentLocation, view: currentMapView)
     }
 
     private func map(location: CLLocation, view: MKMapView) {
@@ -103,6 +86,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         annotation.coordinate = location.coordinate
         annotation.title = "Halfway"
         view.addAnnotation(annotation)
+    }
+    
+    private func halfway(location1: CLLocation, location2: CLLocation) -> CLLocation {
+        var lat = (location1.coordinate.latitude + location2.coordinate.latitude) / 2
+        var long = (location1.coordinate.longitude + location2.coordinate.longitude) / 2
+        return CLLocation(latitude: lat, longitude: long)
     }
     
     private func isYelpInstalled() -> Bool {

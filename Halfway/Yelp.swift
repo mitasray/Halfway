@@ -39,8 +39,4 @@ public class Yelp {
         })
         return yelpAddressString
     }
-    
-    public func isInstalled() -> Bool {
-        return UIApplication.sharedApplication().canOpenURL(NSURL(string: "yelp4:")!);
-    }
 }

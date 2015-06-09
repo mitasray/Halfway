@@ -61,7 +61,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         var yelp = Yelp(location: halfwayLocation)
         var yelpAddressString = yelp.getNearestLandmarks()
         var yelpNSURL = "http://yelp.com/"
-        if(yelp.isInstalled()) {
+        if(isYelpInstalled()) {
             var yelpNSURL = "yelp4:///"
         }
         UIApplication.sharedApplication().openURL(NSURL(string: yelpNSURL + yelpAddressString)!);
@@ -103,6 +103,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         annotation.coordinate = location.coordinate
         annotation.title = "Halfway"
         view.addAnnotation(annotation)
+    }
+    
+    private func isYelpInstalled() -> Bool {
+        return UIApplication.sharedApplication().canOpenURL(NSURL(string: "yelp4:")!);
     }
 }
 

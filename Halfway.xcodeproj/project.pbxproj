@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0ACE0E1F1B26A82D0012E6D8 /* Yelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACE0E1E1B26A82D0012E6D8 /* Yelp.swift */; };
 		0AEC20AF1B2423CB00E37E21 /* Geocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEC20AE1B2423CB00E37E21 /* Geocoder.swift */; };
+		0AEEF14A1B295EBB00724EF6 /* GeocoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEEF1491B295EBB00724EF6 /* GeocoderTests.swift */; };
+		0AEEF14C1B29610C00724EF6 /* HalfwayBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEEF14B1B29610C00724EF6 /* HalfwayBrain.swift */; };
+		0AEEF14E1B2961BB00724EF6 /* HalfwayBrainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEEF14D1B2961BB00724EF6 /* HalfwayBrainTests.swift */; };
 		6094D5941B1F85FA00EAA02A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6094D5931B1F85FA00EAA02A /* AppDelegate.swift */; };
 		6094D5961B1F85FA00EAA02A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6094D5951B1F85FA00EAA02A /* ViewController.swift */; };
 		6094D5991B1F85FA00EAA02A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6094D5971B1F85FA00EAA02A /* Main.storyboard */; };
@@ -27,8 +29,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0ACE0E1E1B26A82D0012E6D8 /* Yelp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Yelp.swift; sourceTree = "<group>"; };
 		0AEC20AE1B2423CB00E37E21 /* Geocoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geocoder.swift; sourceTree = "<group>"; };
+		0AEEF1491B295EBB00724EF6 /* GeocoderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocoderTests.swift; sourceTree = "<group>"; };
+		0AEEF14B1B29610C00724EF6 /* HalfwayBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfwayBrain.swift; sourceTree = "<group>"; };
+		0AEEF14D1B2961BB00724EF6 /* HalfwayBrainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfwayBrainTests.swift; sourceTree = "<group>"; };
 		6094D58E1B1F85FA00EAA02A /* Halfway.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Halfway.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6094D5921B1F85FA00EAA02A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6094D5931B1F85FA00EAA02A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,7 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				0AEC20AE1B2423CB00E37E21 /* Geocoder.swift */,
-				0ACE0E1E1B26A82D0012E6D8 /* Yelp.swift */,
+				0AEEF14B1B29610C00724EF6 /* HalfwayBrain.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -111,6 +115,8 @@
 			isa = PBXGroup;
 			children = (
 				6094D5A71B1F85FA00EAA02A /* Supporting Files */,
+				0AEEF1491B295EBB00724EF6 /* GeocoderTests.swift */,
+				0AEEF14D1B2961BB00724EF6 /* HalfwayBrainTests.swift */,
 			);
 			path = HalfwayTests;
 			sourceTree = "<group>";
@@ -226,7 +232,7 @@
 				6094D5961B1F85FA00EAA02A /* ViewController.swift in Sources */,
 				0AEC20AF1B2423CB00E37E21 /* Geocoder.swift in Sources */,
 				6094D5941B1F85FA00EAA02A /* AppDelegate.swift in Sources */,
-				0ACE0E1F1B26A82D0012E6D8 /* Yelp.swift in Sources */,
+				0AEEF14C1B29610C00724EF6 /* HalfwayBrain.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +240,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AEEF14E1B2961BB00724EF6 /* HalfwayBrainTests.swift in Sources */,
+				0AEEF14A1B295EBB00724EF6 /* GeocoderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

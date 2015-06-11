@@ -10,12 +10,10 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+public class ViewController: UIViewController, CLLocationManagerDelegate {
 
     let locationManager = CLLocationManager()
-    var targetLocation = CLLocation(latitude: 0, longitude: 0)
-    var currentLocation = CLLocation(latitude: 0, longitude: 0)
-    var halfwayLocation = CLLocation(latitude: 0, longitude: 0)
+    let brain = HalfwayBrain()
     
     @IBOutlet weak var currentMapView: MKMapView!
     @IBOutlet weak var halfwayMapView: MKMapView!
@@ -28,12 +26,41 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
      */
     @IBAction func donePressed(sender: AnyObject) {
         var geocode = Geocoder(address: address.text, city: city.text, state: state.text)
-        var currLatitude = geocode.getLatitude()
-        var currLongitude = geocode.getLongitude()
-        targetLocation = CLLocation(latitude: currLatitude, longitude: currLongitude)
-        halfwayLocation = halfway(targetLocation, location2: currentLocation)
+        var targetLocation = CLLocation(latitude: geocode.getLatitude(), longitude: geocode.getLongitude())
+        brain.setTargetLocation(targetLocation)
+        var halfwayLocation = brain.calculateHalfwayLocation()
         map(halfwayLocation, view: halfwayMapView)
         annotate(halfwayLocation, view: halfwayMapView)
+    }
+    
+    @IBAction func yelpPressed(sender: AnyObject) {
+        // Parts of the following code are largely based on http://stackoverflow.com/questions/27495328/reverse-geocode-location-in-swift
+        CLGeocoder().reverseGeocodeLocation(brain.calculateHalfwayLocation(), completionHandler: {(placemarks, error) -> Void in
+            if error != nil {
+                println("Reverse geocoder failed with error" + error.localizedDescription)
+                return
+            }
+            if placemarks.count > 0 {
+                let pm = (placemarks[0] as! CLPlacemark).addressDictionary
+                var addressString: String = (pm["Street"] as! String) + "%2C" + (pm["City"] as! String) + "%2C" + (pm["State"] as! String)
+                
+                // The following code is largely based on https://www.yelp.com/developers/documentation/v2/iphone
+                var yelpString = "search?find_desc=Restaurants&find_loc="
+                addressString = addressString.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                yelpString += addressString + "&ns=1"
+                if (self.isYelpInstalled()) {
+                    // Call into the Yelp app
+                    UIApplication.sharedApplication().openURL(NSURL(string: "yelp4:///" + yelpString)!);
+                } else {
+                    // Use the Yelp touch site
+                    UIApplication.sharedApplication().openURL(NSURL(string: "http://yelp.com/" + yelpString)!);
+                }
+                
+            }
+            else {
+                println("Problem with the data received from geocoder")
+            }
+        })
     }
 
     /**
@@ -42,21 +69,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func viewTapped(sender: AnyObject) {
     }
     
-    /**
-     * https://www.yelp.com/developers/documentation/v2/iphone
-     * IBAction for when yelp button is pressed. Redirects the user into the Yelp app or the yelp mobile website depending on whether the Yelp app downloaded on their device.
-     */
-    @IBAction func yelpPressed(sender: AnyObject) {
-        var yelp = Yelp(location: halfwayLocation)
-        var yelpAddressString = yelp.getNearestLandmarks()
-        var yelpNSURL = "http://yelp.com/"
-        if(isYelpInstalled()) {
-            var yelpNSURL = "yelp4:///"
-        }
-        UIApplication.sharedApplication().openURL(NSURL(string: yelpNSURL + yelpAddressString)!);
-    }
-    
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
         // Sets up MapKit to track current location
@@ -67,13 +80,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.currentMapView?.showsUserLocation = true
     }
     
-    override func didReceiveMemoryWarning() {
+    public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        self.currentLocation = locations.last as! CLLocation
-        map(currentLocation, view: currentMapView)
+    public func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        brain.setCurrentLocation(locations.last as! CLLocation)
+        map(brain.getCurrentLocation(), view: currentMapView)
     }
 
     private func map(location: CLLocation, view: MKMapView) {
@@ -86,12 +99,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         annotation.coordinate = location.coordinate
         annotation.title = "Halfway"
         view.addAnnotation(annotation)
-    }
-    
-    private func halfway(location1: CLLocation, location2: CLLocation) -> CLLocation {
-        var lat = (location1.coordinate.latitude + location2.coordinate.latitude) / 2
-        var long = (location1.coordinate.longitude + location2.coordinate.longitude) / 2
-        return CLLocation(latitude: lat, longitude: long)
     }
     
     private func isYelpInstalled() -> Bool {

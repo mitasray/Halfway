@@ -17,23 +17,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PHJ-WI-HuS">
-                                <rect key="frame" x="44" y="309" width="287" height="30"/>
+                                <rect key="frame" x="44" y="285" width="287" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Friend's Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHz-4s-YHd">
-                                <rect key="frame" x="121" y="280" width="133" height="21"/>
+                                <rect key="frame" x="121" y="256" width="133" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="W9Y-mP-LD5">
-                                <rect key="frame" x="44" y="347" width="134" height="30"/>
+                                <rect key="frame" x="44" y="323" width="134" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HrY-cV-dH0">
-                                <rect key="frame" x="242" y="347" width="89" height="30"/>
+                                <rect key="frame" x="242" y="323" width="89" height="30"/>
                                 <state key="normal" title="Find Halfway">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -41,33 +41,17 @@
                                     <action selector="donePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hWD-O0-apR"/>
                                 </connections>
                             </button>
-                            <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sEM-wQ-DaI">
-                                <rect key="frame" x="123" y="28" width="129" height="21"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Halfway Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ID5-On-sIA">
-                                <rect key="frame" x="121" y="385" width="133" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <mapView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="56g-q4-0HC">
-                                <rect key="frame" x="44" y="54" width="287" height="220"/>
-                            </mapView>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="bkT-10-KdE">
-                                <rect key="frame" x="44" y="412" width="287" height="220"/>
+                                <rect key="frame" x="44" y="28" width="287" height="220"/>
                             </mapView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="State" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5kN-2R-kZ1">
-                                <rect key="frame" x="186" y="347" width="48" height="30"/>
+                                <rect key="frame" x="186" y="323" width="48" height="30"/>
                                 <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tgD-Ui-ooZ">
-                                <rect key="frame" x="285" y="629" width="46" height="30"/>
+                                <rect key="frame" x="285" y="369" width="46" height="30"/>
                                 <state key="normal" title="Yelp &gt;">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -87,7 +71,6 @@
                         <outlet property="address" destination="PHJ-WI-HuS" id="H3d-Oa-O3j"/>
                         <outlet property="city" destination="W9Y-mP-LD5" id="wof-WL-IS8"/>
                         <outlet property="currentMapView" destination="56g-q4-0HC" id="pra-Zq-YCp"/>
-                        <outlet property="halfwayMapView" destination="bkT-10-KdE" id="7Nq-K8-Yaj"/>
                         <outlet property="state" destination="5kN-2R-kZ1" id="Uff-xs-ds6"/>
                     </connections>
                 </viewController>

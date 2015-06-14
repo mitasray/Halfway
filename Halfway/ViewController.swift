@@ -16,7 +16,6 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     let brain = HalfwayBrain()
     
     @IBOutlet weak var currentMapView: MKMapView!
-    @IBOutlet weak var halfwayMapView: MKMapView!
     @IBOutlet var address : UITextField!
     @IBOutlet var city : UITextField!
     @IBOutlet var state : UITextField!
@@ -29,8 +28,8 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         var targetLocation = CLLocation(latitude: geocode.getLatitude(), longitude: geocode.getLongitude())
         brain.setTargetLocation(targetLocation)
         var halfwayLocation = brain.calculateHalfwayLocation()
-        map(halfwayLocation, view: halfwayMapView)
-        annotate(halfwayLocation, view: halfwayMapView)
+        map(halfwayLocation, view: currentMapView)
+        annotate(halfwayLocation, view: currentMapView)
     }
     
     @IBAction func yelpPressed(sender: AnyObject) {

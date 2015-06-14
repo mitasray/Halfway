@@ -15,6 +15,8 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     let brain = HalfwayBrain()
     
+    var currLocation : CLLocation! = nil
+    
     @IBOutlet weak var currentMapView: MKMapView!
     @IBOutlet var address : UITextField!
     @IBOutlet var city : UITextField!
@@ -23,14 +25,15 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     /**
      * IBAction for when the done button is pressed. Creates the full address and calls findLatLong() to find the latitude and longitude coordinates of this full address.
      */
+
     @IBAction func donePressed(sender: AnyObject) {
         var geocode = Geocoder(address: address.text, city: city.text, state: state.text)
         var targetLocation = CLLocation(latitude: geocode.getLatitude(), longitude: geocode.getLongitude())
         brain.setTargetLocation(targetLocation)
         var halfwayLocation = brain.calculateHalfwayLocation()
-        map(halfwayLocation, view: currentMapView)
-        annotate(halfwayLocation, view: currentMapView)
+        map(halfwayLocation, friendLocation: targetLocation, view: currentMapView)
     }
+
     
     @IBAction func yelpPressed(sender: AnyObject) {
         // Parts of the following code are largely based on http://stackoverflow.com/questions/27495328/reverse-geocode-location-in-swift
@@ -71,35 +74,67 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Sets up MapKit to track current location
+        // Sets up MapKit to track current location.
+        // Used: http://stackoverflow.com/questions/28852683/dropping-pin-current-location-xcode6-swift
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
-        self.currentMapView?.showsUserLocation = true
+        // self.locationManager.stopUpdatingLocation()
+        // The following line shows the blue point at the user's location.
+        // self.currentMapView?.showsUserLocation = true
     }
     
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+
     public func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        if (currLocation == nil) {
+            currLocation = locations.last as! CLLocation
+        }
+        // The following line makes sure that we only get one location and do not have to keep updating the current location of the user.
+        self.locationManager.stopUpdatingLocation()
+        
         brain.setCurrentLocation(locations.last as! CLLocation)
         map(brain.getCurrentLocation(), view: currentMapView)
     }
 
+
     private func map(location: CLLocation, view: MKMapView) {
+        annotate(location, view: currentMapView, title: "Current Location")
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 200, 200)
         view.setRegion(coordinateRegion, animated: true)
     }
     
-    private func annotate(location: CLLocation, view: MKMapView) {
+    private func map(midLocation: CLLocation, friendLocation: CLLocation, view: MKMapView) {
+        annotate(midLocation, view: currentMapView, title: "Halfway")
+        annotate(friendLocation, view: currentMapView, title: "Friend's Location")
+        let distance : Double = midLocation.distanceFromLocation(friendLocation)
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(midLocation.coordinate, (distance * 2) + 10, (distance * 2) + 10)
+        view.setRegion(coordinateRegion, animated: true)
+        
+        // Automatically showing the "Halfway" annotation:
+        // http://stackoverflow.com/questions/28198053/show-annotation-title-automatically
+        var halfwayAnnotation : MKAnnotation = view.annotations[0] as! MKAnnotation
+        
+        // Finding the halfway annotation.
+        for annObject in view.annotations {
+            var annotation = annObject as! MKAnnotation
+            if (annotation.title == "Halfway") {
+                halfwayAnnotation = annotation
+            }
+        }
+        view.selectAnnotation(halfwayAnnotation, animated: true)
+    }
+
+    private func annotate(location: CLLocation, view: MKMapView, title: String) {
         var annotation = MKPointAnnotation()
         annotation.coordinate = location.coordinate
-        annotation.title = "Halfway"
+        annotation.title = title
         view.addAnnotation(annotation)
     }
-    
+
     private func isYelpInstalled() -> Bool {
         return UIApplication.sharedApplication().canOpenURL(NSURL(string: "yelp4:")!);
     }

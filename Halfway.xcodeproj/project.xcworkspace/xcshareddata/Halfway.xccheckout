@@ -12,6 +12,8 @@
 	<dict>
 		<key>752B5F17F6F9D123DA114D792E7BB5A0124D3038</key>
 		<string>https://github.com/mitasray/Halfway.git</string>
+		<key>A65BCAA9B7A77500BBF95593800C3F1B9D215F5E</key>
+		<string>https://github.com/dongri/OAuthSwift.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Halfway.xcodeproj</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>752B5F17F6F9D123DA114D792E7BB5A0124D3038</key>
 		<string>../..</string>
+		<key>A65BCAA9B7A77500BBF95593800C3F1B9D215F5E</key>
+		<string>../../OAuthSwift</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/mitasray/Halfway.git</string>
@@ -35,6 +39,14 @@
 			<string>752B5F17F6F9D123DA114D792E7BB5A0124D3038</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Halfway</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A65BCAA9B7A77500BBF95593800C3F1B9D215F5E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>OAuthSwift</string>
 		</dict>
 	</array>
 </dict>

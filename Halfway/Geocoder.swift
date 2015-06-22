@@ -35,42 +35,18 @@ public class Geocoder {
      * HTML source code obtained form getHTML(). This HTML code is then parsed for the correct latitude and longitude coordinates.
      */
     private func findLatLong(fullAddress : String) -> [Double] {
-        var HTMLString = String(getHTML(fullAddress))
+        var HTML = HTMLGetter(url: fullAddress)
+        var HTMLString = HTML.getHTML()
         
         // String split method from: http://stackoverflow.com/questions/25678373/swift-split-a-string-into-an-array
         var latArr = HTMLString.componentsSeparatedByString("Latitude")
         var longArr = HTMLString.componentsSeparatedByString("Longitude")
-        var latitude = numFinder(latArr[1])
-        var longitude = numFinder(longArr[1])
+        var latitude = numFinder(latArr[1] as! String)
+        var longitude = numFinder(longArr[1] as! String)
         var coordinates = [Double]()
         coordinates.append(latitude)
         coordinates.append(longitude)
         return coordinates
-    }
-    
-    /**
-     * http://stackoverflow.com/questions/26134884/how-to-get-html-source-from-url-with-swift
-     * Returns the HTML source code of the geocoder.us webpage with the proper address.
-     */
-    private func getHTML(fullAddress : String) -> NSString {
-        var urlAddress = fullAddress.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        
-        let myURLString = "http://geocoder.us/demo.cgi?address=" + urlAddress
-        
-        if let myURL = NSURL(string: myURLString) {
-            var error: NSError?
-            let myHTMLString = NSString(contentsOfURL: myURL, encoding: NSUTF8StringEncoding, error: &error)
-            
-            if let error = error {
-                println("Error : \(error)")
-            } else {
-                // println("HTML : \(myHTMLString)")
-                return myHTMLString!
-            }
-        } else {
-            println("Error: \(myURLString) doesn't seem to be a valid URL")
-        }
-        return NSString(string: "") // Empty NSString is returned if HTML is not a valid URL
     }
     
     /**

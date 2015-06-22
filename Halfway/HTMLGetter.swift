@@ -13,7 +13,7 @@ public class HTMLGetter {
     var fullAddress: String
     
     public init(url: String) {
-        self.fullAddress = url
+        self.fullAddress = url.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.LiteralSearch, range: nil)
     }
     
     /**
@@ -21,11 +21,7 @@ public class HTMLGetter {
     * Returns the HTML source code of the geocoder.us webpage with the proper address.
     */
     public func getHTML() -> NSString {
-        var urlAddress = fullAddress.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.LiteralSearch, range: nil)
-        
-        let myURLString = "http://geocoder.us/demo.cgi?address=" + urlAddress
-        
-        if let myURL = NSURL(string: myURLString) {
+        if let myURL = NSURL(string: fullAddress) {
             var error: NSError?
             let myHTMLString = NSString(contentsOfURL: myURL, encoding: NSUTF8StringEncoding, error: &error)
             
@@ -36,7 +32,7 @@ public class HTMLGetter {
                 return myHTMLString!
             }
         } else {
-            println("Error: \(myURLString) doesn't seem to be a valid URL")
+            println("Error: \(fullAddress) doesn't seem to be a valid URL")
         }
         return NSString(string: "") // Empty NSString is returned if HTML is not a valid URL
     }

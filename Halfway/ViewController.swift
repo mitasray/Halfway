@@ -31,6 +31,9 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         brain.setTargetLocation(targetLocation)
         var halfwayLocation = brain.calculateHalfwayLocation()
         map(halfwayLocation, friendLocation: targetLocation, view: currentMapView)
+        let yelpHTML = YelpHTML(halfwayLocation: halfwayLocation)
+        var results = yelpHTML.getResults()
+        print(results)
     }
 
     

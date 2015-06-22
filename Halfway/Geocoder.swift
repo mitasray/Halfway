@@ -76,6 +76,8 @@ public class Geocoder {
     }
     
     private func fullAddress() -> String {
-        return address + " " + city + " " + state
+        var urlAddress = address + " " + city + " " + state
+        var myURLString = "http://geocoder.us/demo.cgi?address=" + urlAddress
+        return myURLString
     }
 }

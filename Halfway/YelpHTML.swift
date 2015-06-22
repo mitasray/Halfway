@@ -11,34 +11,20 @@ import CoreLocation
 
 public class YelpHTML {
     public var halfwayLocation: CLLocation
-
+    
     public init(halfwayLocation: CLLocation) {
         self.halfwayLocation = halfwayLocation
     }
     
     public func getResults() -> [Result] {
         var results = [Result]()
-        var addressString: String = ""
-        
-        // Parts of the following code are largely based on http://stackoverflow.com/questions/27495328/reverse-geocode-location-in-swift
-        CLGeocoder().reverseGeocodeLocation(halfwayLocation, completionHandler: {(placemarks, error) -> Void in
-            if error != nil {
-                println("Reverse geocoder failed with error" + error.localizedDescription)
-                return
-            }
-            if placemarks.count > 0 {
-                let pm = (placemarks[0] as! CLPlacemark).addressDictionary
-                addressString = (pm["Street"] as! String) + "%2C" + (pm["City"] as! String) + "%2C" + (pm["State"] as! String)
-            }
-            else {
-                println("Problem with the data received from geocoder")
-            }
-        })
+        var addressString: String = ReverseGeocoder(loc: halfwayLocation).getAddressString()
         
         // The following code is largely based on https://www.yelp.com/developers/documentation/v2/iphone
         var yelpString = "search?find_desc=Restaurants&find_loc="
         addressString = addressString.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.LiteralSearch, range: nil)
         yelpString = "http://yelp.com/" + yelpString + addressString + "&ns=1"
+        
         var HTML = HTMLGetter(url: yelpString)
         var HTMLString = HTML.getHTML();
         var arr = HTMLString.componentsSeparatedByString("<span class=\"indexed-biz-name\">")

@@ -22,18 +22,62 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet var city : UITextField!
     @IBOutlet var state : UITextField!
     
+    @IBOutlet weak var resultName: UILabel!
+    @IBOutlet weak var resultAddress: UILabel!
+    @IBOutlet weak var resultCSZ: UILabel!
+    @IBOutlet weak var resultStar: UILabel!
+    @IBOutlet weak var resultReviews: UILabel!
+    @IBOutlet weak var resultType: UILabel!
+    @IBOutlet weak var resultPrice: UILabel!
+    @IBOutlet weak var resultPhone: UILabel!
+    
+    var doneAlreadyPressed: Bool = false
+    var randomSearchID: Int = -1
+    var results: [Result] = []
     /**
      * IBAction for when the done button is pressed. Creates the full address and calls findLatLong() to find the latitude and longitude coordinates of this full address.
      */
     @IBAction func donePressed(sender: AnyObject) {
-        var geocode = Geocoder(address: address.text, city: city.text, state: state.text)
-        var targetLocation = CLLocation(latitude: geocode.getLatitude(), longitude: geocode.getLongitude())
-        brain.setTargetLocation(targetLocation)
-        var halfwayLocation = brain.calculateHalfwayLocation()
-        map(halfwayLocation, friendLocation: targetLocation, view: currentMapView)
-        let yelpHTML = YelpHTML(halfwayLocation: halfwayLocation)
-        var results = yelpHTML.getResults()
-        print(results)
+        if (!doneAlreadyPressed) {
+            doneAlreadyPressed = true
+            var geocode = Geocoder(address: address.text, city: city.text, state: state.text)
+            var targetLocation = CLLocation(latitude: geocode.getLatitude(), longitude: geocode.getLongitude())
+            brain.setTargetLocation(targetLocation)
+            var halfwayLocation = brain.calculateHalfwayLocation()
+            map(halfwayLocation, friendLocation: targetLocation, view: currentMapView)
+            let yelpHTML = YelpHTML(halfwayLocation: halfwayLocation)
+            results = yelpHTML.getResults()
+        }
+        randomSearchID = pickRandom(results.count, not: randomSearchID)
+        showResult(results[randomSearchID]);
+    }
+    
+    /**
+     * Returns a random number from 0 to size - 1 that does not equal the variable not.
+     */
+    public func pickRandom(size: Int, not: Int) -> Int {
+        if (size <= 1) {
+            return 0
+        }
+        var returnVar: Int = not
+        while (returnVar == not) {
+            returnVar = Int(arc4random_uniform(UInt32(size)))
+        }
+        return returnVar
+    }
+    
+    /**
+     * Configures all the labels to display the information corresponding to the input search result.
+     */
+    public func showResult(result: Result) {
+        resultName.text = result.name
+        resultAddress.text = result.address
+        resultCSZ.text = result.cityStateZip
+        resultStar.text = result.star
+        resultReviews.text = result.reviews
+        resultType.text = result.type
+        resultPrice.text = result.price
+        resultPhone.text = result.phone
     }
 
     

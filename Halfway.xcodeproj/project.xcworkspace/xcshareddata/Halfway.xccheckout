@@ -7,18 +7,26 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>3513DACC-D456-48DB-AAB6-07D1F84A063E</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Halfway</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>752B5F17F6F9D123DA114D792E7BB5A0124D3038</key>
 		<string>https://github.com/mitasray/Halfway.git</string>
+		<key>95C440381FA02B36B9FBBE0A2A34A6B5DDF2BD81</key>
+		<string>https://github.com/bdbergeron/BDBOAuth1Manager.git</string>
+		<key>A65BCAA9B7A77500BBF95593800C3F1B9D215F5E</key>
+		<string>https://github.com/dongri/OAuthSwift.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Halfway.xcodeproj</string>
+	<string>Halfway.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>752B5F17F6F9D123DA114D792E7BB5A0124D3038</key>
 		<string>../..</string>
+		<key>95C440381FA02B36B9FBBE0A2A34A6B5DDF2BD81</key>
+		<string>../..BDBOAuth1Manager/</string>
+		<key>A65BCAA9B7A77500BBF95593800C3F1B9D215F5E</key>
+		<string>../..OAuthSwift/</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/mitasray/Halfway.git</string>
@@ -32,9 +40,25 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>95C440381FA02B36B9FBBE0A2A34A6B5DDF2BD81</string>
+			<key>IDESourceControlWCCName</key>
+			<string>BDBOAuth1Manager</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>752B5F17F6F9D123DA114D792E7BB5A0124D3038</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Halfway</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A65BCAA9B7A77500BBF95593800C3F1B9D215F5E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>OAuthSwift</string>
 		</dict>
 	</array>
 </dict>

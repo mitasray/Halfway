@@ -38,7 +38,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
      * IBAction for when the done button is pressed. Creates the full address and calls findLatLong() to find the latitude and longitude coordinates of this full address.
      */
     @IBAction func donePressed(sender: AnyObject) {
-        if (!doneAlreadyPressed) {
+        // if (!doneAlreadyPressed) {
             doneAlreadyPressed = true
             var geocode = Geocoder(address: address.text, city: city.text, state: state.text)
             var targetLocation = CLLocation(latitude: geocode.getLatitude(), longitude: geocode.getLongitude())
@@ -47,7 +47,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
             map(halfwayLocation, friendLocation: targetLocation, view: currentMapView)
             let yelpHTML = YelpHTML(halfwayLocation: halfwayLocation)
             results = yelpHTML.getResults()
-        }
+        // }
         randomSearchID = pickRandom(results.count, not: randomSearchID)
         showResult(results[randomSearchID]);
     }

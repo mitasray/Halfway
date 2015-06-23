@@ -37,12 +37,17 @@ public class ReverseGeocoder {
     
     /**
      * http://stackoverflow.com/questions/24097826/read-and-write-data-from-text-file
+     * Method is written here as a reference.
      */
     public func write(string: String) {
         let path = "/Users/Mitas/Xcode Projects/Halfway/Halfway/address.txt"
         string.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding, error: nil)
     }
     
+    /**
+     * http://stackoverflow.com/questions/24097826/read-and-write-data-from-text-file
+     * Method is written here as a reference.
+     */
     public func read() -> String {
         let path = "/Users/Mitas/Xcode Projects/Halfway/Halfway/address.txt"
         return String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)!

@@ -17,9 +17,9 @@ public class HTMLGetter {
     }
     
     /**
-    * http://stackoverflow.com/questions/26134884/how-to-get-html-source-from-url-with-swift
-    * Returns the HTML source code of the geocoder.us webpage with the proper address.
-    */
+     * http://stackoverflow.com/questions/26134884/how-to-get-html-source-from-url-with-swift
+     * Returns the HTML source code of the geocoder.us webpage with the proper address.
+     */
     public func getHTML() -> NSString {
         if let myURL = NSURL(string: fullAddress) {
             var error: NSError?

@@ -9,9 +9,9 @@
 import Foundation
 
 /**
-* Class containing name, address, price, star, reviews, type.
-* All data from single search result stored here.
-*/
+ * Class containing name, address, price, star, reviews, type.
+ * All data from single search result stored here.
+ */
 public class Result {
     public var name: String
     public var address: String

@@ -20,13 +20,17 @@ public class YelpHTML {
     
     public func getResults() -> [Result] {
         var results = [Result]()
-        getAddress()
-        var addressString: String = ""
+//        getAddress()
+//        var addressString: String = ""
 //        getAddressString() {
 //            (answer: String) in
 //            addressString = answer
 //            print(addressString)
 //        }
+        var revGeocoder = ReverseGeocoder(loc: self.halfwayLocation)
+        revGeocoder.getAddressString()
+        var addressString: String = revGeocoder.read()
+        print(addressString)
         // The following code is largely based on https://www.yelp.com/developers/documentation/v2/iphone
         var yelpString = "search?find_desc=Restaurants&find_loc="
         addressString = addressString.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.LiteralSearch, range: nil)

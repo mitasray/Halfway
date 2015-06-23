@@ -19,23 +19,32 @@ public class ReverseGeocoder {
     /**
      * http://stackoverflow.com/questions/27495328/reverse-geocode-location-in-swift
      */
-    public func getAddressString(completion: (answer: String?) -> Void) {
-        
-        var addressString: String = ""
-
-        CLGeocoder().reverseGeocodeLocation(loc, completionHandler: {(placemarks, error) -> Void in
+    public func getAddressString() -> Void {
+        CLGeocoder().reverseGeocodeLocation(self.loc, completionHandler: {(placemarks, error) -> Void in
             if error != nil {
                 println("Reverse geocoder failed with error" + error.localizedDescription)
-                completion(answer: "")
             }
             if placemarks.count > 0 {
                 let pm = (placemarks[0] as! CLPlacemark).addressDictionary
-                addressString = (pm["Street"] as! String) + "%2C" + (pm["City"] as! String) + "%2C" + (pm["State"] as! String)
-                completion(answer: addressString)
+                var addressString = (pm["Street"] as! String) + "%2C" + (pm["City"] as! String) + "%2C" + (pm["State"] as! String)
+                let path = "/Users/Mitas/Xcode Projects/Halfway/Halfway/address.txt"
+                addressString.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding, error: nil)
             } else {
                 println("Problem with the data received from geocoder")
-                completion(answer: "")
             }
         })
+    }
+    
+    /**
+     * http://stackoverflow.com/questions/24097826/read-and-write-data-from-text-file
+     */
+    public func write(string: String) {
+        let path = "/Users/Mitas/Xcode Projects/Halfway/Halfway/address.txt"
+        string.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding, error: nil)
+    }
+    
+    public func read() -> String {
+        let path = "/Users/Mitas/Xcode Projects/Halfway/Halfway/address.txt"
+        return String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)!
     }
 }

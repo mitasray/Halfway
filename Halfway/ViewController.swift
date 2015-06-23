@@ -74,8 +74,8 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         resultName.text = result.name
         resultAddress.text = result.address
         resultCSZ.text = result.cityStateZip
-        resultStar.text = result.star
-        resultReviews.text = result.reviews
+        resultStar.text = result.star + " Stars"
+        resultReviews.text = "based on " + result.reviews + " Reviews"
         resultType.text = result.type
         resultPrice.text = result.price
         resultPhone.text = result.phone

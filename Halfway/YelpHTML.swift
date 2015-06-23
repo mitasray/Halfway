@@ -37,7 +37,8 @@ public class YelpHTML {
             var name: String = arrIndex.componentsSeparatedByString(">")[1].componentsSeparatedByString("<")[0]
             var starPreString = arrIndex.componentsSeparatedByString("title=\"")[1]
             var star: String = starPreString.substringWithRange(Range<String.Index>(start: advance(starPreString.startIndex, 0), end: advance(starPreString.startIndex, 3)))
-            var reviews: String = removeDoubleSpace(arrIndex.componentsSeparatedByString("rating-qualifier\">")[1].componentsSeparatedByString("<")[0])
+            var reviewsWithExtra: String = removeDoubleSpace(arrIndex.componentsSeparatedByString("rating-qualifier\">")[1].componentsSeparatedByString("<")[0])
+            var reviews: String = reviewsWithExtra.substringWithRange(Range<String.Index>(start: advance(reviewsWithExtra.startIndex, 0), end: advance(reviewsWithExtra.endIndex, -10)))
             var price: String = arrIndex.componentsSeparatedByString("price-range\">")[1].componentsSeparatedByString("<")[0]
             // If there are multiple types, this method only picks up the first.
             var type: String = arrIndex.componentsSeparatedByString("category-str-list\">")[1].componentsSeparatedByString(">")[1].componentsSeparatedByString("<")[0]

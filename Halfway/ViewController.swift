@@ -53,6 +53,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     /**
+     * http://stackoverflow.com/questions/24007129/how-does-one-generate-a-random-number-in-apples-swift-language
      * Returns a random number from 0 to size - 1 that does not equal the variable not.
      */
     public func pickRandom(size: Int, not: Int) -> Int {

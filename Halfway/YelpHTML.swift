@@ -11,15 +11,22 @@ import CoreLocation
 
 public class YelpHTML {
     public var halfwayLocation: CLLocation
+    public var address: String
     
     public init(halfwayLocation: CLLocation) {
         self.halfwayLocation = halfwayLocation
+        self.address = ""
     }
     
     public func getResults() -> [Result] {
         var results = [Result]()
-        var addressString: String = ReverseGeocoder(loc: halfwayLocation).getAddressString()
-        
+        getAddress()
+        var addressString: String = ""
+//        getAddressString() {
+//            (answer: String) in
+//            addressString = answer
+//            print(addressString)
+//        }
         // The following code is largely based on https://www.yelp.com/developers/documentation/v2/iphone
         var yelpString = "search?find_desc=Restaurants&find_loc="
         addressString = addressString.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.LiteralSearch, range: nil)
@@ -45,5 +52,37 @@ public class YelpHTML {
             results.append(result)
         }
         return results
+    }
+    
+    /**
+    * http://stackoverflow.com/questions/27495328/reverse-geocode-location-in-swift
+    */
+    public func getAddressString(completion: (answer: String) -> Void) {
+        
+        var addressString: String = ""
+        
+        CLGeocoder().reverseGeocodeLocation(halfwayLocation, completionHandler: {(placemarks, error) -> Void in
+            if error != nil {
+                println("Reverse geocoder failed with error" + error.localizedDescription)
+                completion(answer: "")
+            }
+            if placemarks.count > 0 {
+                let pm = (placemarks[0] as! CLPlacemark).addressDictionary
+                addressString = (pm["Street"] as! String) + "%2C" + (pm["City"] as! String) + "%2C" + (pm["State"] as! String)
+                completion(answer: addressString)
+            } else {
+                println("Problem with the data received from geocoder")
+                completion(answer: "")
+            }
+        })
+    }
+    
+    func getAddress() {
+        CLGeocoder().reverseGeocodeLocation(halfwayLocation, completionHandler: { (placemarks: [AnyObject]!, error: NSError!) in
+            if error == nil && placemarks.count > 0 {
+                let location = placemarks[0] as! CLPlacemark
+                self.address = "\(location.locality) \(location.thoroughfare) \(location.subThoroughfare)"
+            }
+        })
     }
 }

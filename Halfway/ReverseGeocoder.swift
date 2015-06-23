@@ -18,6 +18,7 @@ public class ReverseGeocoder {
     
     /**
      * http://stackoverflow.com/questions/27495328/reverse-geocode-location-in-swift
+     * Actual filepath: /Users/Mitas/Xcode Projects/Halfway/Halfway/address.txt
      */
     public func getAddressString() -> Void {
         CLGeocoder().reverseGeocodeLocation(self.loc, completionHandler: {(placemarks, error) -> Void in
@@ -27,7 +28,9 @@ public class ReverseGeocoder {
             if placemarks.count > 0 {
                 let pm = (placemarks[0] as! CLPlacemark).addressDictionary
                 var addressString = (pm["Street"] as! String) + "%2C" + (pm["City"] as! String) + "%2C" + (pm["State"] as! String)
-                let path = "/Users/Mitas/Xcode Projects/Halfway/Halfway/address.txt"
+                let dirs : [String] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.UserDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as! [String]
+                let filename: String = "/Xcode Projects/Halfway/Halfway/address.txt"
+                let path = dirs[0].stringByAppendingPathComponent(filename)
                 addressString.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding, error: nil)
             } else {
                 println("Problem with the data received from geocoder")
@@ -46,10 +49,11 @@ public class ReverseGeocoder {
     
     /**
      * http://stackoverflow.com/questions/24097826/read-and-write-data-from-text-file
-     * Method is written here as a reference.
      */
     public func read() -> String {
-        let path = "/Users/Mitas/Xcode Projects/Halfway/Halfway/address.txt"
+        let dirs : [String] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.UserDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as! [String]
+        let filename: String = "/Xcode Projects/Halfway/Halfway/address.txt"
+        let path = dirs[0].stringByAppendingPathComponent(filename)
         return String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)!
     }
 }

@@ -22,6 +22,7 @@ public class YelpHTML {
         var results = [Result]()
         var revGeocoder = ReverseGeocoder(loc: self.halfwayLocation)
         revGeocoder.getAddressString()
+        
         var addressString: String = revGeocoder.read()
         
         // The following code is largely based on https://www.yelp.com/developers/documentation/v2/iphone

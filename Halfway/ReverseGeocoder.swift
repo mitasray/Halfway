@@ -29,9 +29,11 @@ public class ReverseGeocoder {
             if placemarks.count > 0 {
                 let pm = (placemarks[0] as! CLPlacemark).addressDictionary
                 var addressString = (pm["Street"] as! String) + "%2C" + (pm["City"] as! String) + "%2C" + (pm["State"] as! String)
-                let dirs : [String] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.UserDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as! [String]
-                let filename: String = "Mitas/Xcode Projects/Halfway/Halfway/address.txt"
-                let path = dirs[0].stringByAppendingPathComponent(filename)
+                // let dirs : [String] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.UserDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as! [String]
+                // let filename: String = "Mitas/Xcode Projects/Halfway/Halfway/address.txt"
+                // let path = dirs[0].stringByAppendingPathComponent(filename)
+                // let pathR = "~/Xcode Projects/Halfway/Halfway/address.txt"
+                let path = "/Users/Mitas/Xcode Projects/Halfway/Halfway/address.txt"
                 addressString.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding, error: nil)
             } else {
                 println("Problem with the data received from geocoder")

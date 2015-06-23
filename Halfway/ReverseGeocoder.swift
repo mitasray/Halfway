@@ -18,6 +18,7 @@ public class ReverseGeocoder {
     
     /**
      * http://stackoverflow.com/questions/27495328/reverse-geocode-location-in-swift
+     * https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_Constants/#//apple_ref/c/tdef/NSSearchPathDirectory
      * Actual filepath: /Users/Mitas/Xcode Projects/Halfway/Halfway/address.txt
      */
     public func getAddressString() -> Void {
@@ -29,7 +30,7 @@ public class ReverseGeocoder {
                 let pm = (placemarks[0] as! CLPlacemark).addressDictionary
                 var addressString = (pm["Street"] as! String) + "%2C" + (pm["City"] as! String) + "%2C" + (pm["State"] as! String)
                 let dirs : [String] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.UserDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as! [String]
-                let filename: String = "/Xcode Projects/Halfway/Halfway/address.txt"
+                let filename: String = "Mitas/Xcode Projects/Halfway/Halfway/address.txt"
                 let path = dirs[0].stringByAppendingPathComponent(filename)
                 addressString.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding, error: nil)
             } else {
@@ -52,7 +53,7 @@ public class ReverseGeocoder {
      */
     public func read() -> String {
         let dirs : [String] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.UserDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as! [String]
-        let filename: String = "/Xcode Projects/Halfway/Halfway/address.txt"
+        let filename: String = "Mitas/Xcode Projects/Halfway/Halfway/address.txt"
         let path = dirs[0].stringByAppendingPathComponent(filename)
         return String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)!
     }

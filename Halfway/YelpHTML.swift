@@ -37,13 +37,14 @@ public class YelpHTML {
             var name: String = arrIndex.componentsSeparatedByString(">")[1].componentsSeparatedByString("<")[0]
             var starPreString = arrIndex.componentsSeparatedByString("title=\"")[1]
             var star: String = starPreString.substringWithRange(Range<String.Index>(start: advance(starPreString.startIndex, 0), end: advance(starPreString.startIndex, 3)))
-            var reviews: String = arrIndex.componentsSeparatedByString("rating-qualifier\">")[1].componentsSeparatedByString("<")[0]
+            var reviews: String = removeDoubleSpace(arrIndex.componentsSeparatedByString("rating-qualifier\">")[1].componentsSeparatedByString("<")[0])
             var price: String = arrIndex.componentsSeparatedByString("price-range\">")[1].componentsSeparatedByString("<")[0]
             // If there are multiple types, this method only picks up the first.
             var type: String = arrIndex.componentsSeparatedByString("category-str-list\">")[1].componentsSeparatedByString(">")[1].componentsSeparatedByString("<")[0]
-            var fullAddress: String = arrIndex.componentsSeparatedByString("<address>")[1]
-            var address: String = fullAddress.componentsSeparatedByString("<")[0]
-            var cityStateZip: String = fullAddress.componentsSeparatedByString(">")[1].componentsSeparatedByString("<")[0]
+            var fullAddress: String = arrIndex.componentsSeparatedByString("<address>")[1].componentsSeparatedByString("</address>")[0]
+            var firstAddress: String = fullAddress.componentsSeparatedByString("<br>")[0]
+            var address = removeDoubleSpace(firstAddress)
+            var cityStateZip: String = fullAddress.componentsSeparatedByString("<br>")[1]
             var phoneExtra: String = arrIndex.componentsSeparatedByString("biz-phone\">")[1]
             var startParenthesis: String = phoneExtra.componentsSeparatedByString("(")[1]
             var phone: String = "(" + startParenthesis.substringWithRange(Range<String.Index>(start: advance(startParenthesis.startIndex, 0), end: advance(startParenthesis.startIndex, 13)))
@@ -51,6 +52,19 @@ public class YelpHTML {
             results.append(result)
         }
         return results
+    }
+    
+    /**
+     * Used to remove leading and ending double spaces. Also removes double spaces that are possibly in the middle of the string.
+     */
+    public func removeDoubleSpace(b: String) -> String {
+        var before = b
+        var after = before.stringByReplacingOccurrencesOfString("  ", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        while (before != after) {
+            before = after
+            after = after.stringByReplacingOccurrencesOfString("  ", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        }
+        return before.substringWithRange(Range<String.Index>(start: advance(before.startIndex, 2), end: before.endIndex))
     }
 
 }

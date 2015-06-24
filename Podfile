@@ -1,7 +1,4 @@
-source 'https://github.com/CocoaPods/Specs.git'
+link_with 'Halfway', 'Halfway Tests'
 
-platform :ios, '8.3'
-
-link_with 'Halfway'
-
-pod 'AFNetworking/UIKit', '~> 2.5.0'
+pod 'AFNetworking', '~> 2.0'
+pod 'BDBOAuth1Manager'

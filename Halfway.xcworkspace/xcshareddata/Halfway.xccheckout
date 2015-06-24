@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>3513DACC-D456-48DB-AAB6-07D1F84A063E</string>
+	<string>5A52D66B-CFF1-4C2B-8086-AB895BD5CE3B</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Halfway</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -14,11 +14,11 @@
 		<string>https://github.com/mitasray/Halfway.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Halfway.xcodeproj</string>
+	<string>Halfway.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>752B5F17F6F9D123DA114D792E7BB5A0124D3038</key>
-		<string>../..</string>
+		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/mitasray/Halfway.git</string>

@@ -21,9 +21,7 @@ public class YelpHTML {
     public func getResults() -> [Result] {
         var results = [Result]()
         var revGeocoder = ReverseGeocoder(loc: self.halfwayLocation)
-        revGeocoder.getAddressString()
-        
-        var addressString: String = revGeocoder.read()
+        var addressString: String = revGeocoder.getAddressString()
         
         // The following code is largely based on https://www.yelp.com/developers/documentation/v2/iphone
         var yelpString = "search?find_desc=Restaurants&find_loc="

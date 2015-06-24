@@ -38,7 +38,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
      * IBAction for when the done button is pressed. Creates the full address and calls findLatLong() to find the latitude and longitude coordinates of this full address.
      */
     @IBAction func donePressed(sender: AnyObject) {
-        // if (!doneAlreadyPressed) {
+        if (!doneAlreadyPressed) {
             doneAlreadyPressed = true
             var geocode = Geocoder(address: address.text, city: city.text, state: state.text)
             var targetLocation = CLLocation(latitude: geocode.getLatitude(), longitude: geocode.getLongitude())
@@ -47,7 +47,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
             map(halfwayLocation, friendLocation: targetLocation, view: currentMapView)
             let yelpHTML = YelpHTML(halfwayLocation: halfwayLocation)
             results = yelpHTML.getResults()
-        // }
+        }
         randomSearchID = pickRandom(results.count, not: randomSearchID)
         showResult(results[randomSearchID]);
     }
@@ -83,33 +83,19 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
 
     
     @IBAction func yelpPressed(sender: AnyObject) {
-        // Parts of the following code are largely based on http://stackoverflow.com/questions/27495328/reverse-geocode-location-in-swift
-        CLGeocoder().reverseGeocodeLocation(brain.calculateHalfwayLocation(), completionHandler: {(placemarks, error) -> Void in
-            if error != nil {
-                println("Reverse geocoder failed with error" + error.localizedDescription)
-                return
-            }
-            if placemarks.count > 0 {
-                let pm = (placemarks[0] as! CLPlacemark).addressDictionary
-                var addressString: String = (pm["Street"] as! String) + "%2C" + (pm["City"] as! String) + "%2C" + (pm["State"] as! String)
-                
-                // The following code is largely based on https://www.yelp.com/developers/documentation/v2/iphone
-                var yelpString = "search?find_desc=Restaurants&find_loc="
-                addressString = addressString.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.LiteralSearch, range: nil)
-                yelpString += addressString + "&ns=1"
-                if (self.isYelpInstalled()) {
-                    // Call into the Yelp app
-                    UIApplication.sharedApplication().openURL(NSURL(string: "yelp4:///" + yelpString)!);
-                } else {
-                    // Use the Yelp touch site
-                    UIApplication.sharedApplication().openURL(NSURL(string: "http://yelp.com/" + yelpString)!);
-                }
-                
-            }
-            else {
-                println("Problem with the data received from geocoder")
-            }
-        })
+        var addressString: String = ReverseGeocoder(loc: brain.calculateHalfwayLocation()).getAddressString()
+    
+        // The following code is largely based on https://www.yelp.com/developers/documentation/v2/iphone
+        var yelpString = "search?find_desc=Restaurants&find_loc="
+        addressString = addressString.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        yelpString += addressString + "&ns=1"
+        if (isYelpInstalled()) {
+            // Call into the Yelp app
+            UIApplication.sharedApplication().openURL(NSURL(string: "yelp4:///" + yelpString)!);
+        } else {
+            // Use the Yelp touch site
+            UIApplication.sharedApplication().openURL(NSURL(string: "http://yelp.com/" + yelpString)!);
+        }
     }
 
     /**

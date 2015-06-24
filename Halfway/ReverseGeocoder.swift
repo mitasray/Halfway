@@ -23,9 +23,6 @@ public class ReverseGeocoder {
         var link: String = "http://maps.googleapis.com/maps/api/geocode/json?latlng="
         link += String(format:"%f", loc.coordinate.latitude) + "," + String(format:"%f", loc.coordinate.longitude)
         link += "&sensor=true"
-        
-        print(link)
-        
         var linkHTML = HTMLGetter(url: link).getHTML()
         var fullAddress: String = linkHTML.componentsSeparatedByString("formatted_address\" : \"")[1].componentsSeparatedByString("\"")[0] as! String
         var addressArr = fullAddress.componentsSeparatedByString(",")

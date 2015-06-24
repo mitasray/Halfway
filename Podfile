@@ -1,4 +1,4 @@
 link_with 'Halfway', 'Halfway Tests'
+use_frameworks!
 
-pod 'AFNetworking', '~> 2.0'
-pod 'BDBOAuth1Manager'
+pod 'OAuthSwift'

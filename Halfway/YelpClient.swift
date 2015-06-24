@@ -17,6 +17,18 @@ class YelpClient: BDBOAuth1RequestOperationManager {
     var accessToken: String!
     var accessSecret: String!
     
+    class var sharedInstance : YelpClient {
+        struct Static {
+            static var token : dispatch_once_t = 0
+            static var instance : YelpClient? = nil
+        }
+        
+        dispatch_once(&Static.token) {
+            Static.instance = YelpClient(consumerKey: yelpConsumerKey, consumerSecret: yelpConsumerSecret, accessToken: yelpToken, accessSecret: yelpTokenSecret)
+        }
+        return Static.instance!
+    }
+    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -29,5 +41,18 @@ class YelpClient: BDBOAuth1RequestOperationManager {
         
         var token = BDBOAuth1Credential(token: accessToken, secret: accessSecret, expiration: nil)
         self.requestSerializer.saveAccessToken(token)
+    }
+    
+    func searchWithTerm(term: String, parameters: Dictionary<String, String>? = nil, offset: Int = 0, limit: Int = 20, success: (AFHTTPRequestOperation!, AnyObject!) -> Void, failure: (AFHTTPRequestOperation!, NSError!) -> Void) -> AFHTTPRequestOperation! {
+        var params: NSMutableDictionary = [
+            "term": term,
+            "offset": offset,
+            "limit": limit
+        ]
+        for (key, value) in parameters! {
+            params.setValue(value, forKey: key)
+        }
+        println(self.GET("search", parameters: params, success: success, failure: failure))
+        return self.GET("search", parameters: params, success: success, failure: failure)
     }
 }

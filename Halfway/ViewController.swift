@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import MapKit
+import OAuthSwift
 
 public class ViewController: UIViewController, CLLocationManagerDelegate {
 
@@ -22,10 +23,30 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet var city : UITextField!
     @IBOutlet var state : UITextField!
     
+    var client = OAuthSwiftClient(consumerKey: "5j9mbUKOpxkAsugIAhI5vw", consumerSecret: "e2NKNi7NLjubnMPGrjXChqDX-5c", accessToken: "brQj6wDEEUY_D5cHskczigza3fHN50Jz", accessTokenSecret: "f4PL09-I04apg086jUoC5J6M4JA")
+    
     /**
      * IBAction for when the done button is pressed. Creates the full address and calls findLatLong() to find the latitude and longitude coordinates of this full address.
      */
 
+    @IBAction func action(sender: AnyObject) {
+        let params: [String: String] = [
+            "location": "San+Francisco",
+            "term": "seafood"
+        ]
+        client.get(
+            "https://api.yelp.com/v2/search",
+            parameters: params,
+            success: { (data, response) -> Void in
+                let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! NSDictionary
+                println(json)
+            },
+            failure: {(error:NSError!) -> Void in
+                println(error.localizedDescription)
+            }
+        )
+    }
+    
     @IBAction func donePressed(sender: AnyObject) {
         var geocode = Geocoder(address: address.text, city: city.text, state: state.text)
         var targetLocation = CLLocation(latitude: geocode.getLatitude(), longitude: geocode.getLongitude())

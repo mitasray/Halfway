@@ -34,6 +34,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     var doneAlreadyPressed: Bool = false
     var randomSearchID: Int = -1
     var results: [Result] = []
+    
     /**
      * IBAction for when the done button is pressed. Creates the full address and calls findLatLong() to find the latitude and longitude coordinates of this full address.
      */

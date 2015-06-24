@@ -39,45 +39,19 @@ public class Geocoder {
         var HTMLString = HTML.getHTML()
         
         // String split method from: http://stackoverflow.com/questions/25678373/swift-split-a-string-into-an-array
-        var latArr = HTMLString.componentsSeparatedByString("Latitude")
-        var longArr = HTMLString.componentsSeparatedByString("Longitude")
-        var latitude = numFinder(latArr[1] as! String)
-        var longitude = numFinder(longArr[1] as! String)
+        var latStr: String = HTMLString.componentsSeparatedByString("\"lat\" : ")[1].componentsSeparatedByString(",")[0] as! String
+        var longStr: String = HTMLString.componentsSeparatedByString("\"lng\" : ")[1].componentsSeparatedByString("}")[0] as! String
+        var latitude = (latStr as NSString).doubleValue
+        var longitude = (longStr as NSString).doubleValue
         var coordinates = [Double]()
         coordinates.append(latitude)
         coordinates.append(longitude)
         return coordinates
     }
     
-    /**
-     * Helper method for findLatLong().
-     * Removes the </h3></td>\n    <td> HTML code and the excess end HTML code from the latitude and longitude coordinates to only extract the numbers.
-     */
-    private func numFinder(coord : String) -> Double {
-        var finalCoord = coord.substringFromIndex(advance(coord.startIndex, 19))
-        var posOfSpace = posOfChar(coord, char: " ");
-        finalCoord = finalCoord.substringToIndex(advance(coord.startIndex, posOfSpace))
-        var finalCoordDouble : Double = (finalCoord as NSString).doubleValue // String to Double
-        return finalCoordDouble
-    }
-    
-    /**
-     * Solution #3 from: http://stackoverflow.com/questions/24029163/finding-index-of-character-in-swift-string
-     * Helper method for numFinder().
-     * Returns the position of a character in a string, where the character and string are parameters. If character not found, returns -1.
-     */
-    func posOfChar(string : String, char : Character) -> Int {
-        if let index = find(string, char) {
-            let pos = distance(string.startIndex, index)
-            return pos
-        } else {
-            return -1
-        }
-    }
-    
     private func fullAddress() -> String {
         var urlAddress = address + " " + city + " " + state
-        var myURLString = "http://geocoder.us/demo.cgi?address=" + urlAddress
+        var myURLString = "https://maps.googleapis.com/maps/api/geocode/json?address=" + urlAddress
         return myURLString
     }
 }

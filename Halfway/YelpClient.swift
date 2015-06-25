@@ -8,13 +8,11 @@
 
 import Foundation
 import OAuthSwift
+import CoreLocation
 
 public class YelpClient {
     var client: OAuthSwiftClient
-    let params: [String: String] = [
-        "location": "San+Francisco",
-        "term": "seafood"
-    ]
+    var params: [String: AnyObject] = Dictionary<String, AnyObject>()
     var json: NSDictionary = NSDictionary()
     
     public init() {
@@ -28,7 +26,7 @@ public class YelpClient {
     
     public func getJSON() -> NSDictionary {
         client.get(
-            "https://api.yelp.com/v2/search",
+            "http://api.yelp.com/v2/search",
             parameters: params,
             success: { (data, response) -> Void in
                 let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! NSDictionary
@@ -39,6 +37,11 @@ public class YelpClient {
             }
         )
         return self.json
+    }
+    
+    public func setSearchLocation(location: CLLocation) {
+        params["ll"] = String(stringInterpolationSegment: location.coordinate.latitude) + "," + String(stringInterpolationSegment: location.coordinate.longitude)
+        params["term"] = "food"
     }
     
     private func saveJSON(json: NSDictionary) {

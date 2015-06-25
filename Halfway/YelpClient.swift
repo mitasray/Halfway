@@ -42,7 +42,10 @@ public class YelpClient {
     public func setSearchLocation(location: CLLocation) {
         params["ll"] = String(stringInterpolationSegment: location.coordinate.latitude) + "," + String(stringInterpolationSegment: location.coordinate.longitude)
         params["term"] = "food"
+        params["limit"] = 1
     }
+    
+    
     
     private func saveJSON(json: NSDictionary) {
         self.json = json

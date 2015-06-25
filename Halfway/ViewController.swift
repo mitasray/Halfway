@@ -15,18 +15,19 @@ import SwiftyJSON
 public class ViewController: UIViewController, CLLocationManagerDelegate {
 
     let locationManager = CLLocationManager()
-    let brain = HalfwayBrain()
     var currLocation : CLLocation! = nil
     var client = YelpClient()
+    let brain = HalfwayBrain()
     
     
     @IBOutlet weak var currentMapView: MKMapView!
     @IBOutlet var address : UITextField!
     @IBOutlet var city : UITextField!
     @IBOutlet var state : UITextField!
+    @IBOutlet weak var yelpLocationResult: UILabel!
+    @IBOutlet weak var yelpAddressResult: UILabel!
     
-    
-    @IBAction func donePressed(sender: AnyObject) {
+    @IBAction func findHalfway(sender: AnyObject) {
         var geocode = Geocoder(address: address.text, city: city.text, state: state.text)
         var targetLocation = CLLocation(latitude: geocode.getLatitude(), longitude: geocode.getLongitude())
         brain.setTargetLocation(targetLocation)
@@ -35,7 +36,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         var jsonResults = JSON(client.getJSON())
         
         println(jsonResults["businesses"])
-        println(jsonResults["businesses"][0]["name"])
+        println(jsonResults["businesses"][0]["location"]["display_address"])
         
         var yelpResultLatitude = jsonResults["businesses"][0]["location"]["coordinate"]["latitude"].double
         var yelpResultLongitude = jsonResults["businesses"][0]["location"]["coordinate"]["longitude"].double
@@ -43,6 +44,11 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
             var yelpLocation = CLLocation(latitude: yelpResultLatitude!, longitude: yelpResultLongitude!)
             map(yelpLocation, friendLocation: targetLocation, view: currentMapView)
         }
+        var resultLocation = String(stringInterpolationSegment: jsonResults["businesses"][0]["name"])
+        
+        
+        var resultAddress = String(stringInterpolationSegment: jsonResults["businesses"][0]["location"]["display_address"][0])
+        updateResults(resultLocation, address: resultAddress)
     }
 
     /**
@@ -101,6 +107,8 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         }
         view.selectAnnotation(halfwayAnnotation, animated: true)
     }
+    
+
 
     private func annotate(location: CLLocation, view: MKMapView, title: String) {
         var annotation = MKPointAnnotation()
@@ -111,6 +119,11 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
 
     private func isYelpInstalled() -> Bool {
         return UIApplication.sharedApplication().canOpenURL(NSURL(string: "yelp4:")!);
+    }
+    
+    private func updateResults(location: String, address: String) {
+        yelpLocationResult.text = location
+        yelpAddressResult.text = address
     }
 }
 

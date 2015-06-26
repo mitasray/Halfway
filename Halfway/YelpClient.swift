@@ -9,6 +9,7 @@
 import Foundation
 import OAuthSwift
 import CoreLocation
+import SwiftyJSON
 
 public class YelpClient {
     var client: OAuthSwiftClient
@@ -44,8 +45,6 @@ public class YelpClient {
         params["term"] = "food"
         params["limit"] = 1
     }
-    
-    
     
     private func saveJSON(json: NSDictionary) {
         self.json = json

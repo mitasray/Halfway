@@ -35,27 +35,22 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         client.setSearchLocation(halfwayLocation)
         var jsonResults = JSON(client.getJSON())
         
-        println(jsonResults["businesses"])
-        println(jsonResults["businesses"][0]["location"]["display_address"])
         
         var yelpResultLatitude = jsonResults["businesses"][0]["location"]["coordinate"]["latitude"].double
         var yelpResultLongitude = jsonResults["businesses"][0]["location"]["coordinate"]["longitude"].double
+        
         if (yelpResultLongitude != nil) {
             var yelpLocation = CLLocation(latitude: yelpResultLatitude!, longitude: yelpResultLongitude!)
             map(yelpLocation, friendLocation: targetLocation, view: currentMapView)
+            var resultLocation = String(stringInterpolationSegment: jsonResults["businesses"][0]["name"])
+            
+            
+            var resultAddress = String(stringInterpolationSegment: jsonResults["businesses"][0]["location"]["display_address"][0])
+            updateResults(resultLocation, address: resultAddress)
         }
-        var resultLocation = String(stringInterpolationSegment: jsonResults["businesses"][0]["name"])
-        
-        
-        var resultAddress = String(stringInterpolationSegment: jsonResults["businesses"][0]["location"]["display_address"][0])
-        updateResults(resultLocation, address: resultAddress)
     }
 
-    /**
-     * Empty IBAction for when the outside view is tapped. Removes the keyboard from the display.
-     */
-    @IBAction func viewTapped(sender: AnyObject) {
-    }
+
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,8 +103,12 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         view.selectAnnotation(halfwayAnnotation, animated: true)
     }
     
-
-
+    /**
+    * Empty IBAction for when the outside view is tapped. Removes the keyboard from the display.
+    */
+    @IBAction func viewTapped(sender: AnyObject) {
+    }
+    
     private func annotate(location: CLLocation, view: MKMapView, title: String) {
         var annotation = MKPointAnnotation()
         annotation.coordinate = location.coordinate

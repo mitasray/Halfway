@@ -12,6 +12,9 @@
 		0A796F561B3B6DAA00580B6F /* YelpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A796F551B3B6DAA00580B6F /* YelpClient.swift */; };
 		0ABBC3F21B3A88540097E1A9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0ABBC3F11B3A88540097E1A9 /* Info.plist */; };
 		0ABBC3F31B3A88540097E1A9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0ABBC3F11B3A88540097E1A9 /* Info.plist */; };
+		0AD019371B3C735500C79246 /* GeocoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD019341B3C735500C79246 /* GeocoderTests.swift */; };
+		0AD019381B3C735500C79246 /* HalfwayBrainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD019351B3C735500C79246 /* HalfwayBrainTests.swift */; };
+		0AD019391B3C735500C79246 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AD019361B3C735500C79246 /* Info.plist */; };
 		0AEC20AF1B2423CB00E37E21 /* Geocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEC20AE1B2423CB00E37E21 /* Geocoder.swift */; };
 		0AEEF14C1B29610C00724EF6 /* HalfwayBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEEF14B1B29610C00724EF6 /* HalfwayBrain.swift */; };
 		3ED80AAD011514123DFF3021 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 883B1CC33CEA71BA24BAF163 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -38,6 +41,9 @@
 		0A6D7C681B3A764900AA09C4 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		0A796F551B3B6DAA00580B6F /* YelpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpClient.swift; sourceTree = "<group>"; };
 		0ABBC3F11B3A88540097E1A9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HalfwayTests/Info.plist; sourceTree = "<group>"; };
+		0AD019341B3C735500C79246 /* GeocoderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocoderTests.swift; sourceTree = "<group>"; };
+		0AD019351B3C735500C79246 /* HalfwayBrainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfwayBrainTests.swift; sourceTree = "<group>"; };
+		0AD019361B3C735500C79246 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AEC20AE1B2423CB00E37E21 /* Geocoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geocoder.swift; sourceTree = "<group>"; };
 		0AEEF14B1B29610C00724EF6 /* HalfwayBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfwayBrain.swift; sourceTree = "<group>"; };
 		6094D58E1B1F85FA00EAA02A /* Halfway.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Halfway.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +87,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		0AD019331B3C735500C79246 /* HalfwayTests */ = {
+			isa = PBXGroup;
+			children = (
+				0AD019341B3C735500C79246 /* GeocoderTests.swift */,
+				0AD019351B3C735500C79246 /* HalfwayBrainTests.swift */,
+				0AD019361B3C735500C79246 /* Info.plist */,
+			);
+			path = HalfwayTests;
+			sourceTree = "<group>";
+		};
 		0AEC20AB1B23C30000E37E21 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +116,7 @@
 				6094D5901B1F85FA00EAA02A /* Halfway */,
 				6094D58F1B1F85FA00EAA02A /* Products */,
 				6F364EE1EC443408952A57E7 /* Frameworks */,
+				0AD019331B3C735500C79246 /* HalfwayTests */,
 				090C98F722CE3239EBDFE6B7 /* Pods */,
 			);
 			sourceTree = "<group>";
@@ -240,6 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AD019391B3C735500C79246 /* Info.plist in Resources */,
 				0ABBC3F31B3A88540097E1A9 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -311,6 +329,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AD019371B3C735500C79246 /* GeocoderTests.swift in Sources */,
+				0AD019381B3C735500C79246 /* HalfwayBrainTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,7 +14,7 @@ import CoreLocation
 public class GeocoderTests: XCTestCase {
     public func testGettingLatitudeAndLongitude() {
         var geocoder = Geocoder(address: "2650 Haste Street", city: "Berkeley", state: "CA")
-        XCTAssertTrue(geocoder.getLatitude() == 37.866579, "Gets correct latitude")
-        XCTAssertTrue(geocoder.getLongitude() == -122.255807, "Gets correct longitude")
+        XCTAssertTrue(geocoder.getLatitude() == 37.8662874, "Gets correct latitude")
+        XCTAssertTrue(geocoder.getLongitude() == -122.2552508, "Gets correct longitude")
     }
 }

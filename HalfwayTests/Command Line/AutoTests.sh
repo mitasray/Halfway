@@ -1,1 +1,0 @@
-instruments -w 260DEAE5-EEF4-4F21-9967-7CED7BA4969 -t ~/Library/Application\ Support/Instruments/Templates/Basic.tracetemplate -e UIASCRIPT /Users/Mitas/Xcode\ Projects/Halfway/HalfwayTests/GoodInput/Unit2ToRSF.js -e UIARRESULTSPATH /Users/Mitas/Xcode\ Projects/Halfway/HalfwayTests/GoodInput/TestResults

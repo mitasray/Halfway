@@ -12,12 +12,14 @@ import MapKit
 import SwiftyJSON
 
 
+
 public class ViewController: UIViewController, CLLocationManagerDelegate {
 
     let locationManager = CLLocationManager()
     var currLocation : CLLocation! = nil
-    var client = YelpClient()
+    var yelpClient = YelpClient.sharedInstance
     let brain = HalfwayBrain()
+    var yelpJSON = JSON([])
     
     
     @IBOutlet weak var currentMapView: MKMapView!
@@ -32,26 +34,30 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         var targetLocation = CLLocation(latitude: geocode.getLatitude(), longitude: geocode.getLongitude())
         brain.setTargetLocation(targetLocation)
         var halfwayLocation = brain.calculateHalfwayLocation()
-        client.setSearchLocation(halfwayLocation)
-        var jsonResults = JSON(client.getJSON())
         
-        
-        var yelpResultLatitude = jsonResults["businesses"][0]["location"]["coordinate"]["latitude"].double
-        var yelpResultLongitude = jsonResults["businesses"][0]["location"]["coordinate"]["longitude"].double
-        
-        if (yelpResultLongitude != nil) {
-            var yelpLocation = CLLocation(latitude: yelpResultLatitude!, longitude: yelpResultLongitude!)
-            map(yelpLocation, friendLocation: targetLocation, view: currentMapView)
-            var resultLocation = String(stringInterpolationSegment: jsonResults["businesses"][0]["name"])
-            
-            
-            var resultAddress = String(stringInterpolationSegment: jsonResults["businesses"][0]["location"]["display_address"][0])
-            updateResults(resultLocation, address: resultAddress)
-        }
+        yelpClient.setSearchLocation(halfwayLocation)
+        yelpClient.client.get(
+            yelpClient.yelpApiUrl,
+            parameters: yelpClient.params,
+            success: { (data, response) -> Void in
+                let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! NSDictionary
+                self.yelpJSON = JSON(json)
+                var yelpResultLatitude = self.yelpJSON["businesses"][0]["location"]["coordinate"]["latitude"].double
+                var yelpResultLongitude = self.yelpJSON["businesses"][0]["location"]["coordinate"]["longitude"].double
+                
+                var yelpLocation = CLLocation(latitude: yelpResultLatitude!, longitude: yelpResultLongitude!)
+                self.map(yelpLocation, friendLocation: targetLocation, view: self.currentMapView)
+                var resultLocation = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["name"])
+                
+                var resultAddress = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["location"]["display_address"][0])
+                self.displayYelpResults(resultLocation, address: resultAddress)
+            },
+            failure: {(error:NSError!) -> Void in
+                println(error.localizedDescription)
+            }
+        )
     }
 
-
-    
     public override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,14 +83,14 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
 
 
     private func map(location: CLLocation, view: MKMapView) {
-        annotate(location, view: currentMapView, title: "Current Location")
+        annotateMap(location, view: currentMapView, title: "Current Location")
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 200, 200)
         view.setRegion(coordinateRegion, animated: true)
     }
     
     private func map(midLocation: CLLocation, friendLocation: CLLocation, view: MKMapView) {
-        annotate(midLocation, view: currentMapView, title: String(stringInterpolationSegment: midLocation.coordinate.longitude))
-        annotate(friendLocation, view: currentMapView, title: "Friend's Location")
+        annotateMap(midLocation, view: currentMapView, title: String(stringInterpolationSegment: midLocation.coordinate.longitude))
+        annotateMap(friendLocation, view: currentMapView, title: "Friend's Location")
         let distance : Double = midLocation.distanceFromLocation(friendLocation)
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(midLocation.coordinate, (distance * 2) + 10, (distance * 2) + 10)
         view.setRegion(coordinateRegion, animated: true)
@@ -103,24 +109,18 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         view.selectAnnotation(halfwayAnnotation, animated: true)
     }
     
-    /**
-    * Empty IBAction for when the outside view is tapped. Removes the keyboard from the display.
-    */
+    /* Removes the keyboard from the display. */
     @IBAction func viewTapped(sender: AnyObject) {
     }
     
-    private func annotate(location: CLLocation, view: MKMapView, title: String) {
+    private func annotateMap(location: CLLocation, view: MKMapView, title: String) {
         var annotation = MKPointAnnotation()
         annotation.coordinate = location.coordinate
         annotation.title = title
         view.addAnnotation(annotation)
     }
 
-    private func isYelpInstalled() -> Bool {
-        return UIApplication.sharedApplication().canOpenURL(NSURL(string: "yelp4:")!);
-    }
-    
-    private func updateResults(location: String, address: String) {
+    private func displayYelpResults(location: String, address: String) {
         yelpLocationResult.text = location
         yelpAddressResult.text = address
     }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>All Samples</key>
+	<array>
+		<dict>
+			<key>Line</key>
+			<integer>36</integer>
+			<key>LogType</key>
+			<string>Error</string>
+			<key>Message</key>
+			<string>Script threw an uncaught JavaScript error: Unexpected token ';'. Expected ')' to end a argument list. on line 36 of Unit2ToRSF.js</string>
+			<key>Timestamp</key>
+			<date>2015-07-01T20:35:11Z</date>
+			<key>Type</key>
+			<integer>10</integer>
+		</dict>
+	</array>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>

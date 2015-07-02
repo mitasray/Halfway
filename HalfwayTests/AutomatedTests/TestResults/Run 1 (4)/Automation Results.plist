@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>All Samples</key>
+	<array>
+		<dict>
+			<key>LogType</key>
+			<string>Debug</string>
+			<key>Message</key>
+			<string>target.setLocationWithOptions({longitude:"-122.255251", latitude:"37.866287"}, )</string>
+			<key>Timestamp</key>
+			<date>2015-07-01T19:41:00Z</date>
+			<key>Type</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>LogType</key>
+			<string>Debug</string>
+			<key>Message</key>
+			<string>target.frontMostApp().mainWindow().textFields()[0].tap()</string>
+			<key>Timestamp</key>
+			<date>2015-07-01T19:41:01Z</date>
+			<key>Type</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>LogType</key>
+			<string>Debug</string>
+			<key>Message</key>
+			<string>target.frontMostApp().mainWindow().textFields()[1].tap()</string>
+			<key>Timestamp</key>
+			<date>2015-07-01T19:41:02Z</date>
+			<key>Type</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>LogType</key>
+			<string>Debug</string>
+			<key>Message</key>
+			<string>target.frontMostApp().mainWindow().textFields()[2].tap()</string>
+			<key>Timestamp</key>
+			<date>2015-07-01T19:41:02Z</date>
+			<key>Type</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>LogType</key>
+			<string>Debug</string>
+			<key>Message</key>
+			<string>target.frontMostApp().mainWindow().buttons()[0].tap()</string>
+			<key>Timestamp</key>
+			<date>2015-07-01T19:41:03Z</date>
+			<key>Type</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>LogType</key>
+			<string>Debug</string>
+			<key>Message</key>
+			<string>target.frontMostApp().mainWindow().buttons()[0].tap()</string>
+			<key>Timestamp</key>
+			<date>2015-07-01T19:41:05Z</date>
+			<key>Type</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>Unit2ToRSF.js</string>
+			<key>Line</key>
+			<integer>34</integer>
+			<key>LogType</key>
+			<string>Fail</string>
+			<key>Message</key>
+			<string>Result Location is INCORRECT.</string>
+			<key>Screenshot</key>
+			<string>14FC930C-6B0E-40D9-9731-2DE371634D22</string>
+			<key>Timestamp</key>
+			<date>2015-07-01T19:41:07Z</date>
+			<key>Type</key>
+			<integer>7</integer>
+		</dict>
+		<dict>
+			<key>LogType</key>
+			<string>Pass</string>
+			<key>Message</key>
+			<string>Result Address is CORRECT.</string>
+			<key>Timestamp</key>
+			<date>2015-07-01T19:41:07Z</date>
+			<key>Type</key>
+			<integer>5</integer>
+		</dict>
+	</array>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>

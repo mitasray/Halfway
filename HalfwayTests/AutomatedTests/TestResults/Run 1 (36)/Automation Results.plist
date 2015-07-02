@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>All Samples</key>
+	<array>
+		<dict>
+			<key>LogType</key>
+			<string>Debug</string>
+			<key>Message</key>
+			<string>target.setLocationWithOptions({longitude:"-122.255251", latitude:"37.866287"}, )</string>
+			<key>Timestamp</key>
+			<date>2015-07-01T20:37:12Z</date>
+			<key>Type</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>LogType</key>
+			<string>Debug</string>
+			<key>Message</key>
+			<string>target.frontMostApp().mainWindow().textFields()[0].tap()</string>
+			<key>Timestamp</key>
+			<date>2015-07-01T20:37:13Z</date>
+			<key>Type</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>LogType</key>
+			<string>Debug</string>
+			<key>Message</key>
+			<string>target.frontMostApp().mainWindow().textFields()[1].tap()</string>
+			<key>Timestamp</key>
+			<date>2015-07-01T20:37:13Z</date>
+			<key>Type</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>LogType</key>
+			<string>Debug</string>
+			<key>Message</key>
+			<string>target.frontMostApp().mainWindow().textFields()[2].tap()</string>
+			<key>Timestamp</key>
+			<date>2015-07-01T20:37:13Z</date>
+			<key>Type</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>LogType</key>
+			<string>Debug</string>
+			<key>Message</key>
+			<string>target.frontMostApp().mainWindow().buttons()[0].tap()</string>
+			<key>Timestamp</key>
+			<date>2015-07-01T20:37:14Z</date>
+			<key>Type</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>LogType</key>
+			<string>Debug</string>
+			<key>Message</key>
+			<string>target.frontMostApp().mainWindow().buttons()[0].tap()</string>
+			<key>Timestamp</key>
+			<date>2015-07-01T20:37:16Z</date>
+			<key>Type</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>Unit2ToRSF.js</string>
+			<key>Line</key>
+			<integer>36</integer>
+			<key>LogType</key>
+			<string>Fail</string>
+			<key>Message</key>
+			<string>Result Location is INCORRECT. Expected: Top Dog. Got: null</string>
+			<key>Screenshot</key>
+			<string>B49C425A-F72D-4465-B2D1-EDFDEE7CA6DF</string>
+			<key>Timestamp</key>
+			<date>2015-07-01T20:37:18Z</date>
+			<key>Type</key>
+			<integer>7</integer>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>Unit2ToRSF.js</string>
+			<key>Line</key>
+			<integer>42</integer>
+			<key>LogType</key>
+			<string>Fail</string>
+			<key>Message</key>
+			<string>Result Address is INCORRECT. Expected: 2534 Durant Ave. Got: </string>
+			<key>Screenshot</key>
+			<string>B8EE9126-D156-4799-9AE8-FAB45FE9380A</string>
+			<key>Timestamp</key>
+			<date>2015-07-01T20:37:18Z</date>
+			<key>Type</key>
+			<integer>7</integer>
+		</dict>
+	</array>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>

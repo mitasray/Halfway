@@ -25,18 +25,20 @@ halfwayButton.tap();
 target.delay(2)
 halfwayButton.tap(); // This second tap is required because of the closure error.
 
+target.delay(2)
+
 var resultLocation = mainWindow.staticTexts()[2];
 var resultAddress = mainWindow.staticTexts()[4];
 
 if (resultLocation.value() == "Top Dog") {
     UIALogger.logPass("Result Location is CORRECT.");
 } else {
-    UIALogger.logFail("Result Location is INCORRECT.");
+    UIALogger.logFail("Result Location is INCORRECT. Expected: Top Dog. Got: " + resultLocation.value());
 }
 
 if (resultAddress.value() == "2534 Durant Ave") {
     UIALogger.logPass("Result Address is CORRECT.");
 } else {
-    UIALogger.logFail("Result Address is INCORRECT.");
+    UIALogger.logFail("Result Address is INCORRECT. Expected: 2534 Durant Ave. Got: " + resultAddress.value());
 }
 

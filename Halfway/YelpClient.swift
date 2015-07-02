@@ -12,6 +12,9 @@ import CoreLocation
 import SwiftyJSON
 
 public class YelpClient {
+    static let sharedInstance = YelpClient()
+    
+    let yelpApiUrl = "http://api.yelp.com/v2/search"
     var client: OAuthSwiftClient
     var params: [String: AnyObject] = Dictionary<String, AnyObject>()
     var json: NSDictionary = NSDictionary()
@@ -23,21 +26,6 @@ public class YelpClient {
             accessToken: "brQj6wDEEUY_D5cHskczigza3fHN50Jz",
             accessTokenSecret: "f4PL09-I04apg086jUoC5J6M4JA"
         )
-    }
-    
-    public func getJSON() -> NSDictionary {
-        client.get(
-            "http://api.yelp.com/v2/search",
-            parameters: params,
-            success: { (data, response) -> Void in
-                let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! NSDictionary
-                self.saveJSON(json)
-            },
-            failure: {(error:NSError!) -> Void in
-                println(error.localizedDescription)
-            }
-        )
-        return self.json
     }
     
     public func setSearchLocation(location: CLLocation) {

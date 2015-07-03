@@ -56,6 +56,9 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
                     println(error.localizedDescription)
                 }
             )
+            address.text = ""
+            city.text = ""
+            state.text = ""
         }
     }
 

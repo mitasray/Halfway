@@ -10,8 +10,10 @@ import Foundation
 import CoreLocation
 
 public class HalfwayBrain {
-    var current_location: CLLocation
-    var target_location: CLLocation
+    var current_location: CLLocation! = nil
+    var target_location: CLLocation! = nil
+    var count: Double = 1
+    var targetLocations = [CLLocation]()
     
     public init() {
         self.current_location = CLLocation(latitude: 0, longitude: 0)
@@ -24,15 +26,28 @@ public class HalfwayBrain {
     }
     
     public func setCurrentLocation(newLocation: CLLocation) {
-        self.current_location = newLocation
+        if (self.current_location == CLLocation(latitude: 0, longitude: 0)) {
+            self.current_location = newLocation
+        }
     }
     
     public func getCurrentLocation() -> CLLocation {
         return self.current_location
     }
     
-    public func setTargetLocation(newLocation: CLLocation) {
+    /**
+     * Returns whether the target location has not already been entered.
+     */
+    public func setTargetLocation(newLocation: CLLocation) -> Bool {
+        for targetLocation in targetLocations {
+            // Make sure that this equality doesn't mean that the references are pointed to the same object, but that the values of the lat/long are the same.
+            if (newLocation == targetLocation) {
+                return false
+            }
+        }
         self.target_location = newLocation
+        self.targetLocations.append(newLocation)
+        return true
     }
     
     public func getTargetLocation() -> CLLocation {
@@ -40,9 +55,11 @@ public class HalfwayBrain {
     }
     
     public func calculateHalfwayLocation() -> CLLocation {
-        var latitude = (latitudeFor(current_location) + latitudeFor(target_location)) / 2
-        var longitude = (longitudeFor(current_location) + longitudeFor(target_location)) / 2
+        var latitude = ((latitudeFor(current_location) * count) + latitudeFor(target_location)) / (1 + count)
+        var longitude = ((longitudeFor(current_location) * count) + longitudeFor(target_location)) / (1 + count)
         var halfwayLocation = CLLocation(latitude: latitude, longitude: longitude)
+        current_location = halfwayLocation
+        count += 1
         return halfwayLocation
     }
     
@@ -53,4 +70,5 @@ public class HalfwayBrain {
     private func longitudeFor(location: CLLocation) -> Double {
         return location.coordinate.longitude
     }
+    
 }

@@ -32,30 +32,31 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func findHalfway(sender: AnyObject) {
         var geocode = Geocoder(address: address.text, city: city.text, state: state.text)
         var targetLocation = CLLocation(latitude: geocode.getLatitude(), longitude: geocode.getLongitude())
-        brain.setTargetLocation(targetLocation)
-        var halfwayLocation = brain.calculateHalfwayLocation()
-        
-        yelpClient.setSearchLocation(halfwayLocation)
-        yelpClient.client.get(
-            yelpClient.yelpApiUrl,
-            parameters: yelpClient.params,
-            success: { (data, response) -> Void in
-                let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! NSDictionary
-                self.yelpJSON = JSON(json)
-                var yelpResultLatitude = self.yelpJSON["businesses"][0]["location"]["coordinate"]["latitude"].double
-                var yelpResultLongitude = self.yelpJSON["businesses"][0]["location"]["coordinate"]["longitude"].double
-                
-                var yelpLocation = CLLocation(latitude: yelpResultLatitude!, longitude: yelpResultLongitude!)
-                self.map(yelpLocation, friendLocation: targetLocation, view: self.currentMapView)
-                var resultLocation = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["name"])
-                
-                var resultAddress = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["location"]["display_address"][0])
-                self.displayYelpResults(resultLocation, address: resultAddress)
-            },
-            failure: {(error:NSError!) -> Void in
-                println(error.localizedDescription)
-            }
-        )
+        if (brain.setTargetLocation(targetLocation)) {
+            var halfwayLocation = brain.calculateHalfwayLocation()
+            
+            yelpClient.setSearchLocation(halfwayLocation)
+            yelpClient.client.get(
+                yelpClient.yelpApiUrl,
+                parameters: yelpClient.params,
+                success: { (data, response) -> Void in
+                    let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! NSDictionary
+                    self.yelpJSON = JSON(json)
+                    var yelpResultLatitude = self.yelpJSON["businesses"][0]["location"]["coordinate"]["latitude"].double
+                    var yelpResultLongitude = self.yelpJSON["businesses"][0]["location"]["coordinate"]["longitude"].double
+                    
+                    var yelpLocation = CLLocation(latitude: yelpResultLatitude!, longitude: yelpResultLongitude!)
+                    self.map(yelpLocation, friendLocation: targetLocation, view: self.currentMapView)
+                    var resultLocation = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["name"])
+                    
+                    var resultAddress = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["location"]["display_address"][0])
+                    self.displayYelpResults(resultLocation, address: resultAddress)
+                },
+                failure: {(error:NSError!) -> Void in
+                    println(error.localizedDescription)
+                }
+            )
+        }
     }
 
     public override func viewDidLoad() {

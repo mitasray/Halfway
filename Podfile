@@ -3,3 +3,5 @@ use_frameworks!
 
 pod 'OAuthSwift'
 pod 'SwiftyJSON'
+pod 'AFNetworking'
+pod 'Alamofire'

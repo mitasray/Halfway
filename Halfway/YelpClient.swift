@@ -10,6 +10,7 @@ import Foundation
 import OAuthSwift
 import CoreLocation
 import SwiftyJSON
+import Alamofire
 
 public class YelpClient {
     static let sharedInstance = YelpClient()

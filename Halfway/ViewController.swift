@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import MapKit
 import SwiftyJSON
+import Alamofire
 
 
 
@@ -20,6 +21,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     var yelpClient = YelpClient.sharedInstance
     let brain = HalfwayBrain()
     var yelpJSON = JSON([])
+    let defaults = NSUserDefaults.standardUserDefaults()
     
     
     @IBOutlet weak var currentMapView: MKMapView!
@@ -28,6 +30,18 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet var state : UITextField!
     @IBOutlet weak var yelpLocationResult: UILabel!
     @IBOutlet weak var yelpAddressResult: UILabel!
+    @IBOutlet weak var currentUserLabel: UILabel!
+    
+    
+    @IBAction func logOut(sender: AnyObject) {
+        self.defaults.removeObjectForKey("username")
+        
+        resetFields()
+        
+        var loginController: LoginController = self.storyboard?.instantiateViewControllerWithIdentifier("Login") as! LoginController
+        
+        self.navigationController?.pushViewController(loginController, animated: true)
+    }
     
     @IBAction func findHalfway(sender: AnyObject) {
         var geocode = Geocoder(address: address.text, city: city.text, state: state.text)
@@ -57,6 +71,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
             }
         )
     }
+    
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +80,28 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
+    }
+    
+    public override func viewDidAppear(animated: Bool) {        
+        var loginController: LoginController = self.storyboard?.instantiateViewControllerWithIdentifier("Login") as! LoginController
+        
+        if !loggedIn() {
+            self.navigationController?.pushViewController(loginController, animated: true)
+        } else {
+            currentUserLabel.text = "You are logged in as " + currentUser()
+        }
+    }
+    
+    private func loggedIn() -> Bool {
+        if let name = defaults.stringForKey("username") {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    private func currentUser() -> String {
+        return self.defaults.stringForKey("username")!
     }
     
     public override func didReceiveMemoryWarning() {
@@ -89,7 +126,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     private func map(midLocation: CLLocation, friendLocation: CLLocation, view: MKMapView) {
-        annotateMap(midLocation, view: currentMapView, title: String(stringInterpolationSegment: midLocation.coordinate.longitude))
+        annotateMap(midLocation, view: currentMapView, title: "Meeting Point")
         annotateMap(friendLocation, view: currentMapView, title: "Friend's Location")
         let distance : Double = midLocation.distanceFromLocation(friendLocation)
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(midLocation.coordinate, (distance * 2) + 10, (distance * 2) + 10)
@@ -123,6 +160,15 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     private func displayYelpResults(location: String, address: String) {
         yelpLocationResult.text = location
         yelpAddressResult.text = address
+    }
+    
+    private func resetFields() {
+        map(brain.getCurrentLocation(), view: currentMapView)
+        address.text = ""
+        city.text = ""
+        state.text = ""
+        yelpLocationResult.text = ""
+        yelpAddressResult.text = ""
     }
 }
 

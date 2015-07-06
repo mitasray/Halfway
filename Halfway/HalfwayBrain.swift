@@ -80,4 +80,38 @@ public class HalfwayBrain {
         }
         return false
     }
+    
+    public func getMapCoordinates(yelpLocation: CLLocation) -> [Double] {
+        var maxLat = latitudeFor(current_location)
+        var minLat = latitudeFor(current_location)
+        var maxLong = longitudeFor(current_location)
+        var minLong = longitudeFor(current_location)
+        
+        // Appending yelpLocation to be used for map coordinates calculations.
+        targetLocations.append(yelpLocation)
+        for loc in targetLocations {
+            var locLat = latitudeFor(loc)
+            var locLong = longitudeFor(loc)
+            
+            if (maxLat < locLat) {
+                maxLat = locLat
+            }
+            if (minLat > locLat) {
+                minLat = locLat
+            }
+            if (maxLong < locLong) {
+                maxLong = locLong
+            }
+            if (minLong > locLong) {
+                minLong = locLong
+            }
+        }
+        targetLocations.removeLast()
+        var centerLat = (maxLat + minLat) / 2
+        var centerLong = (maxLong + minLong) / 2
+        
+        var latDistance: Double = CLLocation(latitude: maxLat, longitude: maxLong).distanceFromLocation(CLLocation(latitude: minLat, longitude: maxLong))
+        var longDistance: Double = CLLocation(latitude: maxLat, longitude: maxLong).distanceFromLocation(CLLocation(latitude: maxLat, longitude: minLong))
+        return [centerLat, centerLong, latDistance, longDistance]
+    }
 }

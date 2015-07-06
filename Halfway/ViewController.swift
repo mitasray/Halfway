@@ -52,7 +52,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
                     var resultLocation = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["name"])
                     var resultAddress = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["location"]["display_address"][0])
                     self.displayYelpResults(resultLocation, address: resultAddress)
-                    self.map(yelpLocation, friendLocation: targetLocation, view: self.currentMapView, resultTitle: resultLocation)
+                    self.map(yelpLocation, friendLocation: targetLocation, view: self.currentMapView, resultTitle: resultLocation, mapCords: self.brain.getMapCoordinates(yelpLocation))
                 },
                 failure: {(error:NSError!) -> Void in
                     println(error.localizedDescription)
@@ -94,12 +94,13 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         view.setRegion(coordinateRegion, animated: true)
     }
     
-    private func map(midLocation: CLLocation, friendLocation: CLLocation, view: MKMapView, resultTitle: String) {
+    private func map(midLocation: CLLocation, friendLocation: CLLocation, view: MKMapView, resultTitle: String, mapCords: [Double]) {
         // annotateMap(midLocation, view: currentMapView, title: String(stringInterpolationSegment: midLocation.coordinate.longitude))
         annotateMap(midLocation, view: currentMapView, title: resultTitle)
         annotateMap(friendLocation, view: currentMapView, title: "Friend's Location")
         let distance : Double = midLocation.distanceFromLocation(friendLocation)
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(midLocation.coordinate, (distance * 2) + 10, (distance * 2) + 10)
+        // let coordinateRegion = MKCoordinateRegionMakeWithDistance(midLocation.coordinate, (distance * 2) + 10, (distance * 2) + 10)
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(CLLocation(latitude: mapCords[0], longitude: mapCords[1]).coordinate, mapCords[2] * 1.2, mapCords[3] * 1.2)
         view.setRegion(coordinateRegion, animated: true)
         
         // Automatically showing the "Halfway" annotation:

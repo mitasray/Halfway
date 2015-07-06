@@ -48,13 +48,11 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
                     self.yelpJSON = JSON(json)
                     var yelpResultLatitude = self.yelpJSON["businesses"][0]["location"]["coordinate"]["latitude"].double
                     var yelpResultLongitude = self.yelpJSON["businesses"][0]["location"]["coordinate"]["longitude"].double
-                    
                     var yelpLocation = CLLocation(latitude: yelpResultLatitude!, longitude: yelpResultLongitude!)
-                    self.map(yelpLocation, friendLocation: targetLocation, view: self.currentMapView)
                     var resultLocation = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["name"])
-                    
                     var resultAddress = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["location"]["display_address"][0])
                     self.displayYelpResults(resultLocation, address: resultAddress)
+                    self.map(yelpLocation, friendLocation: targetLocation, view: self.currentMapView, resultTitle: resultLocation)
                 },
                 failure: {(error:NSError!) -> Void in
                     println(error.localizedDescription)
@@ -96,8 +94,9 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         view.setRegion(coordinateRegion, animated: true)
     }
     
-    private func map(midLocation: CLLocation, friendLocation: CLLocation, view: MKMapView) {
-        annotateMap(midLocation, view: currentMapView, title: String(stringInterpolationSegment: midLocation.coordinate.longitude))
+    private func map(midLocation: CLLocation, friendLocation: CLLocation, view: MKMapView, resultTitle: String) {
+        // annotateMap(midLocation, view: currentMapView, title: String(stringInterpolationSegment: midLocation.coordinate.longitude))
+        annotateMap(midLocation, view: currentMapView, title: resultTitle)
         annotateMap(friendLocation, view: currentMapView, title: "Friend's Location")
         let distance : Double = midLocation.distanceFromLocation(friendLocation)
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(midLocation.coordinate, (distance * 2) + 10, (distance * 2) + 10)
@@ -110,7 +109,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         // Finding the halfway annotation.
         for annObject in view.annotations {
             var annotation = annObject as! MKAnnotation
-            if (annotation.title == "Halfway") {
+            if (annotation.title == resultTitle) {
                 halfwayAnnotation = annotation
             }
         }

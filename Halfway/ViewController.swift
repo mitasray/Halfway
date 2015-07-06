@@ -29,12 +29,16 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var yelpLocationResult: UILabel!
     @IBOutlet weak var yelpAddressResult: UILabel!
     
-    @IBAction func findHalfway(sender: AnyObject) {
+    @IBAction func findHalfway(sender: AnyObject) -> Void {
+        // Checks to make sure that none of the text fields are empty.
+        if (address.text == "" || city.text == "" || state.text == "") {
+            return
+        }
         var geocode = Geocoder(address: address.text, city: city.text, state: state.text)
         var targetLocation = CLLocation(latitude: geocode.getLatitude(), longitude: geocode.getLongitude())
         if (brain.setTargetLocation(targetLocation)) {
             var halfwayLocation = brain.calculateHalfwayLocation()
-            
+            removeHalfwayAnnotation()
             yelpClient.setSearchLocation(halfwayLocation)
             yelpClient.client.get(
                 yelpClient.yelpApiUrl,
@@ -127,6 +131,18 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     private func displayYelpResults(location: String, address: String) {
         yelpLocationResult.text = location
         yelpAddressResult.text = address
+    }
+
+    /**
+     * Remove the halfway annotation. Used whenever a new address is entered.
+     * http://stackoverflow.com/questions/10865088/how-do-i-remove-all-annotations-from-mkmapview-except-the-user-location-annotati
+     */
+    private func removeHalfwayAnnotation() -> Void {
+        var halfwayAnnotation: MKAnnotation!
+        let annotationsToRemove = currentMapView.annotations.filter {
+            $0.title != "Current Location" && $0.title != "Friend's Location"
+        }
+        currentMapView.removeAnnotations(annotationsToRemove)
     }
 }
 

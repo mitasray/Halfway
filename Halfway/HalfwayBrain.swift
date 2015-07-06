@@ -107,11 +107,23 @@ public class HalfwayBrain {
             }
         }
         targetLocations.removeLast()
+        
         var centerLat = (maxLat + minLat) / 2
         var centerLong = (maxLong + minLong) / 2
         
         var latDistance: Double = CLLocation(latitude: maxLat, longitude: maxLong).distanceFromLocation(CLLocation(latitude: minLat, longitude: maxLong))
         var longDistance: Double = CLLocation(latitude: maxLat, longitude: maxLong).distanceFromLocation(CLLocation(latitude: maxLat, longitude: minLong))
+        
+        // This check indicates whether the yelpLocation is the maxLat. If so, we readjust centerLat and latDistance to ensure viewing of the label.
+        if (latitudeFor(yelpLocation) == maxLat || latitudeFor(yelpLocation) == minLat) {
+            var latSeparation = (maxLat - centerLat) * 0.5
+            // var longSeparation = (maxLong - centerLong) * 0.5
+            centerLat += latSeparation
+            // centerLong += longSeparation
+            latDistance += latSeparation * 2.5
+            // longDistance += longSeparation * 2
+        }
+        
         return [centerLat, centerLong, latDistance, longDistance]
     }
 }

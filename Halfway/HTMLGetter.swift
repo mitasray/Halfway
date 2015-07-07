@@ -23,13 +23,13 @@ public class HTMLGetter {
     public func getHTML() -> NSString {
         if let myURL = NSURL(string: fullAddress) {
             var error: NSError?
-            let myHTMLString = NSString(contentsOfURL: myURL, encoding: NSUTF8StringEncoding, error: &error)
+            let myHTMLString: NSString = NSString(contentsOfURL: myURL, encoding: NSUTF8StringEncoding, error: &error)!
             
             if let error = error {
                 // println("Error : \(error)")
             } else {
                 // println("HTML : \(myHTMLString)")
-                return myHTMLString!
+                return myHTMLString
             }
         } else {
             // println("Error: \(fullAddress) doesn't seem to be a valid URL")

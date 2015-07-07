@@ -15,7 +15,7 @@ import Alamofire
 public class YelpClient {
     static let sharedInstance = YelpClient()
     
-    let yelpApiUrl = "http://api.yelp.com/v2/search"
+    let yelpApiUrl: String = "http://api.yelp.com/v2/search"
     var client: OAuthSwiftClient
     var params: [String: AnyObject] = Dictionary<String, AnyObject>()
     var json: NSDictionary = NSDictionary()
@@ -29,13 +29,13 @@ public class YelpClient {
         )
     }
     
-    public func setSearchLocation(location: CLLocation) {
+    public func setSearchLocation(location: CLLocation) -> Void {
         params["ll"] = String(stringInterpolationSegment: location.coordinate.latitude) + "," + String(stringInterpolationSegment: location.coordinate.longitude)
         params["term"] = "food"
         params["limit"] = 1
     }
     
-    private func saveJSON(json: NSDictionary) {
+    private func saveJSON(json: NSDictionary) -> Void {
         self.json = json
     }
 }

@@ -42,13 +42,13 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBAction func findHalfway(sender: AnyObject) -> Void {
         // Checks to make sure that none of the text fields are empty.
-        if (address.text == "" || city.text == "" || state.text == "") {
+        if address.text == "" || city.text == "" || state.text == "" {
             return
         }
         
         var geocode: Geocoder = Geocoder(address: address.text, city: city.text, state: state.text)
         var targetLocation: CLLocation = CLLocation(latitude: geocode.getLatitude(), longitude: geocode.getLongitude())
-        if (brain.setTargetLocation(targetLocation)) {
+        if brain.setTargetLocation(targetLocation) {
             var halfwayLocation: CLLocation = brain.calculateHalfwayLocation()
             removeHalfwayAnnotation()
             yelpClient.setSearchLocation(halfwayLocation)
@@ -89,7 +89,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     public override func viewDidAppear(animated: Bool) -> Void {
         var loginController: LoginController = self.storyboard?.instantiateViewControllerWithIdentifier("Login") as! LoginController
         
-        if (!loggedIn()) {
+        if !loggedIn() {
             self.navigationController?.pushViewController(loginController, animated: true)
         } else {
             currentUserLabel.text = "You are logged in as " + currentUser()
@@ -113,7 +113,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     }
 
     public func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) -> Void {
-        if (currLocation == nil) {
+        if currLocation == nil {
             currLocation = locations.last as! CLLocation
         }
         self.locationManager.stopUpdatingLocation()
@@ -141,9 +141,9 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         var halfwayAnnotation: MKAnnotation = view.annotations[0] as! MKAnnotation
         
         // Finding the halfway annotation.
-        for annObject in view.annotations {
+        for annObject: AnyObject in view.annotations {
             var annotation = annObject as! MKAnnotation
-            if (annotation.title == resultTitle) {
+            if annotation.title == resultTitle {
                 halfwayAnnotation = annotation
             }
         }
@@ -181,7 +181,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
      */
     private func removeHalfwayAnnotation() -> Void {
         var halfwayAnnotation: MKAnnotation!
-        let annotationsToRemove = currentMapView.annotations.filter {
+        let annotationsToRemove: [AnyObject] = currentMapView.annotations.filter {
             $0.title != "Current Location" && $0.title != "Friend's Location"
         }
         currentMapView.removeAnnotations(annotationsToRemove)

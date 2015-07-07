@@ -43,33 +43,39 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         self.navigationController?.pushViewController(loginController, animated: true)
     }
     
-    @IBAction func findHalfway(sender: AnyObject) {
+    @IBAction func findHalfway(sender: AnyObject) -> Void {
+        // Checks to make sure that none of the text fields are empty.
+        if (address.text == "" || city.text == "" || state.text == "") {
+            return
+        }
         var geocode = Geocoder(address: address.text, city: city.text, state: state.text)
         var targetLocation = CLLocation(latitude: geocode.getLatitude(), longitude: geocode.getLongitude())
-        brain.setTargetLocation(targetLocation)
-        var halfwayLocation = brain.calculateHalfwayLocation()
-        
-        yelpClient.setSearchLocation(halfwayLocation)
-        yelpClient.client.get(
-            yelpClient.yelpApiUrl,
-            parameters: yelpClient.params,
-            success: { (data, response) -> Void in
-                let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! NSDictionary
-                self.yelpJSON = JSON(json)
-                var yelpResultLatitude = self.yelpJSON["businesses"][0]["location"]["coordinate"]["latitude"].double
-                var yelpResultLongitude = self.yelpJSON["businesses"][0]["location"]["coordinate"]["longitude"].double
-                
-                var yelpLocation = CLLocation(latitude: yelpResultLatitude!, longitude: yelpResultLongitude!)
-                self.map(yelpLocation, friendLocation: targetLocation, view: self.currentMapView)
-                var resultLocation = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["name"])
-                
-                var resultAddress = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["location"]["display_address"][0])
-                self.displayYelpResults(resultLocation, address: resultAddress)
-            },
-            failure: {(error:NSError!) -> Void in
-                println(error.localizedDescription)
-            }
-        )
+        if (brain.setTargetLocation(targetLocation)) {
+            var halfwayLocation = brain.calculateHalfwayLocation()
+            removeHalfwayAnnotation()
+            yelpClient.setSearchLocation(halfwayLocation)
+            yelpClient.client.get(
+                yelpClient.yelpApiUrl,
+                parameters: yelpClient.params,
+                success: { (data, response) -> Void in
+                    let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! NSDictionary
+                    self.yelpJSON = JSON(json)
+                    var yelpResultLatitude = self.yelpJSON["businesses"][0]["location"]["coordinate"]["latitude"].double
+                    var yelpResultLongitude = self.yelpJSON["businesses"][0]["location"]["coordinate"]["longitude"].double
+                    var yelpLocation = CLLocation(latitude: yelpResultLatitude!, longitude: yelpResultLongitude!)
+                    var resultLocation = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["name"])
+                    var resultAddress = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["location"]["display_address"][0])
+                    self.displayYelpResults(resultLocation, address: resultAddress)
+                    self.map(yelpLocation, friendLocation: targetLocation, view: self.currentMapView, resultTitle: resultLocation, mapCords: self.brain.getMapCoordinates(yelpLocation))
+                },
+                failure: {(error:NSError!) -> Void in
+                    println(error.localizedDescription)
+                }
+            )
+            address.text = ""
+            city.text = ""
+            state.text = ""
+        }
     }
     
 
@@ -125,11 +131,13 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         view.setRegion(coordinateRegion, animated: true)
     }
     
-    private func map(midLocation: CLLocation, friendLocation: CLLocation, view: MKMapView) {
-        annotateMap(midLocation, view: currentMapView, title: "Meeting Point")
+    private func map(midLocation: CLLocation, friendLocation: CLLocation, view: MKMapView, resultTitle: String, mapCords: [Double]) {
+        // annotateMap(midLocation, view: currentMapView, title: String(stringInterpolationSegment: midLocation.coordinate.longitude))
+        annotateMap(midLocation, view: currentMapView, title: resultTitle)
         annotateMap(friendLocation, view: currentMapView, title: "Friend's Location")
         let distance : Double = midLocation.distanceFromLocation(friendLocation)
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(midLocation.coordinate, (distance * 2) + 10, (distance * 2) + 10)
+        // let coordinateRegion = MKCoordinateRegionMakeWithDistance(midLocation.coordinate, (distance * 2) + 10, (distance * 2) + 10)
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(CLLocation(latitude: mapCords[0], longitude: mapCords[1]).coordinate, mapCords[2] * 1.2, mapCords[3] * 1.2)
         view.setRegion(coordinateRegion, animated: true)
         
         // Automatically showing the "Halfway" annotation:
@@ -139,7 +147,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         // Finding the halfway annotation.
         for annObject in view.annotations {
             var annotation = annObject as! MKAnnotation
-            if (annotation.title == "Halfway") {
+            if (annotation.title == resultTitle) {
                 halfwayAnnotation = annotation
             }
         }
@@ -169,6 +177,17 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         state.text = ""
         yelpLocationResult.text = ""
         yelpAddressResult.text = ""
+    }
+    /**
+     * Remove the halfway annotation. Used whenever a new address is entered.
+     * http://stackoverflow.com/questions/10865088/how-do-i-remove-all-annotations-from-mkmapview-except-the-user-location-annotati
+     */
+    private func removeHalfwayAnnotation() -> Void {
+        var halfwayAnnotation: MKAnnotation!
+        let annotationsToRemove = currentMapView.annotations.filter {
+            $0.title != "Current Location" && $0.title != "Friend's Location"
+        }
+        currentMapView.removeAnnotations(annotationsToRemove)
     }
 }
 

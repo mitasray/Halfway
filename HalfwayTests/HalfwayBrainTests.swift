@@ -16,21 +16,21 @@ public class HalfwayBrainTests: XCTestCase {
     var testLocation2 = CLLocation(latitude: 10, longitude: 10)
     
     public func testSetCurrentLocation() {
-        var brain = HalfwayBrain(current_location: testLocation1, target_location: testLocation2)
+        var brain = HalfwayBrain(currentLocation: testLocation1, targetLocation: testLocation2)
         var location = CLLocation(latitude: 15, longitude: 15)
         brain.setCurrentLocation(location)
         XCTAssertEqual(location, brain.getCurrentLocation(), "current location is set to new location")
     }
     
     public func testSetTargetLocation() {
-        var brain = HalfwayBrain(current_location: testLocation1, target_location: testLocation2)
+        var brain = HalfwayBrain(currentLocation: testLocation1, targetLocation: testLocation2)
         var location = CLLocation(latitude: 15, longitude: 15)
         brain.setTargetLocation(location)
         XCTAssertEqual(location, brain.getTargetLocation(), "current location is set to new location")
     }
     
     public func testCalculateHalfwayLocation() {
-        var brain = HalfwayBrain(current_location: testLocation1, target_location: testLocation2)
+        var brain = HalfwayBrain(currentLocation: testLocation1, targetLocation: testLocation2)
         var halfwayLocation = brain.calculateHalfwayLocation()
         var expectedHalfwayLocation = CLLocation(latitude: 5, longitude: 5)
         XCTAssertEqual(halfwayLocation.coordinate.longitude, halfwayLocation.coordinate.longitude, "halfway longitude is calculated correctly")

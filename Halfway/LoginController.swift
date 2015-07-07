@@ -13,8 +13,7 @@ import SwiftyJSON
 
 public class LoginController: UIViewController {
     
-    let invalidLoginMessage = "translation missing: en.sessions_controller.invalid_login_attempt"
-    let url = "http://halfway-db.heroku/v1/login"
+    let url = "http://halfway-db.herokuapp.com/v1/login"
     let defaults = NSUserDefaults.standardUserDefaults()
     
     @IBOutlet weak var username: UITextField!
@@ -25,11 +24,13 @@ public class LoginController: UIViewController {
             "username": username.text,
             "password": password.text,
         ]
-        request(.POST, self.url, parameters: parameters).responseJSON { (req, res, json, error) in
+        request(.POST, self.url, parameters: parameters).validate().responseJSON { (req, res, json, error) in
             var json = JSON(json!)
+            println(json)
             var errorMessage = String(stringInterpolationSegment: json["error"])
-            if errorMessage == self.invalidLoginMessage {
-                println(self.invalidLoginMessage)
+            println(errorMessage)
+            if errorMessage == "translation missing: en.sessions_controller.invalid_login_attempt" {
+                println("invalid")
             }
             else {
                 NSLog("Success: \(self.url)")

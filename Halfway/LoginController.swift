@@ -14,7 +14,7 @@ import SwiftyJSON
 public class LoginController: UIViewController {
     
     let invalidLoginMessage = "translation missing: en.sessions_controller.invalid_login_attempt"
-    let url = "http://localhost:3000/v1/login"
+    let url = "http://halfway-db.herokuapp.com/v1/login"
     let defaults = NSUserDefaults.standardUserDefaults()
     
     @IBOutlet weak var username: UITextField!

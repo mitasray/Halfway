@@ -13,7 +13,7 @@ import SwiftyJSON
 
 public class SignupController: UIViewController {
     
-    let url = "http://localhost:3000/v1/signup"
+    let url = "http://halfway-db.herokuapp.com/v1/signup"
     let defaults = NSUserDefaults.standardUserDefaults()
     
     @IBOutlet weak var email: UITextField!

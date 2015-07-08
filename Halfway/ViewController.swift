@@ -23,6 +23,10 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     var yelpJSON: JSON = JSON([])
     let defaults = NSUserDefaults.standardUserDefaults()
     
+    @IBAction func search(sender: AnyObject) {
+        var searchController: SearchController = self.storyboard?.instantiateViewControllerWithIdentifier("Search") as! SearchController
+        self.navigationController?.pushViewController(searchController, animated: true)
+    }
     
     @IBOutlet weak var currentMapView: MKMapView!
     @IBOutlet var address: UITextField!
@@ -31,7 +35,6 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var yelpLocationResult: UILabel!
     @IBOutlet weak var yelpAddressResult: UILabel!
     @IBOutlet weak var currentUserLabel: UILabel!
-    
     
     @IBAction func logOut(sender: AnyObject) -> Void {
         self.defaults.removeObjectForKey("username")
@@ -195,4 +198,3 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         currentMapView.removeAnnotations(annotationsToRemove)
     }
 }
-

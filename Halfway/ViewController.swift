@@ -40,40 +40,47 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         self.navigationController?.pushViewController(loginController, animated: true)
     }
     
+    /**
+     * Using CLGeocoder: http://stackoverflow.com/questions/24706885/how-can-i-plot-addresses-in-swift-converting-address-to-longitude-and-latitude
+     */
     @IBAction func findHalfway(sender: AnyObject) -> Void {
         // Checks to make sure that none of the text fields are empty.
         if address.text == "" || city.text == "" || state.text == "" {
             return
         }
         
-        var geocode: Geocoder = Geocoder(address: address.text, city: city.text, state: state.text)
-        var targetLocation: CLLocation = CLLocation(latitude: geocode.getLatitude(), longitude: geocode.getLongitude())
-        if brain.setTargetLocation(targetLocation) {
-            var halfwayLocation: CLLocation = brain.calculateHalfwayLocation()
-            removeHalfwayAnnotation()
-            yelpClient.setSearchLocation(halfwayLocation)
-            yelpClient.client.get(
-                yelpClient.yelpApiUrl,
-                parameters: yelpClient.params,
-                success: { (data, response) -> Void in
-                    let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! NSDictionary
-                    self.yelpJSON = JSON(json)
-                    var yelpResultLatitude: Double = self.yelpJSON["businesses"][0]["location"]["coordinate"]["latitude"].double!
-                    var yelpResultLongitude: Double = self.yelpJSON["businesses"][0]["location"]["coordinate"]["longitude"].double!
-                    var yelpLocation: CLLocation = CLLocation(latitude: yelpResultLatitude, longitude: yelpResultLongitude)
-                    var resultLocation: String = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["name"])
-                    var resultAddress: String = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["location"]["display_address"][0])
-                    self.displayYelpResults(resultLocation, address: resultAddress)
-                    self.map(yelpLocation, friendLocation: targetLocation, view: self.currentMapView, resultTitle: resultLocation, mapCords: self.brain.getMapCoordinates(yelpLocation))
-                },
-                failure: {(error:NSError!) -> Void in
-                    println(error.localizedDescription)
+        var fullAddress: String = address.text + ", " + city.text + ", " + state.text
+        var geocoder: CLGeocoder = CLGeocoder()
+        geocoder.geocodeAddressString(fullAddress, completionHandler: {(placemarks: [AnyObject]!, error: NSError!) -> Void in
+            if let placemark = placemarks?[0] as? CLPlacemark {
+                if self.brain.setTargetLocation(placemark.location) {
+                    var halfwayLocation: CLLocation = self.brain.calculateHalfwayLocation()
+                    self.removeHalfwayAnnotation()
+                    self.yelpClient.setSearchLocation(halfwayLocation)
+                    self.yelpClient.client.get(
+                        self.yelpClient.yelpApiUrl,
+                        parameters: self.yelpClient.params,
+                        success: { (data, response) -> Void in
+                            let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! NSDictionary
+                            self.yelpJSON = JSON(json)
+                            var yelpResultLatitude: Double = self.yelpJSON["businesses"][0]["location"]["coordinate"]["latitude"].double!
+                            var yelpResultLongitude: Double = self.yelpJSON["businesses"][0]["location"]["coordinate"]["longitude"].double!
+                            var yelpLocation: CLLocation = CLLocation(latitude: yelpResultLatitude, longitude: yelpResultLongitude)
+                            var resultLocation: String = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["name"])
+                            var resultAddress: String = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["location"]["display_address"][0])
+                            self.displayYelpResults(resultLocation, address: resultAddress)
+                            self.map(yelpLocation, friendLocation: placemark.location, view: self.currentMapView, resultTitle: resultLocation, mapCords: self.brain.getMapCoordinates(yelpLocation))
+                        },
+                        failure: {(error:NSError!) -> Void in
+                            println(error.localizedDescription)
+                        }
+                    )
+                    self.address.text = ""
+                    self.city.text = ""
+                    self.state.text = ""
                 }
-            )
-            address.text = ""
-            city.text = ""
-            state.text = ""
-        }
+            }
+        })
     }
     
 
@@ -174,6 +181,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         yelpLocationResult.text = ""
         yelpAddressResult.text = ""
     }
+    
     
     /**
      * Remove the halfway annotation. Used whenever a new address is entered.

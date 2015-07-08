@@ -13,7 +13,6 @@
 		0A796F561B3B6DAA00580B6F /* YelpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A796F551B3B6DAA00580B6F /* YelpClient.swift */; };
 		0ABBC3F21B3A88540097E1A9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0ABBC3F11B3A88540097E1A9 /* Info.plist */; };
 		0ABBC3F31B3A88540097E1A9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0ABBC3F11B3A88540097E1A9 /* Info.plist */; };
-		0AD019371B3C735500C79246 /* GeocoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD019341B3C735500C79246 /* GeocoderTests.swift */; };
 		0AD019381B3C735500C79246 /* HalfwayBrainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD019351B3C735500C79246 /* HalfwayBrainTests.swift */; };
 		0AD019391B3C735500C79246 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AD019361B3C735500C79246 /* Info.plist */; };
 		0AE5568A1B47D88C00FF0E1E /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE556891B47D88C00FF0E1E /* LoginController.swift */; };
@@ -44,7 +43,6 @@
 		0A6D7C681B3A764900AA09C4 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		0A796F551B3B6DAA00580B6F /* YelpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpClient.swift; sourceTree = "<group>"; };
 		0ABBC3F11B3A88540097E1A9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HalfwayTests/Info.plist; sourceTree = "<group>"; };
-		0AD019341B3C735500C79246 /* GeocoderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeocoderTests.swift; sourceTree = "<group>"; };
 		0AD019351B3C735500C79246 /* HalfwayBrainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfwayBrainTests.swift; sourceTree = "<group>"; };
 		0AD019361B3C735500C79246 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AE556891B47D88C00FF0E1E /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -94,7 +92,6 @@
 		0AD019331B3C735500C79246 /* HalfwayTests */ = {
 			isa = PBXGroup;
 			children = (
-				0AD019341B3C735500C79246 /* GeocoderTests.swift */,
 				0AD019351B3C735500C79246 /* HalfwayBrainTests.swift */,
 				0AD019361B3C735500C79246 /* Info.plist */,
 			);
@@ -337,7 +334,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AD019371B3C735500C79246 /* GeocoderTests.swift in Sources */,
 				0AD019381B3C735500C79246 /* HalfwayBrainTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

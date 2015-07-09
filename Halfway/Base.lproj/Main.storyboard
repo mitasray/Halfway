@@ -266,10 +266,10 @@
             </objects>
             <point key="canvasLocation" x="-970.5" y="231.5"/>
         </scene>
-        <!--Yelp Search Options Controller Scene-->
+        <!--Yelp Search Options Controller-->
         <scene sceneID="cfB-pq-YDI">
             <objects>
-                <tableViewController title="Yelp Search Options Controller Scene" id="WkG-TQ-78L" customClass="YelpSearchOptionsController" customModule="Halfway" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Yelp Search Options" id="WkG-TQ-78L" customClass="YelpSearchOptionsController" customModule="Halfway" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="m94-AJ-e3f">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

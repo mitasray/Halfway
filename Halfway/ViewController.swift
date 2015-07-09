@@ -28,6 +28,13 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         self.navigationController?.pushViewController(searchController, animated: true)
     }
     
+    @IBOutlet weak var searchOption: UIButton!
+    @IBAction func yelpSearchOptions(sender: AnyObject) {
+        var yelpSearchOptionsController: YelpSearchOptionsController = self.storyboard?.instantiateViewControllerWithIdentifier("Yelp Search Options") as! YelpSearchOptionsController
+        self.navigationController?.pushViewController(yelpSearchOptionsController, animated: true)
+    }
+    
+    
     @IBOutlet weak var currentMapView: MKMapView!
     @IBOutlet var address: UITextField!
     @IBOutlet var city: UITextField!

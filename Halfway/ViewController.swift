@@ -36,6 +36,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var yelpAddressResult: UILabel!
     @IBOutlet weak var currentUserLabel: UILabel!
     
+    
     @IBAction func logOut(sender: AnyObject) -> Void {
         self.defaults.removeObjectForKey("username")
         resetFields()

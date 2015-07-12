@@ -14,11 +14,7 @@ import Alamofire
 
 
 
-protocol DetailsDelegate {
-    func buttonDelegateMethodWithString(string: String)
-}
-
-public class ViewController: UIViewController, CLLocationManagerDelegate {
+public class ViewController: UIViewController, CLLocationManagerDelegate, DetailsDelegate {
 
     let locationManager = CLLocationManager()
     var currLocation: CLLocation! = nil
@@ -33,7 +29,6 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBOutlet weak var searchOption: UIButton!
-    var delegate: DetailsDelegate! = nil
     
     @IBAction func yelpSearchOptions(sender: AnyObject) {
         var yelpSearchOptionsController: YelpSearchOptionsController = self.storyboard?.instantiateViewControllerWithIdentifier("Yelp Search Options") as! YelpSearchOptionsController

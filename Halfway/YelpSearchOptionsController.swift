@@ -9,7 +9,13 @@
 import Foundation
 import UIKit
 
-public class YelpSearchOptionsController: UITableViewController, DetailsDelegate {
+protocol DetailsDelegate {
+    func buttonDelegateMethodWithString(string: String)
+}
+
+public class YelpSearchOptionsController: UITableViewController {
+    
+    var delegate: DetailsDelegate! = nil
     
     var options: [String] = ["Restaurant", "Coffee", "Bar", "Park", "Mall"]
     var selected: String = "Restaurant"
@@ -38,7 +44,9 @@ public class YelpSearchOptionsController: UITableViewController, DetailsDelegate
      */
     public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         let controller = segue.destinationViewController as! ViewController
-        
+        if delegate != nil {
+            delegate!.buttonDelegateMethodWithString(selected)
+        }
     }
     
 }

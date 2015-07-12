@@ -10,11 +10,11 @@ import Foundation
 
 public class User {
     
+    public let user_id: Int
     public let username: String
-    public let access_token: String
     
-    public init(username: String, access_token: String) {
+    public init(username: String, user_id: Int) {
+        self.user_id = user_id
         self.username = username
-        self.access_token = access_token
     }
 }

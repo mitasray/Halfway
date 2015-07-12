@@ -28,6 +28,11 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         self.navigationController?.pushViewController(searchController, animated: true)
     }
     
+    @IBAction func friends(sender: AnyObject) {
+        var friendsController: FriendsController = self.storyboard?.instantiateViewControllerWithIdentifier("Friends") as! FriendsController
+        self.navigationController?.pushViewController(friendsController, animated: true)
+    }
+    
     @IBOutlet weak var currentMapView: MKMapView!
     @IBOutlet var address: UITextField!
     @IBOutlet var city: UITextField!

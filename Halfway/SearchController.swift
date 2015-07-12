@@ -13,20 +13,24 @@ import SwiftyJSON
 
 public class SearchController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     
-    let url = "http://halfway-db.herokuapp.com/v1/users"
+    let users_url = "http://halfway-db.herokuapp.com/v1/users/"
     let defaults = NSUserDefaults.standardUserDefaults()
-    var userList:[String] = []
-    var filteredUsers = [String]()
+    var userList:[User] = []
+    var filteredUsers = [User]()
     let access_token: String = NSUserDefaults.standardUserDefaults().stringForKey("access_token")!
+    let user_id: String = NSUserDefaults.standardUserDefaults().stringForKey("user_id")!
     
     public func listOfAllUsers() {
-        request(.GET, self.url, parameters: ["access_token": self.access_token]).responseJSON() {
+        request(.GET, self.users_url, parameters: ["access_token": self.access_token]).responseJSON() {
             (_, _, json, _) in
-            println(JSON)
             var json = JSON(json!)
             var numberOfUsers = json.count
             for (var user_index = 0; user_index < numberOfUsers; user_index++) {
-                self.addUsername(String(stringInterpolationSegment: json[user_index]["username"]))
+                var username = String(stringInterpolationSegment: json[user_index]["username"])
+                var user_id: Int? = String(stringInterpolationSegment: json[user_index]["id"]).toInt()
+                
+                var user: User = User(username: username, user_id: user_id!)
+                self.addUser(user)
             }
             dispatch_async(dispatch_get_main_queue()) {
                 self.tableView.reloadData()
@@ -34,13 +38,19 @@ public class SearchController: UITableViewController, UISearchBarDelegate, UISea
         }
     }
     
-    public func addUsername(username: String) {
-        userList.append(username)
+    public func addUser(user: User) {
+        userList.append(user)
     }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         listOfAllUsers()
+    }
+    
+    public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var friend = self.userList[indexPath.row]
+        request(.POST, self.users_url + "\(friend.user_id)/friendships", parameters: ["friend_id": self.user_id])
+        println("created friend")
     }
 
     public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -56,9 +66,9 @@ public class SearchController: UITableViewController, UISearchBarDelegate, UISea
         var username: String
         
         if tableView == self.searchDisplayController!.searchResultsTableView {
-            username = filteredUsers[indexPath.row]
+            username = filteredUsers[indexPath.row].username
         } else {
-            username = userList[indexPath.row]
+            username = userList[indexPath.row].username
         }
 
         cell.textLabel?.text = username
@@ -68,9 +78,9 @@ public class SearchController: UITableViewController, UISearchBarDelegate, UISea
     }
     
     private func filterUsersForSearchText(searchText: String, scope: String = "All") {
-        self.filteredUsers = self.userList.filter({( user: String) -> Bool in
-            let categoryMatch = (scope == "All") || (user == scope)
-            let stringMatch = user.rangeOfString(searchText)
+        self.filteredUsers = self.userList.filter({( user: User) -> Bool in
+            let categoryMatch = (scope == "All") || (user.username == scope)
+            let stringMatch = user.username.rangeOfString(searchText)
             return categoryMatch && (stringMatch != nil)
         })
     }

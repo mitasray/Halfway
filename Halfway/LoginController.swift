@@ -34,10 +34,12 @@ public class LoginController: UIViewController {
             }
             else {
                 NSLog("Success: \(self.url)")
+                var user_id = String(stringInterpolationSegment: json["id"])
                 var username = String(stringInterpolationSegment: json["username"])
                 var access_token = String(stringInterpolationSegment: json["access_token"])
                 
                 self.defaults.setObject(username, forKey: "username")
+                self.defaults.setObject(user_id, forKey: "user_id")
                 self.defaults.setObject(access_token, forKey: "access_token")
                 self.navigationController?.popToRootViewControllerAnimated(true)
             }

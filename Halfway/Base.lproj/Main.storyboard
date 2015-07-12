@@ -222,6 +222,7 @@
                                 </state>
                                 <connections>
                                     <action selector="yelpSearchOptions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vE7-Pd-yaE"/>
+                                    <segue destination="WkG-TQ-78L" kind="show" identifier="viewSearchOptions" id="ucL-In-x7I"/>
                                 </connections>
                             </button>
                         </subviews>

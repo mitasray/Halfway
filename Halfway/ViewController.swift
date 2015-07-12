@@ -31,8 +31,6 @@ public class ViewController: UIViewController, CLLocationManagerDelegate, Detail
     @IBOutlet weak var searchOption: UIButton!
     
     @IBAction func yelpSearchOptions(sender: AnyObject) {
-        var yelpSearchOptionsController: YelpSearchOptionsController = self.storyboard?.instantiateViewControllerWithIdentifier("Yelp Search Options") as! YelpSearchOptionsController
-        self.navigationController?.pushViewController(yelpSearchOptionsController, animated: true)
     }
     
     public func buttonDelegateMethodWithString(string: String) {
@@ -40,6 +38,12 @@ public class ViewController: UIViewController, CLLocationManagerDelegate, Detail
         searchOption.setTitle(string + " >", forState: UIControlState.Normal)
     }
     
+    override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "viewSearchOptions" {
+            let vc = segue.destinationViewController as! YelpSearchOptionsController
+            vc.delegate = self
+        }
+    }
     
     @IBOutlet weak var currentMapView: MKMapView!
     @IBOutlet var address: UITextField!

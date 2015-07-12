@@ -288,10 +288,13 @@
                         </connections>
                     </tableView>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="selectOption" id="kl5-ar-Vwo"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oVX-lo-p3i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-970.5" y="959.5"/>
+            <point key="canvasLocation" x="-1447.5" y="1015.5"/>
         </scene>
         <!--Signup Controller-->
         <scene sceneID="JFt-RP-g8X">
@@ -380,4 +383,7 @@
             <point key="canvasLocation" x="-454.5" y="569.5"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="kl5-ar-Vwo"/>
+    </inferredMetricsTieBreakers>
 </document>

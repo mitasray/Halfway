@@ -9,16 +9,10 @@
 import Foundation
 import UIKit
 
-protocol DetailsDelegate {
-    func buttonDelegateMethodWithString(controller: YelpSearchOptionsController, string: String)
-}
-
-public class YelpSearchOptionsController: UITableViewController {
+public class YelpSearchOptionsController: UITableViewController, DetailsDelegate {
     
     var options: [String] = ["Restaurant", "Coffee", "Bar", "Park", "Mall"]
     var selected: String = "Restaurant"
-    
-    var delegate: DetailsDelegate! = nil
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,9 +31,14 @@ public class YelpSearchOptionsController: UITableViewController {
     
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) -> Void {
         selected = options[indexPath.row]
-        if delegate != nil {
-            delegate!.buttonDelegateMethodWithString(self, string: selected)
-        }
+    }
+    
+    /**
+     * http://stackoverflow.com/questions/25204255/access-the-instance-of-a-viewcontroller-from-another-in-swift
+     */
+    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        let controller = segue.destinationViewController as! ViewController
+        
     }
     
 }

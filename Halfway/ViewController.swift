@@ -31,6 +31,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate, Detail
     @IBOutlet weak var searchOption: UIButton!
     
     @IBAction func yelpSearchOptions(sender: AnyObject) {
+        // All the work is done in the prepareForSegue(...) method
     }
     
     public func buttonDelegateMethodWithString(string: String) {
@@ -38,6 +39,9 @@ public class ViewController: UIViewController, CLLocationManagerDelegate, Detail
         searchOption.setTitle(string + " >", forState: UIControlState.Normal)
     }
     
+    /**
+     * http://makeapppie.com/2014/07/01/swift-swift-using-segues-and-delegates-in-navigation-controllers-part-1-the-template/
+     */
     override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "viewSearchOptions" {
             let vc = segue.destinationViewController as! YelpSearchOptionsController
@@ -83,11 +87,12 @@ public class ViewController: UIViewController, CLLocationManagerDelegate, Detail
                         success: { (data, response) -> Void in
                             let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! NSDictionary
                             self.yelpJSON = JSON(json)
-                            var yelpResultLatitude: Double = self.yelpJSON["businesses"][0]["location"]["coordinate"]["latitude"].double!
-                            var yelpResultLongitude: Double = self.yelpJSON["businesses"][0]["location"]["coordinate"]["longitude"].double!
+                            var yelpResult = self.yelpJSON["businesses"][0]
+                            var yelpResultLatitude: Double = yelpResult["location"]["coordinate"]["latitude"].double!
+                            var yelpResultLongitude: Double = yelpResult["location"]["coordinate"]["longitude"].double!
                             var yelpLocation: CLLocation = CLLocation(latitude: yelpResultLatitude, longitude: yelpResultLongitude)
-                            var resultLocation: String = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["name"])
-                            var resultAddress: String = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["location"]["display_address"][0])
+                            var resultLocation: String = String(stringInterpolationSegment: yelpResult["name"])
+                            var resultAddress: String = String(stringInterpolationSegment: yelpResult["location"]["display_address"][0])
                             self.displayYelpResults(resultLocation, address: resultAddress)
                             self.map(yelpLocation, friendLocation: placemark.location, view: self.currentMapView, resultTitle: resultLocation, mapCords: self.brain.getMapCoordinates(yelpLocation))
                         },

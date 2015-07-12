@@ -14,7 +14,7 @@ import Alamofire
 
 
 
-public class ViewController: UIViewController, CLLocationManagerDelegate {
+public class ViewController: UIViewController, CLLocationManagerDelegate, DetailsDelegate {
 
     let locationManager = CLLocationManager()
     var currLocation: CLLocation! = nil
@@ -32,6 +32,18 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func yelpSearchOptions(sender: AnyObject) {
         var yelpSearchOptionsController: YelpSearchOptionsController = self.storyboard?.instantiateViewControllerWithIdentifier("Yelp Search Options") as! YelpSearchOptionsController
         self.navigationController?.pushViewController(yelpSearchOptionsController, animated: true)
+    }
+    
+    public func buttonDelegateMethodWithString(controller: YelpSearchOptionsController, string: String) {
+        searchOption.setTitle(string + " >", forState: UIControlState.Normal)
+    }
+    
+    /**
+     * http://stackoverflow.com/questions/25204255/access-the-instance-of-a-viewcontroller-from-another-in-swift
+     */
+    public override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        let controller = segue.destinationViewController as! YelpSearchOptionsController
+        controller.delegate = self
     }
     
     

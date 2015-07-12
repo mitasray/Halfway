@@ -9,9 +9,16 @@
 import Foundation
 import UIKit
 
+protocol DetailsDelegate {
+    func buttonDelegateMethodWithString(controller: YelpSearchOptionsController, string: String)
+}
+
 public class YelpSearchOptionsController: UITableViewController {
     
     var options: [String] = ["Restaurant", "Coffee", "Bar", "Park", "Mall"]
+    var selected: String = "Restaurant"
+    
+    var delegate: DetailsDelegate! = nil
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,4 +34,12 @@ public class YelpSearchOptionsController: UITableViewController {
         cell.textLabel?.text = option
         return cell
     }
+    
+    public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) -> Void {
+        selected = options[indexPath.row]
+        if delegate != nil {
+            delegate!.buttonDelegateMethodWithString(self, string: selected)
+        }
+    }
+    
 }

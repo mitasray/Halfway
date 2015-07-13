@@ -117,6 +117,8 @@ public class ViewController: UIViewController, CLLocationManagerDelegate, Detail
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
+        
+        self.currentMapView.delegate = self
     }
     
     public override func viewDidAppear(animated: Bool) -> Void {
@@ -193,6 +195,27 @@ public class ViewController: UIViewController, CLLocationManagerDelegate, Detail
         view.selectAnnotation(halfwayAnnotation, animated: true)
     }
     
+    /**
+     * http://studyswift.blogspot.com/2014/10/viewforannotation-pincolor-change-pin.html
+     */
+    public func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        if annotation.isKindOfClass(MKUserLocation) {
+            return nil
+        }
+        var myPin = mapView.dequeueReusableAnnotationViewWithIdentifier("MyIdentifier") as? MKPinAnnotationView
+        if myPin != nil {
+            return myPin
+        }
+        
+        myPin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "MyIdentifier")
+        if annotation.title == "Friend's Location" || annotation.title == "Current Location" {
+            myPin?.pinColor = .Red
+        } else {
+            myPin?.pinColor = .Green
+        }
+        return myPin
+    }
+
     /** Removes the keyboard from the display. */
     @IBAction func viewTapped(sender: AnyObject) -> Void {
     }

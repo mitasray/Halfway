@@ -14,7 +14,7 @@ import Alamofire
 
 
 
-public class ViewController: UIViewController, CLLocationManagerDelegate, DetailsDelegate {
+public class ViewController: UIViewController, CLLocationManagerDelegate, DetailsDelegate, MKMapViewDelegate {
 
     let locationManager = CLLocationManager()
     var currLocation: CLLocation! = nil
@@ -95,7 +95,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate, Detail
                             var resultLocation: String = String(stringInterpolationSegment: yelpResult["name"])
                             var resultAddress: String = String(stringInterpolationSegment: yelpResult["location"]["display_address"][0])
                             self.displayYelpResults(resultLocation, address: resultAddress)
-                            self.map(yelpLocation, friendLocation: placemark.location, view: self.currentMapView, resultTitle: resultLocation, mapCords: self.brain.getMapCoordinates(yelpLocation))
+                            self.map(yelpLocation, friendLocation: placemark.location, view: self.currentMapView, resultTitle: resultLocation)
                         },
                         failure: {(error:NSError!) -> Void in
                             println(error.localizedDescription)
@@ -162,12 +162,10 @@ public class ViewController: UIViewController, CLLocationManagerDelegate, Detail
         view.setRegion(coordinateRegion, animated: true)
     }
     
-    private func map(midLocation: CLLocation, friendLocation: CLLocation, view: MKMapView, resultTitle: String, mapCords: [Double]) -> Void {
+    private func map(midLocation: CLLocation, friendLocation: CLLocation, view: MKMapView, resultTitle: String) -> Void {
         annotateMap(midLocation, view: currentMapView, title: resultTitle)
         annotateMap(friendLocation, view: currentMapView, title: "Friend's Location")
-        let distance : Double = midLocation.distanceFromLocation(friendLocation)
-        let coordinateRegion: MKCoordinateRegion = MKCoordinateRegionMakeWithDistance(CLLocation(latitude: mapCords[0], longitude: mapCords[1]).coordinate, mapCords[2] * 1.2, mapCords[3] * 1.2)
-        view.setRegion(coordinateRegion, animated: true)
+        let distance: Double = midLocation.distanceFromLocation(friendLocation)
         
         // Automatically showing the "Halfway" annotation:
         // http://stackoverflow.com/questions/28198053/show-annotation-title-automatically
@@ -178,8 +176,20 @@ public class ViewController: UIViewController, CLLocationManagerDelegate, Detail
             var annotation = annObject as! MKAnnotation
             if annotation.title == resultTitle {
                 halfwayAnnotation = annotation
+                view.centerCoordinate = halfwayAnnotation.coordinate
             }
         }
+        
+        var maxDistance: Double = 0
+        for annObject: AnyObject in view.annotations {
+            var annotation = annObject as! MKAnnotation
+            var distance: Double = CLLocation(latitude: halfwayAnnotation.coordinate.latitude, longitude: halfwayAnnotation.coordinate.longitude).distanceFromLocation(CLLocation(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude))
+            if distance > maxDistance {
+                maxDistance = distance
+            }
+        }
+        let coordinateRegion: MKCoordinateRegion = MKCoordinateRegionMakeWithDistance(halfwayAnnotation.coordinate, maxDistance * 2, maxDistance * 2)
+        view.setRegion(coordinateRegion, animated: true)
         view.selectAnnotation(halfwayAnnotation, animated: true)
     }
     
@@ -207,7 +217,6 @@ public class ViewController: UIViewController, CLLocationManagerDelegate, Detail
         yelpLocationResult.text = ""
         yelpAddressResult.text = ""
     }
-    
     
     /**
      * Remove the halfway annotation. Used whenever a new address is entered.

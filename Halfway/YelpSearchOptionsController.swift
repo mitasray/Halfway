@@ -17,8 +17,8 @@ public class YelpSearchOptionsController: UITableViewController {
     
     var delegate: DetailsDelegate! = nil
     
-    var options: [String] = ["Restaurant", "Coffee", "Bar", "Park", "Mall"]
-    var selected: String = "Restaurant"
+    var options: [String] = ["food", "restaurant", "coffee", "bar", "park", "mall"]
+    var selected: String = "food"
     
     public override func viewDidLoad() {
         super.viewDidLoad()

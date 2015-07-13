@@ -22,6 +22,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate, Detail
     let brain: HalfwayBrain = HalfwayBrain()
     var yelpJSON: JSON = JSON([])
     let defaults = NSUserDefaults.standardUserDefaults()
+    var type: String = "food"
     
     @IBAction func search(sender: AnyObject) {
         var searchController: SearchController = self.storyboard?.instantiateViewControllerWithIdentifier("Search") as! SearchController
@@ -35,7 +36,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate, Detail
     }
     
     public func buttonDelegateMethodWithString(string: String) {
-        print(string)
+        type = string
         searchOption.setTitle(string + " >", forState: UIControlState.Normal)
     }
     
@@ -80,7 +81,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate, Detail
                 if self.brain.setTargetLocation(placemark.location) {
                     var halfwayLocation: CLLocation = self.brain.calculateHalfwayLocation()
                     self.removeHalfwayAnnotation()
-                    self.yelpClient.setSearchLocation(halfwayLocation)
+                    self.yelpClient.setSearchLocation(halfwayLocation, type: self.type)
                     self.yelpClient.client.get(
                         self.yelpClient.yelpApiUrl,
                         parameters: self.yelpClient.params,

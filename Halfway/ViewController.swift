@@ -11,8 +11,7 @@ import CoreLocation
 import MapKit
 import SwiftyJSON
 import Alamofire
-
-
+import KYCircularProgress
 
 public class ViewController: UIViewController, CLLocationManagerDelegate {
 
@@ -38,9 +37,8 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet var city: UITextField!
     @IBOutlet var state: UITextField!
     @IBOutlet weak var yelpLocationResult: UILabel!
-    @IBOutlet weak var yelpAddressResult: UILabel!
     @IBOutlet weak var currentUserLabel: UILabel!
-    
+    @IBOutlet weak var yelpAddress: UIButton!
     
     @IBAction func logOut(sender: AnyObject) -> Void {
         self.defaults.removeObjectForKey("username")
@@ -177,9 +175,9 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         view.addAnnotation(annotation)
     }
 
-    private func displayYelpResults(location: String, address: String) -> Void {
+    private func displayYelpResults(location: String, address: String) {
         yelpLocationResult.text = location
-        yelpAddressResult.text = address
+        yelpAddress.setTitle(address, forState: UIControlState())
     }
     
     private func resetFields() -> Void {
@@ -188,9 +186,11 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         city.text = ""
         state.text = ""
         yelpLocationResult.text = ""
-        yelpAddressResult.text = ""
+        yelpAddress.setTitle("", forState: UIControlState())
     }
     
+    @IBAction func appleMapAddress(sender: AnyObject) {
+    }
     
     /**
      * Remove the halfway annotation. Used whenever a new address is entered.

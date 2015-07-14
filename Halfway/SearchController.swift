@@ -50,7 +50,6 @@ public class SearchController: UITableViewController, UISearchBarDelegate, UISea
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         var friend = self.userList[indexPath.row]
         request(.POST, self.users_url + "\(friend.user_id)/friendships", parameters: ["friend_id": self.user_id])
-        println("created friend")
     }
 
     public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

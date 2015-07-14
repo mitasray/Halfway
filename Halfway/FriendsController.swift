@@ -19,13 +19,10 @@ public class FriendsController: UITableViewController {
     let users_url = "http://halfway-db.herokuapp.com/v1/users/"
     
     public func listOfAllFriends() {
-        println(self.user_id)
         let url = self.users_url + self.user_id! + "/friendships"
-        println(url)
         request(.GET, url).responseJSON() {
             (_, _, json, _) in
             var json = JSON(json!)
-            println(json)
             var numberOfUsers = json.count
             for (var user_index = 0; user_index < numberOfUsers; user_index++) {
                 self.addFriendToFriendList(String(stringInterpolationSegment: json[user_index]["username"]))

@@ -21,18 +21,21 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Alamofire (1.2.3)
+  - KYCircularProgress (0.2.0)
   - OAuthSwift (0.3.6)
   - SwiftyJSON (2.2.0)
 
 DEPENDENCIES:
   - AFNetworking
   - Alamofire
+  - KYCircularProgress
   - OAuthSwift
   - SwiftyJSON
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   Alamofire: 5550bf0b575ed1a4bf9be572f9463e1015cc169e
+  KYCircularProgress: 9a013a83365fce4d46dd25e262a724b31ffd5cfc
   OAuthSwift: 3517e94380923085dfa7f23421bc3d4a61ce48c0
   SwiftyJSON: 0b3e6c07af17ff745e77e8e9984097b55c956e5c
 

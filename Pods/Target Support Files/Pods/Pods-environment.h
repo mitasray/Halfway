@@ -54,6 +54,12 @@
 #define COCOAPODS_VERSION_MINOR_Alamofire 2
 #define COCOAPODS_VERSION_PATCH_Alamofire 3
 
+// KYCircularProgress
+#define COCOAPODS_POD_AVAILABLE_KYCircularProgress
+#define COCOAPODS_VERSION_MAJOR_KYCircularProgress 0
+#define COCOAPODS_VERSION_MINOR_KYCircularProgress 2
+#define COCOAPODS_VERSION_PATCH_KYCircularProgress 0
+
 // OAuthSwift
 #define COCOAPODS_POD_AVAILABLE_OAuthSwift
 #define COCOAPODS_VERSION_MAJOR_OAuthSwift 0

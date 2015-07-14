@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-KYCircularProgress.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-OAuthSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,42 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>175315DCF2632930C5077195</key>
+		<key>0AB6459B9556F1E6D39A6E4D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>17C159F00AE40013B5CF24CF</key>
+		<key>257059B5826001B4474B151A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2A6B22D71C5D5021A04A931D</key>
+		<key>516ECA0BB8D3BF139E665419</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>40F21EE5654E94DB7E3D650B</key>
+		<key>5E41423C75837CF70E18D125</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>86D7D590EA30029E26AB426F</key>
+		<key>62FD975118AC7DBA36D382C7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>980ECDBB1466636CC7ED473F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>997C70388F7148845B577A4F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BEFC06E39A975A4836D62BBD</key>
+		<key>B3F4EBFE4B9C8D73B712DB07</key>
 		<dict>
 			<key>primary</key>
 			<true/>

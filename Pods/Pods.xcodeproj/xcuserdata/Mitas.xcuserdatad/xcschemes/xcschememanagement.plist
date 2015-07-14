@@ -4,30 +4,61 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Pods-AFNetworking.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>Pods-Alamofire.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>Pods-KYCircularProgress.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>Pods-OAuthSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>Pods-SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0AB6459B9556F1E6D39A6E4D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>175315DCF2632930C5077195</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>17C159F00AE40013B5CF24CF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>257059B5826001B4474B151A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -43,6 +74,21 @@
 			<true/>
 		</dict>
 		<key>40F21EE5654E94DB7E3D650B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>516ECA0BB8D3BF139E665419</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5E41423C75837CF70E18D125</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>62FD975118AC7DBA36D382C7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -68,6 +114,11 @@
 			<true/>
 		</dict>
 		<key>997C70388F7148845B577A4F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B3F4EBFE4B9C8D73B712DB07</key>
 		<dict>
 			<key>primary</key>
 			<true/>

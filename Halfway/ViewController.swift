@@ -213,6 +213,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate, Detail
         } else {
             myPin?.pinColor = .Green
         }
+        myPin!.canShowCallout = true
         return myPin
     }
 

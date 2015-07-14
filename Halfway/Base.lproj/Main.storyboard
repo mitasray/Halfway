@@ -179,12 +179,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ewa-Ej-cJF">
-                                <rect key="frame" x="136" y="434" width="195" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rgk-tF-6fu">
                                 <rect key="frame" x="44" y="434" width="68" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -225,6 +219,12 @@
                                     <segue destination="WkG-TQ-78L" kind="show" identifier="viewSearchOptions" id="ucL-In-x7I"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4qe-VR-h9Y">
+                                <rect key="frame" x="120" y="434" width="239" height="30"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -254,7 +254,7 @@
                         <outlet property="currentUserLabel" destination="xdZ-k3-e27" id="Ven-D9-RqP"/>
                         <outlet property="searchOption" destination="sF8-9h-cqk" id="p1k-y4-Wnh"/>
                         <outlet property="state" destination="5kN-2R-kZ1" id="Uff-xs-ds6"/>
-                        <outlet property="yelpAddressResult" destination="ewa-Ej-cJF" id="PYu-qm-Cer"/>
+                        <outlet property="yelpAddress" destination="4qe-VR-h9Y" id="TLB-bt-ib9"/>
                         <outlet property="yelpLocationResult" destination="Rsm-Qz-7fi" id="Jj4-AU-LfT"/>
                     </connections>
                 </viewController>

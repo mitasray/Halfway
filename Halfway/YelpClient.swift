@@ -29,9 +29,9 @@ public class YelpClient {
         )
     }
     
-    public func setSearchLocation(location: CLLocation) -> Void {
+    public func setSearchLocation(location: CLLocation, type: String) -> Void {
         params["ll"] = String(stringInterpolationSegment: location.coordinate.latitude) + "," + String(stringInterpolationSegment: location.coordinate.longitude)
-        params["term"] = "food"
+        params["term"] = type
         params["limit"] = 1
     }
     

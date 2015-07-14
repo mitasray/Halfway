@@ -11,9 +11,8 @@ import CoreLocation
 import MapKit
 import SwiftyJSON
 import Alamofire
-import KYCircularProgress
 
-public class ViewController: UIViewController, CLLocationManagerDelegate {
+public class ViewController: UIViewController, CLLocationManagerDelegate, DetailsDelegate, MKMapViewDelegate {
 
     let locationManager = CLLocationManager()
     var currLocation: CLLocation! = nil
@@ -21,6 +20,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     let brain: HalfwayBrain = HalfwayBrain()
     var yelpJSON: JSON = JSON([])
     let defaults = NSUserDefaults.standardUserDefaults()
+    var type: String = "food"
     
     @IBAction func search(sender: AnyObject) {
         var searchController: SearchController = self.storyboard?.instantiateViewControllerWithIdentifier("Search") as! SearchController
@@ -30,6 +30,27 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func friends(sender: AnyObject) {
         var friendsController: FriendsController = self.storyboard?.instantiateViewControllerWithIdentifier("Friends") as! FriendsController
         self.navigationController?.pushViewController(friendsController, animated: true)
+    }
+    
+    @IBOutlet weak var searchOption: UIButton!
+    
+    @IBAction func yelpSearchOptions(sender: AnyObject) {
+        // All the work is done in the prepareForSegue(...) method
+    }
+    
+    public func buttonDelegateMethodWithString(string: String) {
+        type = string
+        searchOption.setTitle(string + " >", forState: UIControlState.Normal)
+    }
+    
+    /**
+     * http://makeapppie.com/2014/07/01/swift-swift-using-segues-and-delegates-in-navigation-controllers-part-1-the-template/
+     */
+    override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "viewSearchOptions" {
+            let vc = segue.destinationViewController as! YelpSearchOptionsController
+            vc.delegate = self
+        }
     }
     
     @IBOutlet weak var currentMapView: MKMapView!
@@ -63,20 +84,21 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
                 if self.brain.setTargetLocation(placemark.location) {
                     var halfwayLocation: CLLocation = self.brain.calculateHalfwayLocation()
                     self.removeHalfwayAnnotation()
-                    self.yelpClient.setSearchLocation(halfwayLocation)
+                    self.yelpClient.setSearchLocation(halfwayLocation, type: self.type)
                     self.yelpClient.client.get(
                         self.yelpClient.yelpApiUrl,
                         parameters: self.yelpClient.params,
                         success: { (data, response) -> Void in
                             let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! NSDictionary
                             self.yelpJSON = JSON(json)
-                            var yelpResultLatitude: Double = self.yelpJSON["businesses"][0]["location"]["coordinate"]["latitude"].double!
-                            var yelpResultLongitude: Double = self.yelpJSON["businesses"][0]["location"]["coordinate"]["longitude"].double!
+                            var yelpResult = self.yelpJSON["businesses"][0]
+                            var yelpResultLatitude: Double = yelpResult["location"]["coordinate"]["latitude"].double!
+                            var yelpResultLongitude: Double = yelpResult["location"]["coordinate"]["longitude"].double!
                             var yelpLocation: CLLocation = CLLocation(latitude: yelpResultLatitude, longitude: yelpResultLongitude)
-                            var resultLocation: String = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["name"])
-                            var resultAddress: String = String(stringInterpolationSegment: self.yelpJSON["businesses"][0]["location"]["display_address"][0])
+                            var resultLocation: String = String(stringInterpolationSegment: yelpResult["name"])
+                            var resultAddress: String = String(stringInterpolationSegment: yelpResult["location"]["display_address"][0])
                             self.displayYelpResults(resultLocation, address: resultAddress)
-                            self.map(yelpLocation, friendLocation: placemark.location, view: self.currentMapView, resultTitle: resultLocation, mapCords: self.brain.getMapCoordinates(yelpLocation))
+                            self.map(yelpLocation, friendLocation: placemark.location, view: self.currentMapView, resultTitle: resultLocation)
                         },
                         failure: {(error:NSError!) -> Void in
                             println(error.localizedDescription)
@@ -98,6 +120,8 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
+        
+        self.currentMapView.delegate = self
     }
     
     public override func viewDidAppear(animated: Bool) -> Void {
@@ -143,12 +167,10 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
         view.setRegion(coordinateRegion, animated: true)
     }
     
-    private func map(midLocation: CLLocation, friendLocation: CLLocation, view: MKMapView, resultTitle: String, mapCords: [Double]) -> Void {
+    private func map(midLocation: CLLocation, friendLocation: CLLocation, view: MKMapView, resultTitle: String) -> Void {
         annotateMap(midLocation, view: currentMapView, title: resultTitle)
         annotateMap(friendLocation, view: currentMapView, title: "Friend's Location")
-        let distance : Double = midLocation.distanceFromLocation(friendLocation)
-        let coordinateRegion: MKCoordinateRegion = MKCoordinateRegionMakeWithDistance(CLLocation(latitude: mapCords[0], longitude: mapCords[1]).coordinate, mapCords[2] * 1.2, mapCords[3] * 1.2)
-        view.setRegion(coordinateRegion, animated: true)
+        let distance: Double = midLocation.distanceFromLocation(friendLocation)
         
         // Automatically showing the "Halfway" annotation:
         // http://stackoverflow.com/questions/28198053/show-annotation-title-automatically
@@ -159,11 +181,45 @@ public class ViewController: UIViewController, CLLocationManagerDelegate {
             var annotation = annObject as! MKAnnotation
             if annotation.title == resultTitle {
                 halfwayAnnotation = annotation
+                view.centerCoordinate = halfwayAnnotation.coordinate
             }
         }
+        
+        var maxDistance: Double = 0
+        for annObject: AnyObject in view.annotations {
+            var annotation = annObject as! MKAnnotation
+            var distance: Double = CLLocation(latitude: halfwayAnnotation.coordinate.latitude, longitude: halfwayAnnotation.coordinate.longitude).distanceFromLocation(CLLocation(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude))
+            if distance > maxDistance {
+                maxDistance = distance
+            }
+        }
+        let coordinateRegion: MKCoordinateRegion = MKCoordinateRegionMakeWithDistance(halfwayAnnotation.coordinate, maxDistance * 2, maxDistance * 2)
+        view.setRegion(coordinateRegion, animated: true)
         view.selectAnnotation(halfwayAnnotation, animated: true)
     }
     
+    /**
+     * http://studyswift.blogspot.com/2014/10/viewforannotation-pincolor-change-pin.html
+     */
+    public func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        if annotation.isKindOfClass(MKUserLocation) {
+            return nil
+        }
+        var myPin = mapView.dequeueReusableAnnotationViewWithIdentifier("MyIdentifier") as? MKPinAnnotationView
+        if myPin != nil {
+            return myPin
+        }
+        
+        myPin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "MyIdentifier")
+        if annotation.title == "Friend's Location" || annotation.title == "Current Location" {
+            myPin?.pinColor = .Red
+        } else {
+            myPin?.pinColor = .Green
+        }
+        myPin!.canShowCallout = true
+        return myPin
+    }
+
     /** Removes the keyboard from the display. */
     @IBAction func viewTapped(sender: AnyObject) -> Void {
     }

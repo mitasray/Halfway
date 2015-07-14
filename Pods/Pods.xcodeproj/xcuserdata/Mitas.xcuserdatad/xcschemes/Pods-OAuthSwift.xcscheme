@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8E61BF5E9D2B8D3DA5CCEA89"
+               BlueprintIdentifier = "0AB6459B9556F1E6D39A6E4D"
                BuildableName = "OAuthSwift.framework"
                BlueprintName = "Pods-OAuthSwift"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -39,6 +39,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "0AB6459B9556F1E6D39A6E4D"
+            BuildableName = "OAuthSwift.framework"
+            BlueprintName = "Pods-OAuthSwift"
+            ReferencedContainer = "container:Pods.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

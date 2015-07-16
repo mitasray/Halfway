@@ -57,7 +57,8 @@ public class SearchController: UITableViewController, UISearchBarDelegate, UISea
             return self.filteredUsers.count
         } else {
             return self.userList.count
-        }    }
+        }
+    }
     
     public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell

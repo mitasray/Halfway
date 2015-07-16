@@ -38,8 +38,13 @@ public class SignupController: UIViewController {
             else {
                 NSLog("Success: \(self.url)")
                 var username = String(stringInterpolationSegment: json["username"])
+                var user_id = String(stringInterpolationSegment: json["id"])
+                var access_token = String(stringInterpolationSegment: json["access_token"])
                 self.defaults.setObject(username, forKey: "username")
-                self.navigationController?.popToRootViewControllerAnimated(true)
+                self.defaults.setObject(user_id, forKey: "user_id")
+                self.defaults.setObject(access_token, forKey: "access_token")
+                var MainNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("main") as! UIViewController
+                self.navigationController?.pushViewController(MainNavigationController, animated: true)
             }
         }
     }

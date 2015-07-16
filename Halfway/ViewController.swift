@@ -62,10 +62,10 @@ public class ViewController: UIViewController, CLLocationManagerDelegate, Detail
     @IBOutlet weak var yelpAddress: UIButton!
     
     @IBAction func logOut(sender: AnyObject) -> Void {
-        self.defaults.removeObjectForKey("username")
+        for key in defaults.dictionaryRepresentation().keys {
+            NSUserDefaults.standardUserDefaults().removeObjectForKey(key.description)
+        }
         resetFields()
-        var loginController: LoginController = self.storyboard?.instantiateViewControllerWithIdentifier("Login") as! LoginController
-        self.navigationController?.pushViewController(loginController, animated: true)
     }
     
     /**

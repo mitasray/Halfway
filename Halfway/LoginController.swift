@@ -41,7 +41,8 @@ public class LoginController: UIViewController {
                 self.defaults.setObject(username, forKey: "username")
                 self.defaults.setObject(user_id, forKey: "user_id")
                 self.defaults.setObject(access_token, forKey: "access_token")
-                self.navigationController?.popToRootViewControllerAnimated(true)
+                var MainNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("main") as! UIViewController
+                self.navigationController?.pushViewController(MainNavigationController, animated: true)
             }
         }
     }

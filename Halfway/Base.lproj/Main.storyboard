@@ -138,7 +138,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-1499.5" y="1558.5"/>
+            <point key="canvasLocation" x="-1158.75" y="1552.5"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -295,7 +295,164 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-615.5" y="744.5"/>
+            <point key="canvasLocation" x="191.25" y="744.5"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="WPh-29-vww">
+            <objects>
+                <viewController id="Pca-aY-PZt" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rCn-HY-bhD"/>
+                        <viewControllerLayoutGuide type="bottom" id="DMB-Ls-7E6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EX0-p0-w9W">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kj4-vw-pvU">
+                                <rect key="frame" x="44" y="329" width="287" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="30" y="268" width="287" height="30"/>
+                                </variation>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friend's Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UsG-Mo-Whj">
+                                <rect key="frame" x="121" y="300" width="133" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="107" y="239" width="133" height="21"/>
+                                </variation>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D8i-sZ-SIm">
+                                <rect key="frame" x="44" y="367" width="134" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="30" y="306" width="134" height="30"/>
+                                </variation>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="State" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Od2-Hg-qos">
+                                <rect key="frame" x="186" y="367" width="48" height="30"/>
+                                <gestureRecognizers/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="172" y="306" width="48" height="30"/>
+                                </variation>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XSf-FV-YnL">
+                                <rect key="frame" x="44" y="405" width="72" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="30" y="344" width="72" height="21"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBV-4Y-U81">
+                                <rect key="frame" x="136" y="404" width="195" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="122" y="343" width="195" height="21"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mto-ZO-eoc">
+                                <rect key="frame" x="44" y="434" width="68" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="30" y="373" width="68" height="21"/>
+                                </variation>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihi-5k-2g2">
+                                <rect key="frame" x="242" y="366" width="89" height="30"/>
+                                <state key="normal" title="Halfway">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="228" y="305" width="89" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="findHalfway:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EgB-57-v7s"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lua-Vf-Cxk">
+                                <rect key="frame" x="269" y="296" width="90" height="30"/>
+                                <state key="normal" title="Find a Friend">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="255" y="235" width="90" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="search:" destination="BYZ-38-t0r" eventType="touchUpInside" id="V7C-ci-gbb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yi8-M5-gwk">
+                                <rect key="frame" x="44" y="463" width="287" height="30"/>
+                                <state key="normal" title="food &gt;">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="30" y="402" width="287" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="yelpSearchOptions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wWd-Xx-FSq"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iuk-zv-lyI">
+                                <rect key="frame" x="120" y="434" width="239" height="30"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="106" y="373" width="239" height="30"/>
+                                </variation>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="kj4-vw-pvU"/>
+                                <exclude reference="UsG-Mo-Whj"/>
+                                <exclude reference="D8i-sZ-SIm"/>
+                                <exclude reference="Od2-Hg-qos"/>
+                                <exclude reference="XSf-FV-YnL"/>
+                                <exclude reference="oBV-4Y-U81"/>
+                                <exclude reference="mto-ZO-eoc"/>
+                                <exclude reference="ihi-5k-2g2"/>
+                                <exclude reference="Lua-Vf-Cxk"/>
+                                <exclude reference="yi8-M5-gwk"/>
+                                <exclude reference="Iuk-zv-lyI"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="kj4-vw-pvU"/>
+                                <include reference="UsG-Mo-Whj"/>
+                                <include reference="D8i-sZ-SIm"/>
+                                <include reference="Od2-Hg-qos"/>
+                                <include reference="XSf-FV-YnL"/>
+                                <include reference="oBV-4Y-U81"/>
+                                <include reference="mto-ZO-eoc"/>
+                                <include reference="ihi-5k-2g2"/>
+                                <include reference="Lua-Vf-Cxk"/>
+                                <include reference="yi8-M5-gwk"/>
+                                <include reference="Iuk-zv-lyI"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aUP-br-pQe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-518.25" y="744.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Eor-wS-1c1">
@@ -312,7 +469,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X7Z-P4-LyL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1676.5" y="744.5"/>
+            <point key="canvasLocation" x="-2028.75" y="744.5"/>
         </scene>
         <!--Friends Controller-->
         <scene sceneID="oKf-91-8xw">
@@ -329,7 +486,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="2J4-eh-0UN"/>
+                                    <segue destination="Pca-aY-PZt" kind="show" id="E8y-9K-Rkj"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -343,7 +500,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6F4-EB-UHa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1118.5" y="744.5"/>
+            <point key="canvasLocation" x="-1257.75" y="744.5"/>
         </scene>
         <!--Yelp Search Options Controller-->
         <scene sceneID="cfB-pq-YDI">
@@ -375,7 +532,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oVX-lo-p3i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-975.5" y="1625.5"/>
+            <point key="canvasLocation" x="-270.75" y="1538.5"/>
         </scene>
         <!--Signup Controller-->
         <scene sceneID="JFt-RP-g8X">

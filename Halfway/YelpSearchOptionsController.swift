@@ -17,20 +17,22 @@ public class YelpSearchOptionsController: UITableViewController {
     
     var delegate: YelpSearchOptionsDelegate! = nil
     
-    var options: [String] = [
-        "Food",
-        "Restaurant",
-        "Coffee",
-        "Bar",
-        "Park",
-        "Mall",
-        "Movie",
-        "Korean",
-        "Vietname",
-        "Japanese",
-        "Chinese",
+    // Second string is an integer value indicating a sublevel. Ex: Restaurant > Korean
+    var options: [[String]] = [
+        ["Food", "0"],
+        ["Restaurant", "0"],
+        ["Korean", "1"],
+        ["Vietname", "1"],
+        ["Japanese", "1"],
+        ["Indian", "1"],
+        ["Chinese", "1"],
+        ["Coffee", "0"],
+        ["Bar", "0"],
+        ["Park", "0"],
+        ["Mall", "0"],
+        ["Movie", "0"],
     ]
-    var selectedOption: String = "restaurant"
+    var selectedOption: String = "Food"
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,13 +44,19 @@ public class YelpSearchOptionsController: UITableViewController {
     
     public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
-        var option: String = options[indexPath.row]
+        var option: String = options[indexPath.row][0]
+        
+        for _: Int in 0...options[indexPath.row][1].toInt()! {
+            option = "    " + option
+        }
+        option = option.substringFromIndex(advance(option.startIndex, 4))
+        
         cell.textLabel?.text = option
         return cell
     }
     
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) -> Void {
-        selectedOption = options[indexPath.row]
+        selectedOption = options[indexPath.row][0]
         if delegate != nil {
             delegate!.setSearchOption(selectedOption)
             self.navigationController?.popViewControllerAnimated(true)

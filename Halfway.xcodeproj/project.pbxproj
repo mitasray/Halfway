@@ -14,7 +14,7 @@
 		0A6D7C691B3A764900AA09C4 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 0A6D7C681B3A764900AA09C4 /* Podfile */; };
 		0A796F561B3B6DAA00580B6F /* YelpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A796F551B3B6DAA00580B6F /* YelpClient.swift */; };
 		0A862CD01B4F4BD800841345 /* FriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A862CCF1B4F4BD800841345 /* FriendsController.swift */; };
-		0A9C94D21B58ED6500CBC437 /* EventsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9C94D11B58ED6500CBC437 /* EventsController.swift */; };
+		0A9C94D21B58ED6500CBC437 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9C94D11B58ED6500CBC437 /* EventController.swift */; };
 		0ABBC3F21B3A88540097E1A9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0ABBC3F11B3A88540097E1A9 /* Info.plist */; };
 		0AD019381B3C735500C79246 /* HalfwayBrainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD019351B3C735500C79246 /* HalfwayBrainTests.swift */; };
 		0AE5568A1B47D88C00FF0E1E /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE556891B47D88C00FF0E1E /* LoginController.swift */; };
@@ -48,7 +48,7 @@
 		0A6D7C681B3A764900AA09C4 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		0A796F551B3B6DAA00580B6F /* YelpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YelpClient.swift; sourceTree = "<group>"; };
 		0A862CCF1B4F4BD800841345 /* FriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsController.swift; sourceTree = "<group>"; };
-		0A9C94D11B58ED6500CBC437 /* EventsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsController.swift; sourceTree = "<group>"; };
+		0A9C94D11B58ED6500CBC437 /* EventController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
 		0ABBC3F11B3A88540097E1A9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HalfwayTests/Info.plist; sourceTree = "<group>"; };
 		0AD019351B3C735500C79246 /* HalfwayBrainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfwayBrainTests.swift; sourceTree = "<group>"; };
 		0AD019361B3C735500C79246 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 				0A5E824A1B4CE7400062DE30 /* SearchController.swift */,
 				60724E091B4F0D0700DA56E8 /* YelpSearchOptionsController.swift */,
 				0A862CCF1B4F4BD800841345 /* FriendsController.swift */,
-				0A9C94D11B58ED6500CBC437 /* EventsController.swift */,
+				0A9C94D11B58ED6500CBC437 /* EventController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -345,7 +345,7 @@
 				0AE5568C1B48C6BE00FF0E1E /* SignupController.swift in Sources */,
 				60724E0A1B4F0D0700DA56E8 /* YelpSearchOptionsController.swift in Sources */,
 				0A3AFD6F1B3CFA7700B02E88 /* HTMLGetter.swift in Sources */,
-				0A9C94D21B58ED6500CBC437 /* EventsController.swift in Sources */,
+				0A9C94D21B58ED6500CBC437 /* EventController.swift in Sources */,
 				6094D5941B1F85FA00EAA02A /* AppDelegate.swift in Sources */,
 				0A4150321B4DCE770043DC33 /* User.swift in Sources */,
 				0AEEF14C1B29610C00724EF6 /* HalfwayBrain.swift in Sources */,

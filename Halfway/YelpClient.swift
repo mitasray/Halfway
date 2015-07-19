@@ -29,10 +29,13 @@ public class YelpClient {
         )
     }
     
-    public func setSearchLocation(location: CLLocation, type: String) -> Void {
+    public func setSearchLocation(location: CLLocation) -> Void {
         params["ll"] = String(stringInterpolationSegment: location.coordinate.latitude) + "," + String(stringInterpolationSegment: location.coordinate.longitude)
-        params["term"] = type
         params["limit"] = 1
+    }
+    
+    public func setSearchOption(option: String) -> Void {
+        params["term"] = option
     }
     
     private func saveJSON(json: NSDictionary) -> Void {

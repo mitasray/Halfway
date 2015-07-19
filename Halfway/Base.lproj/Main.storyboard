@@ -341,53 +341,22 @@
                                     <rect key="frame" x="186" y="388" width="48" height="30"/>
                                 </variation>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XSf-FV-YnL">
-                                <rect key="frame" x="44" y="405" width="72" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="44" y="426" width="72" height="21"/>
-                                </variation>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBV-4Y-U81">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBV-4Y-U81">
                                 <rect key="frame" x="136" y="404" width="195" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="136" y="425" width="195" height="21"/>
+                                    <rect key="frame" x="44" y="425" width="287" height="21"/>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mto-ZO-eoc">
-                                <rect key="frame" x="44" y="434" width="68" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="44" y="455" width="68" height="21"/>
-                                </variation>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yi8-M5-gwk">
-                                <rect key="frame" x="44" y="463" width="287" height="30"/>
-                                <state key="normal" title="food &gt;">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="44" y="484" width="287" height="30"/>
-                                </variation>
-                                <connections>
-                                    <action selector="yelpSearchOptions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wWd-Xx-FSq"/>
-                                    <segue destination="WkG-TQ-78L" kind="show" identifier="viewSearchOptions" id="pWC-g2-4wW"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iuk-zv-lyI">
                                 <rect key="frame" x="120" y="434" width="239" height="30"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="120" y="455" width="239" height="30"/>
+                                    <rect key="frame" x="44" y="455" width="315" height="30"/>
                                 </variation>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13A-Zk-JSW">
@@ -428,10 +397,10 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="556" width="343" height="91"/>
+                                    <rect key="frame" x="16" y="568" width="343" height="91"/>
                                 </variation>
                                 <connections>
-                                    <action selector="findHalfway:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EgB-57-v7s"/>
+                                    <action selector="createEvent:" destination="Pca-aY-PZt" eventType="touchUpInside" id="ogd-cO-Npb"/>
                                 </connections>
                             </button>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="03H-8Z-9xg">
@@ -460,6 +429,19 @@
                                     <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 </variation>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yi8-M5-gwk">
+                                <rect key="frame" x="44" y="463" width="287" height="30"/>
+                                <state key="normal" title="food &gt;">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="44" y="530" width="287" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="yelpSearchOptions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wWd-Xx-FSq"/>
+                                    <segue destination="WkG-TQ-78L" kind="show" identifier="viewSearchOptions" id="pWC-g2-4wW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="default">
@@ -468,16 +450,14 @@
                                 <exclude reference="UsG-Mo-Whj"/>
                                 <exclude reference="D8i-sZ-SIm"/>
                                 <exclude reference="Od2-Hg-qos"/>
-                                <exclude reference="XSf-FV-YnL"/>
                                 <exclude reference="oBV-4Y-U81"/>
-                                <exclude reference="mto-ZO-eoc"/>
-                                <exclude reference="yi8-M5-gwk"/>
                                 <exclude reference="Iuk-zv-lyI"/>
                                 <exclude reference="13A-Zk-JSW"/>
                                 <exclude reference="oGn-W6-uDr"/>
                                 <exclude reference="Cim-NR-Uys"/>
                                 <exclude reference="ihi-5k-2g2"/>
                                 <exclude reference="03H-8Z-9xg"/>
+                                <exclude reference="yi8-M5-gwk"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -486,16 +466,14 @@
                                 <include reference="UsG-Mo-Whj"/>
                                 <include reference="D8i-sZ-SIm"/>
                                 <include reference="Od2-Hg-qos"/>
-                                <include reference="XSf-FV-YnL"/>
                                 <include reference="oBV-4Y-U81"/>
-                                <include reference="mto-ZO-eoc"/>
-                                <include reference="yi8-M5-gwk"/>
                                 <include reference="Iuk-zv-lyI"/>
                                 <include reference="13A-Zk-JSW"/>
                                 <include reference="oGn-W6-uDr"/>
                                 <include reference="Cim-NR-Uys"/>
                                 <include reference="ihi-5k-2g2"/>
                                 <include reference="03H-8Z-9xg"/>
+                                <include reference="yi8-M5-gwk"/>
                             </mask>
                         </variation>
                     </view>
@@ -513,7 +491,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUP-br-pQe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1230.75" y="744.5"/>
+            <point key="canvasLocation" x="-1226.25" y="744.5"/>
         </scene>
         <!--Event Manager Path-->
         <scene sceneID="Eor-wS-1c1">

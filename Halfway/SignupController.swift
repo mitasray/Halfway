@@ -43,7 +43,7 @@ public class SignupController: UIViewController {
                 self.defaults.setObject(username, forKey: "username")
                 self.defaults.setObject(user_id, forKey: "user_id")
                 self.defaults.setObject(access_token, forKey: "access_token")
-                var MainNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("main") as! UIViewController
+                var MainNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("event") as! UIViewController
                 self.navigationController?.pushViewController(MainNavigationController, animated: true)
             }
         }

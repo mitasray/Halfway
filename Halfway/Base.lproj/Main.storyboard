@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
-        <!--Login-->
+        <!--Login Controller-->
         <scene sceneID="m5D-Th-Obj">
             <objects>
-                <viewController storyboardIdentifier="Login" title="Login" id="2iN-QX-1wz" customClass="LoginController" customModule="Halfway" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Login" title="Login Controller" id="2iN-QX-1wz" customClass="LoginController" customModule="Halfway" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ijk-lf-Dbt"/>
                         <viewControllerLayoutGuide type="bottom" id="fJT-CI-qyf"/>
@@ -76,10 +76,10 @@
             </objects>
             <point key="canvasLocation" x="-980.5" y="-168.5"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--User Management Path-->
         <scene sceneID="npd-eJ-aR5">
             <objects>
-                <navigationController storyboardIdentifier="LoginNavigation" navigationBarHidden="YES" id="vhY-iB-otL" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LoginNavigation" title="User Management Path" navigationBarHidden="YES" id="vhY-iB-otL" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dGg-Cw-J3O">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -138,7 +138,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-1158.75" y="1552.5"/>
+            <point key="canvasLocation" x="-2028.75" y="1528.5"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -235,7 +235,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="piM-w7-hhe">
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="piM-w7-hhe">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
                                     <navigationItem title="Halfway" id="9fZ-15-xat">
@@ -248,7 +248,6 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="logOut:" destination="BYZ-38-t0r" eventType="touchUpInside" id="79l-to-bNc"/>
-                                                    <segue destination="vhY-iB-otL" kind="show" id="fcQ-Db-sN3"/>
                                                 </connections>
                                             </button>
                                         </barButtonItem>
@@ -297,10 +296,10 @@
             </objects>
             <point key="canvasLocation" x="191.25" y="744.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Event Controller-->
         <scene sceneID="WPh-29-vww">
             <objects>
-                <viewController id="Pca-aY-PZt" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="event" id="Pca-aY-PZt" customClass="EventController" customModule="Halfway" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rCn-HY-bhD"/>
                         <viewControllerLayoutGuide type="bottom" id="DMB-Ls-7E6"/>
@@ -314,7 +313,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="30" y="268" width="287" height="30"/>
+                                    <rect key="frame" x="44" y="350" width="287" height="30"/>
                                 </variation>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friend's Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UsG-Mo-Whj">
@@ -323,7 +322,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="107" y="239" width="133" height="21"/>
+                                    <rect key="frame" x="121" y="321" width="133" height="21"/>
                                 </variation>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D8i-sZ-SIm">
@@ -331,7 +330,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="30" y="306" width="134" height="30"/>
+                                    <rect key="frame" x="44" y="388" width="134" height="30"/>
                                 </variation>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="State" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Od2-Hg-qos">
@@ -340,7 +339,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="172" y="306" width="48" height="30"/>
+                                    <rect key="frame" x="186" y="388" width="48" height="30"/>
                                 </variation>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XSf-FV-YnL">
@@ -349,7 +348,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="30" y="344" width="72" height="21"/>
+                                    <rect key="frame" x="44" y="426" width="72" height="21"/>
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBV-4Y-U81">
@@ -358,7 +357,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="122" y="343" width="195" height="21"/>
+                                    <rect key="frame" x="136" y="425" width="195" height="21"/>
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mto-ZO-eoc">
@@ -367,40 +366,16 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="30" y="373" width="68" height="21"/>
+                                    <rect key="frame" x="44" y="455" width="68" height="21"/>
                                 </variation>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihi-5k-2g2">
-                                <rect key="frame" x="242" y="366" width="89" height="30"/>
-                                <state key="normal" title="Halfway">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="228" y="305" width="89" height="30"/>
-                                </variation>
-                                <connections>
-                                    <action selector="findHalfway:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EgB-57-v7s"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lua-Vf-Cxk">
-                                <rect key="frame" x="269" y="296" width="90" height="30"/>
-                                <state key="normal" title="Find a Friend">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="255" y="235" width="90" height="30"/>
-                                </variation>
-                                <connections>
-                                    <action selector="search:" destination="BYZ-38-t0r" eventType="touchUpInside" id="V7C-ci-gbb"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yi8-M5-gwk">
                                 <rect key="frame" x="44" y="463" width="287" height="30"/>
                                 <state key="normal" title="food &gt;">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="30" y="402" width="287" height="30"/>
+                                    <rect key="frame" x="44" y="484" width="287" height="30"/>
                                 </variation>
                                 <connections>
                                     <action selector="yelpSearchOptions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wWd-Xx-FSq"/>
@@ -412,9 +387,79 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="106" y="373" width="239" height="30"/>
+                                    <rect key="frame" x="120" y="455" width="239" height="30"/>
                                 </variation>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13A-Zk-JSW">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Invite a friend">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="145" y="69" width="93" height="30"/>
+                                </variation>
+                                <connections>
+                                    <segue destination="vGt-39-Bnc" kind="show" identifier="inviteFriendToEvent" id="0GB-nc-JOj"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGn-W6-uDr">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="30" y="107" width="315" height="21"/>
+                                </variation>
+                            </label>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Cim-NR-Uys">
+                                <rect key="frame" x="-160" y="-81" width="320" height="162"/>
+                                <date key="date" timeIntervalSinceReferenceDate="458959988.19717801">
+                                    <!--2015-07-19 00:53:08 +0000-->
+                                </date>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="153" width="375" height="156"/>
+                                </variation>
+                            </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihi-5k-2g2">
+                                <rect key="frame" x="242" y="366" width="89" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="52"/>
+                                <state key="normal" title="Halfway">
+                                    <color key="titleColor" red="1" green="0.48779309450000002" blue="0.044619602860000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="556" width="343" height="91"/>
+                                </variation>
+                                <connections>
+                                    <action selector="findHalfway:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EgB-57-v7s"/>
+                                </connections>
+                            </button>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="03H-8Z-9xg">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Halfway" id="XOI-HV-j66">
+                                        <barButtonItem key="rightBarButtonItem" style="plain" id="f91-t5-pgY">
+                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6VF-l9-Jk8">
+                                                <rect key="frame" x="313" y="112" width="56" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Log Out">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="logOut:" destination="Pca-aY-PZt" eventType="touchUpInside" id="Owu-sZ-14k"/>
+                                                    <segue destination="2iN-QX-1wz" kind="show" id="AR2-KE-DxE"/>
+                                                </connections>
+                                            </button>
+                                            <connections>
+                                                <action selector="logOut:" destination="Pca-aY-PZt" id="PdY-jM-mgs"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                </variation>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="default">
@@ -426,10 +471,13 @@
                                 <exclude reference="XSf-FV-YnL"/>
                                 <exclude reference="oBV-4Y-U81"/>
                                 <exclude reference="mto-ZO-eoc"/>
-                                <exclude reference="ihi-5k-2g2"/>
-                                <exclude reference="Lua-Vf-Cxk"/>
                                 <exclude reference="yi8-M5-gwk"/>
                                 <exclude reference="Iuk-zv-lyI"/>
+                                <exclude reference="13A-Zk-JSW"/>
+                                <exclude reference="oGn-W6-uDr"/>
+                                <exclude reference="Cim-NR-Uys"/>
+                                <exclude reference="ihi-5k-2g2"/>
+                                <exclude reference="03H-8Z-9xg"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -441,30 +489,42 @@
                                 <include reference="XSf-FV-YnL"/>
                                 <include reference="oBV-4Y-U81"/>
                                 <include reference="mto-ZO-eoc"/>
-                                <include reference="ihi-5k-2g2"/>
-                                <include reference="Lua-Vf-Cxk"/>
                                 <include reference="yi8-M5-gwk"/>
                                 <include reference="Iuk-zv-lyI"/>
+                                <include reference="13A-Zk-JSW"/>
+                                <include reference="oGn-W6-uDr"/>
+                                <include reference="Cim-NR-Uys"/>
+                                <include reference="ihi-5k-2g2"/>
+                                <include reference="03H-8Z-9xg"/>
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="wKE-8o-CTj"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="addressField" destination="kj4-vw-pvU" id="HaJ-3q-B49"/>
+                        <outlet property="cityField" destination="D8i-sZ-SIm" id="cS9-Nt-fv1"/>
+                        <outlet property="friendLabel" destination="oGn-W6-uDr" id="Og8-dW-WtC"/>
+                        <outlet property="stateField" destination="Od2-Hg-qos" id="TxA-Id-2Un"/>
+                        <outlet property="yelpLocationNameLabel" destination="oBV-4Y-U81" id="Aa4-KG-5w6"/>
+                        <outlet property="yelpResultAddressButton" destination="Iuk-zv-lyI" id="2n9-B8-apj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUP-br-pQe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-518.25" y="744.5"/>
+            <point key="canvasLocation" x="-1230.75" y="744.5"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Event Manager Path-->
         <scene sceneID="Eor-wS-1c1">
             <objects>
-                <navigationController storyboardIdentifier="MainNavigation" navigationBarHidden="YES" id="07M-BF-Iho" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MainNavigation" title="Event Manager Path" navigationBarHidden="YES" id="07M-BF-Iho" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8Fl-aj-LRH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="vGt-39-Bnc" kind="relationship" relationship="rootViewController" id="FTf-B1-sbD"/>
+                        <segue destination="Pca-aY-PZt" kind="relationship" relationship="rootViewController" id="GhL-HG-s6v"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X7Z-P4-LyL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -485,9 +545,6 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xdx-Dx-MPx" id="o1U-ru-zRt">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="Pca-aY-PZt" kind="show" id="E8y-9K-Rkj"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -500,7 +557,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6F4-EB-UHa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1257.75" y="744.5"/>
+            <point key="canvasLocation" x="-533.25" y="744.5"/>
         </scene>
         <!--Yelp Search Options Controller-->
         <scene sceneID="cfB-pq-YDI">
@@ -618,7 +675,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uOd-gX-8mx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-386.5" y="-168.5"/>
+            <point key="canvasLocation" x="-123.75" y="-168.5"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="AR2-KE-DxE"/>
+    </inferredMetricsTieBreakers>
 </document>

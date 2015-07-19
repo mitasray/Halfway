@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public class EventController: UIViewController, FriendsControllerDelegate {
+public class EventController: UIViewController, FriendsControllerDelegate, YelpSearchOptionsDelegate {
     let defaults = NSUserDefaults.standardUserDefaults()
     
     @IBOutlet weak var friendLabel: UILabel!
@@ -18,6 +18,7 @@ public class EventController: UIViewController, FriendsControllerDelegate {
     @IBOutlet weak var stateField: UITextField!
     @IBOutlet weak var yelpLocationNameLabel: UILabel!
     @IBOutlet weak var yelpResultAddressButton: UIButton!
+    @IBOutlet weak var yelpSearchOption: UIButton!
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,10 +28,18 @@ public class EventController: UIViewController, FriendsControllerDelegate {
         friendLabel.text =  friend.username
     }
     
+    public func setSearchOption(string: String) {
+        yelpSearchOption.setTitle(string + " >", forState: UIControlState.Normal)
+    }
+    
     override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "inviteFriendToEvent" {
             let friendsController = segue.destinationViewController as! FriendsController
             friendsController.delegate = self
+        }
+        if segue.identifier == "viewSearchOptions" {
+            let yelpSearchOptionsController = segue.destinationViewController as! YelpSearchOptionsController
+            yelpSearchOptionsController.delegate = self
         }
     }
     @IBAction func logOut(sender: AnyObject) -> Void {

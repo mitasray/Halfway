@@ -9,16 +9,16 @@
 import Foundation
 import UIKit
 
-protocol DetailsDelegate {
-    func buttonDelegateMethodWithString(string: String)
+protocol YelpSearchOptionsDelegate {
+    func setSearchOption(string: String)
 }
 
 public class YelpSearchOptionsController: UITableViewController {
     
-    var delegate: DetailsDelegate! = nil
+    var delegate: YelpSearchOptionsDelegate! = nil
     
     var options: [String] = ["food", "restaurant", "coffee", "bar", "park", "mall"]
-    var selected: String = "food"
+    var selectedOption: String = "restaurant"
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,9 +36,10 @@ public class YelpSearchOptionsController: UITableViewController {
     }
     
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) -> Void {
-        selected = options[indexPath.row]
+        selectedOption = options[indexPath.row]
         if delegate != nil {
-            delegate!.buttonDelegateMethodWithString(selected)
+            delegate!.setSearchOption(selectedOption)
+            self.navigationController?.popViewControllerAnimated(true)
         }
     }
     

@@ -12,7 +12,7 @@ import MapKit
 import SwiftyJSON
 import Alamofire
 
-public class ViewController: UIViewController, CLLocationManagerDelegate, DetailsDelegate, MKMapViewDelegate {
+public class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
 
     let locationManager = CLLocationManager()
     var currLocation: CLLocation! = nil
@@ -46,12 +46,7 @@ public class ViewController: UIViewController, CLLocationManagerDelegate, Detail
     /**
      * http://makeapppie.com/2014/07/01/swift-swift-using-segues-and-delegates-in-navigation-controllers-part-1-the-template/
      */
-    override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "viewSearchOptions" {
-            let vc = segue.destinationViewController as! YelpSearchOptionsController
-            vc.delegate = self
-        }
-    }
+
     
     @IBOutlet weak var currentMapView: MKMapView!
     @IBOutlet var address: UITextField!

@@ -5,4 +5,8 @@ pod 'OAuthSwift'
 pod 'SwiftyJSON'
 pod 'AFNetworking'
 pod 'Alamofire'
-pod 'KYCircularProgress'
+pod 'AFNetworking-RACExtensions'
+pod 'ReactiveCocoa'
+pod 'RealmSwift'
+
+

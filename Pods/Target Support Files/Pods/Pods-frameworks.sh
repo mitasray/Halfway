@@ -49,15 +49,21 @@ code_sign() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'AFNetworking.framework'
+  install_framework 'AFNetworking_RACExtensions.framework'
   install_framework 'Alamofire.framework'
-  install_framework 'KYCircularProgress.framework'
   install_framework 'OAuthSwift.framework'
+  install_framework 'ReactiveCocoa.framework'
+  install_framework 'Realm.framework'
+  install_framework 'RealmSwift.framework'
   install_framework 'SwiftyJSON.framework'
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'AFNetworking.framework'
+  install_framework 'AFNetworking_RACExtensions.framework'
   install_framework 'Alamofire.framework'
-  install_framework 'KYCircularProgress.framework'
   install_framework 'OAuthSwift.framework'
+  install_framework 'ReactiveCocoa.framework'
+  install_framework 'Realm.framework'
+  install_framework 'RealmSwift.framework'
   install_framework 'SwiftyJSON.framework'
 fi

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,6 +24,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let name = NSUserDefaults.standardUserDefaults().stringForKey("username") {
             initialViewController = storyboard.instantiateViewControllerWithIdentifier("MainNavigation") as! UIViewController
         }
+        
+        setSchemaVersion(2, Realm.defaultPath, { migration, oldSchemaVersion in
+            migration.enumerate(User.className()) { oldObject, newObject in
+                if oldSchemaVersion < 1 {
+                    newObject!["id"] = oldObject!["user_id"] as! Int
+                }
+                if oldSchemaVersion < 2 {
+                    newObject!["friends"] = List<User>()
+                }
+            }
+        })
         
         self.window?.rootViewController = initialViewController
         self.window?.makeKeyAndVisible()

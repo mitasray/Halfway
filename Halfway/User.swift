@@ -7,14 +7,10 @@
 //
 
 import Foundation
+import RealmSwift
 
-public class User {
-    
-    public let user_id: Int
-    public let username: String
-    
-    public init(username: String, user_id: Int) {
-        self.user_id = user_id
-        self.username = username
-    }
+public class User: Object {
+    dynamic var id = 0
+    dynamic var username = ""
+    let friends = List<User>()
 }

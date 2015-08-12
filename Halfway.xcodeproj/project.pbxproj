@@ -16,7 +16,6 @@
 		0A862CD01B4F4BD800841345 /* FriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A862CCF1B4F4BD800841345 /* FriendsController.swift */; };
 		0A9C94D21B58ED6500CBC437 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9C94D11B58ED6500CBC437 /* EventController.swift */; };
 		0ABBC3F21B3A88540097E1A9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0ABBC3F11B3A88540097E1A9 /* Info.plist */; };
-		0AD019381B3C735500C79246 /* HalfwayBrainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD019351B3C735500C79246 /* HalfwayBrainTests.swift */; };
 		0AE5568A1B47D88C00FF0E1E /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE556891B47D88C00FF0E1E /* LoginController.swift */; };
 		0AE5568C1B48C6BE00FF0E1E /* SignupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE5568B1B48C6BE00FF0E1E /* SignupController.swift */; };
 		0AEEF14C1B29610C00724EF6 /* HalfwayBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEEF14B1B29610C00724EF6 /* HalfwayBrain.swift */; };
@@ -50,7 +49,6 @@
 		0A862CCF1B4F4BD800841345 /* FriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsController.swift; sourceTree = "<group>"; };
 		0A9C94D11B58ED6500CBC437 /* EventController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
 		0ABBC3F11B3A88540097E1A9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HalfwayTests/Info.plist; sourceTree = "<group>"; };
-		0AD019351B3C735500C79246 /* HalfwayBrainTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfwayBrainTests.swift; sourceTree = "<group>"; };
 		0AD019361B3C735500C79246 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AE556891B47D88C00FF0E1E /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		0AE5568B1B48C6BE00FF0E1E /* SignupController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupController.swift; sourceTree = "<group>"; };
@@ -97,6 +95,21 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		0A234F4D1B6577FC00FE8EEA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6094D5971B1F85FA00EAA02A /* Main.storyboard */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		0A4E99CC1B67388B002B5950 /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Stores;
+			sourceTree = "<group>";
+		};
 		0A9C94D31B58ED8400CBC437 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,7 +127,6 @@
 		0AD019331B3C735500C79246 /* HalfwayTests */ = {
 			isa = PBXGroup;
 			children = (
-				0AD019351B3C735500C79246 /* HalfwayBrainTests.swift */,
 				0AD019361B3C735500C79246 /* Info.plist */,
 			);
 			path = HalfwayTests;
@@ -157,13 +169,14 @@
 		6094D5901B1F85FA00EAA02A /* Halfway */ = {
 			isa = PBXGroup;
 			children = (
-				0A6D7C601B3A74A100AA09C4 /* Halfway-Bridging-Header.h */,
 				0AEC20AB1B23C30000E37E21 /* Models */,
+				0A234F4D1B6577FC00FE8EEA /* Views */,
 				0A9C94D31B58ED8400CBC437 /* Controllers */,
+				0A4E99CC1B67388B002B5950 /* Stores */,
 				6094D5931B1F85FA00EAA02A /* AppDelegate.swift */,
-				6094D5971B1F85FA00EAA02A /* Main.storyboard */,
 				6094D59A1B1F85FA00EAA02A /* Images.xcassets */,
 				6094D59C1B1F85FA00EAA02A /* LaunchScreen.xib */,
+				0A6D7C601B3A74A100AA09C4 /* Halfway-Bridging-Header.h */,
 				6094D5911B1F85FA00EAA02A /* Supporting Files */,
 			);
 			path = Halfway;
@@ -358,7 +371,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AD019381B3C735500C79246 /* HalfwayBrainTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

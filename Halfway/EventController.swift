@@ -11,9 +11,10 @@ import UIKit
 import CoreLocation
 import SwiftyJSON
 import Alamofire
+import RealmSwift
 
 public class EventController: UIViewController, FriendsControllerDelegate, YelpSearchOptionsDelegate, CLLocationManagerDelegate {
-    let defaults = NSUserDefaults.standardUserDefaults()
+    let realm = Realm()
     let locationManager = CLLocationManager()
     let brain = HalfwayBrain()
     let yelpClient = YelpClient.sharedInstance
@@ -100,10 +101,9 @@ public class EventController: UIViewController, FriendsControllerDelegate, YelpS
     }
     
     @IBAction func logOut(sender: AnyObject) -> Void {
-        for key in defaults.dictionaryRepresentation().keys {
-            NSUserDefaults.standardUserDefaults().removeObjectForKey(key.description)
+        realm.write {
+            self.realm.deleteAll()
         }
-        resetFields()
     }
     
     @IBAction func removeKeyboardFromScreen(sender: AnyObject) -> Void {
@@ -119,18 +119,6 @@ public class EventController: UIViewController, FriendsControllerDelegate, YelpS
     
     private func addressIsInputted() -> Bool {
         return addressField.text != "" || cityField.text == "" || stateField.text == ""
-    }
-    
-    private func resetFields() -> Void {
-        addressField.text = ""
-        cityField.text = ""
-        stateField.text = ""
-        yelpLocationNameLabel.text = ""
-        yelpResultAddressButton.setTitle("", forState: UIControlState())
-    }
-    
-    private func currentUser() -> String {
-        return self.defaults.stringForKey("username")!
     }
     
     private func displayYelpResults(location: String, address: String) {

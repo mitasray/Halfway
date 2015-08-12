@@ -10,40 +10,61 @@ import UIKit
 import Foundation
 import Alamofire
 import SwiftyJSON
+import RealmSwift
+import ReactiveCocoa
 
 public class LoginController: UIViewController {
-    
-    let url = "http://halfway-db.herokuapp.com/v1/login"
-    let defaults = NSUserDefaults.standardUserDefaults()
-    
-    @IBOutlet weak var username: UITextField!
-    @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var usernameField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
     
     @IBAction func login(sender: AnyObject) {
+        let login_user_url = "http://halfway-db.herokuapp.com/v1/login"
+
         let parameters = [
-            "username": username.text,
-            "password": password.text,
+            "username": usernameField.text,
+            "password": passwordField.text,
         ]
-        request(.POST, self.url, parameters: parameters).validate().responseJSON { (req, res, json, error) in
-            var json = JSON(json!)
-            println(json)
-            var errorMessage = String(stringInterpolationSegment: json["error"])
-            println(errorMessage)
-            if errorMessage == "translation missing: en.sessions_controller.invalid_login_attempt" {
-                println("invalid")
+        request(.POST, login_user_url, parameters: parameters).validate().responseJSON { (request, response, json, error) in
+            var user_attributes = json as! NSDictionary
+            var logged_in_user = User(value: user_attributes)
+            self.fetch_user_data(logged_in_user)
+            
+            let realm = Realm()
+            realm.write { realm.add(logged_in_user) }
+            logged_in_user = realm.objects(User).filter("id = \(logged_in_user.id)").first!
+
+            var MainNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("event") as! UIViewController
+            self.navigationController?.pushViewController(MainNavigationController, animated: true)
+        }
+    }
+    
+    public func fetch_user_data(logged_in_user: User) {
+        load_user_friends(logged_in_user)
+    }
+    
+    private func load_user_friends(logged_in_user: User) {
+        let friendships_index_url = "http://halfway-db.herokuapp.com/v1/users/" + String(logged_in_user.id) + "/friendships"
+        let realm = Realm()
+        request(.GET, friendships_index_url).responseJSON { (request, response, json, error) in
+            for friend in json as! NSArray {
+                var friend_attributes = friend as! NSDictionary
+                var friend = User(value: friend_attributes)
+                realm.write {
+                    logged_in_user.friends.append(friend)
+                }
             }
-            else {
-                NSLog("Success: \(self.url)")
-                var user_id = String(stringInterpolationSegment: json["id"])
-                var username = String(stringInterpolationSegment: json["username"])
-                var access_token = String(stringInterpolationSegment: json["access_token"])
-                
-                self.defaults.setObject(username, forKey: "username")
-                self.defaults.setObject(user_id, forKey: "user_id")
-                self.defaults.setObject(access_token, forKey: "access_token")
-                var MainNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("event") as! UIViewController
-                self.navigationController?.pushViewController(MainNavigationController, animated: true)
-            }
+        }
+    }
+    
+    public override func viewDidLoad() {
+        printUsernameInput()
+        println(Realm().objects(User))
+    }
+    
+    public func printUsernameInput(){
+        usernameField.rac_textSignal().subscribeNext {
+            println("Subscribe block: \($0)")
         }
     }
 }

@@ -581,10 +581,10 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="confirm" destination="ANC-Bt-c5z" id="4jd-Te-yiL"/>
-                        <outlet property="email" destination="DLn-uP-ANK" id="hRK-4W-OgR"/>
-                        <outlet property="password" destination="iil-Rf-Ms8" id="Woy-p5-Qjv"/>
-                        <outlet property="username" destination="LQa-FA-PrN" id="oQo-xB-LgQ"/>
+                        <outlet property="confirmPasswordField" destination="ANC-Bt-c5z" id="Vsc-kn-N58"/>
+                        <outlet property="emailField" destination="DLn-uP-ANK" id="Y1J-zv-fu7"/>
+                        <outlet property="passwordField" destination="iil-Rf-Ms8" id="Mm4-PT-3mX"/>
+                        <outlet property="usernameField" destination="LQa-FA-PrN" id="k2O-CZ-7aB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uOd-gX-8mx" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -10,42 +10,34 @@ import UIKit
 import Foundation
 import Alamofire
 import SwiftyJSON
+import RealmSwift
 
 public class SignupController: UIViewController {
     
     let url = "http://halfway-db.herokuapp.com/v1/signup"
     let defaults = NSUserDefaults.standardUserDefaults()
     
-    @IBOutlet weak var email: UITextField!
-    @IBOutlet weak var confirm: UITextField!
-    @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var username: UITextField!
+    @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var confirmPasswordField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var usernameField: UITextField!
     
     @IBAction func signup(sender: AnyObject) {
         let parameters = [
-            "username": username.text,
-            "email": email.text,
-            "password": password.text,
-            "password_confirmation": confirm.text,
+            "username": usernameField.text,
+            "email": emailField.text,
+            "password": passwordField.text,
+            "password_confirmation": confirmPasswordField.text,
         ]
-        request(.POST, self.url, parameters: parameters).responseJSON { (req, res, json, error) in
-            var json = JSON(json!)
-            println(json)
-            var id = String(stringInterpolationSegment: json["id"])
-            if id == "null" {
-                println("error")
-            }
-            else {
-                NSLog("Success: \(self.url)")
-                var username = String(stringInterpolationSegment: json["username"])
-                var user_id = String(stringInterpolationSegment: json["id"])
-                var access_token = String(stringInterpolationSegment: json["access_token"])
-                self.defaults.setObject(username, forKey: "username")
-                self.defaults.setObject(user_id, forKey: "user_id")
-                self.defaults.setObject(access_token, forKey: "access_token")
-                var MainNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("event") as! UIViewController
-                self.navigationController?.pushViewController(MainNavigationController, animated: true)
-            }
+        request(.POST, self.url, parameters: parameters).validate().responseJSON { (request, response, json, error) in
+            var new_user_attributes = json as! NSDictionary
+            var logged_in_user = User(value: new_user_attributes)
+            
+            let realm = Realm()
+            realm.write { realm.add(logged_in_user) }
+            logged_in_user = realm.objects(User).filter("id = \(logged_in_user.id)").first!
+            var MainNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("event") as! UIViewController
+            self.navigationController?.pushViewController(MainNavigationController, animated: true)
         }
     }
 }

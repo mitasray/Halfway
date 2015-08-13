@@ -11,7 +11,6 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 import RealmSwift
-import ReactiveCocoa
 
 public class LoginController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
@@ -54,17 +53,6 @@ public class LoginController: UIViewController {
                     logged_in_user.friends.append(friend)
                 }
             }
-        }
-    }
-    
-    public override func viewDidLoad() {
-        printUsernameInput()
-        println(Realm().objects(User))
-    }
-    
-    public func printUsernameInput(){
-        usernameField.rac_textSignal().subscribeNext {
-            println("Subscribe block: \($0)")
         }
     }
 }

@@ -6,7 +6,6 @@ pod 'SwiftyJSON'
 pod 'AFNetworking'
 pod 'Alamofire'
 pod 'AFNetworking-RACExtensions'
-pod 'ReactiveCocoa'
 pod 'RealmSwift'
 
 

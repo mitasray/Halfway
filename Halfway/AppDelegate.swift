@@ -16,15 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        
-        var storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        var initialViewController = storyboard.instantiateViewControllerWithIdentifier("LoginNavigation") as! UIViewController
-        if let name = NSUserDefaults.standardUserDefaults().stringForKey("username") {
-            initialViewController = storyboard.instantiateViewControllerWithIdentifier("MainNavigation") as! UIViewController
-        }
-        
         setSchemaVersion(2, Realm.defaultPath, { migration, oldSchemaVersion in
             migration.enumerate(User.className()) { oldObject, newObject in
                 if oldSchemaVersion < 1 {
@@ -35,10 +26,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         })
+        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        
+        var storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        var initialViewController = storyboard.instantiateViewControllerWithIdentifier("LoginNavigation") as! UIViewController
+        if user_logged_in() {
+            initialViewController = storyboard.instantiateViewControllerWithIdentifier("MainNavigation") as! UIViewController
+        }
+        
+
         
         self.window?.rootViewController = initialViewController
         self.window?.makeKeyAndVisible()
         return true
+    }
+    
+    private func user_logged_in() -> Bool {
+        return Realm().objects(User).count == 1
     }
 
     func applicationWillResignActive(application: UIApplication) {

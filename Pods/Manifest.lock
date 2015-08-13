@@ -44,7 +44,6 @@ DEPENDENCIES:
   - AFNetworking-RACExtensions
   - Alamofire
   - OAuthSwift
-  - ReactiveCocoa
   - RealmSwift
   - SwiftyJSON
 

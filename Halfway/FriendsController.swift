@@ -13,11 +13,12 @@ import SwiftyJSON
 import RealmSwift
 
 protocol FriendsControllerDelegate {
-    func createEventWithFriend(friend: User)
+    func createEventWithFriends(friends: [User])
 }
 
 public class FriendsController: UITableViewController {
     var delegate: FriendsControllerDelegate? = nil
+    var invitedFriends = [User]()
 
     public func listOfAllFriends() -> List<User> {
         return logged_in_user().friends
@@ -25,6 +26,7 @@ public class FriendsController: UITableViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.allowsMultipleSelection = true;
     }
     
     public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,10 +46,17 @@ public class FriendsController: UITableViewController {
 
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) -> Void {
         var friend = self.listOfAllFriends()[indexPath.row]
+        invite(friend)
+    }
+    
+    @IBAction func inviteSelectedFriends(sender: AnyObject) {
         if delegate != nil {
-            delegate?.createEventWithFriend(friend)
+            delegate?.createEventWithFriends(invitedFriends)
             self.navigationController?.popViewControllerAnimated(true)
         }
+    }
+    private func invite(friend: User) {
+        invitedFriends.append(friend)
     }
     
     private func logged_in_user() -> User {

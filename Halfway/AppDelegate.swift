@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func user_logged_in() -> Bool {
-        return Realm().objects(User).count == 1
+        return Realm().objects(User).count > 0
     }
 
     func applicationWillResignActive(application: UIApplication) {

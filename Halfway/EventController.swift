@@ -14,21 +14,18 @@ import Alamofire
 import RealmSwift
 
 public class EventController: UIViewController, FriendsControllerDelegate, YelpSearchOptionsDelegate, CLLocationManagerDelegate {
-    let realm = Realm()
+    var loggedInUser = Realm().objects(User).first!
+    var invitedFriends = [User]()
     let locationManager = CLLocationManager()
-    let brain = HalfwayBrain()
     let yelpClient = YelpClient.sharedInstance
     
     var yelpJSON = JSON([])
     
+    @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var friendLabel: UILabel!
-    @IBOutlet weak var addressField: UITextField!
-    @IBOutlet weak var cityField: UITextField!
-    @IBOutlet weak var stateField: UITextField!
     @IBOutlet weak var yelpLocationNameLabel: UILabel!
     @IBOutlet weak var yelpResultAddressButton: UIButton!
     @IBOutlet weak var yelpSearchOption: UIButton!
-    @IBOutlet weak var createEventButton: UIButton!
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,8 +36,11 @@ public class EventController: UIViewController, FriendsControllerDelegate, YelpS
         self.locationManager.startUpdatingLocation()
     }
     
-    public func createEventWithFriend(friend: User) {
-        friendLabel.text =  friend.username
+    public func createEventWithFriends(friends: [User]) {
+        for friend in friends {
+            friendLabel.text = friendLabel.text! + friend.username + ", "
+        }
+        invitedFriends = friends
     }
     
     public func setSearchOption(searchOption: String) {
@@ -60,49 +60,22 @@ public class EventController: UIViewController, FriendsControllerDelegate, YelpS
     }
     
     @IBAction func createEvent(sender: AnyObject) -> Void {
-        if !addressIsInputted() {
-            return
-        }
+        let event_url = "http://halfway-db.herokuapp.com/v1/users/" + String(loggedInUser.id) + "/events"
         
-        var fullAddress = composeFullAddress()
-        var geocoder = CLGeocoder()
-
-        geocoder.geocodeAddressString(
-            fullAddress,
-            completionHandler: {(placemarks:[AnyObject]!, error: NSError!) -> Void in
-                if let placemark = placemarks?[0] as? CLPlacemark {
-                    if self.brain.setTargetLocation(placemark.location) {
-                        var halfwayLocation: CLLocation = self.brain.calculateHalfwayLocation()
-                        self.yelpClient.setSearchLocation(halfwayLocation)
-                        self.yelpClient.client.get(
-                            self.yelpClient.yelpApiUrl,
-                            parameters: self.yelpClient.params,
-                            success: { (data, response) -> Void in
-                                let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! NSDictionary
-                                self.yelpJSON = JSON(json)
-                                var yelpResult = self.yelpJSON["businesses"][0]
-                                var yelpResultLatitude: Double = yelpResult["location"]["coordinate"]["latitude"].double!
-                                var yelpResultLongitude: Double = yelpResult["location"]["coordinate"]["longitude"].double!
-                                var yelpLocation: CLLocation = CLLocation(latitude: yelpResultLatitude, longitude: yelpResultLongitude)
-                                var resultLocation: String = String(stringInterpolationSegment: yelpResult["name"])
-                                var resultAddress: String = String(stringInterpolationSegment: yelpResult["location"]["display_address"][0])
-                                self.displayYelpResults(resultLocation, address: resultAddress)
-                            },
-                            failure: {(error:NSError!) -> Void in
-                                println(error.localizedDescription)
-                            }
-                        )
-                        self.addressField.text = ""
-                        self.cityField.text = ""
-                        self.stateField.text = ""
-                }
-            }
-        })
+        let parameters = [
+            "date": datePicker.date,
+            "description": "event",
+            "users": invitedFriendsIDs()
+        ]
+        request(.POST, event_url, parameters: parameters).validate().responseJSON { (request, response, json, error) in
+            println(json)
+        }
     }
     
     @IBAction func logOut(sender: AnyObject) -> Void {
+        let realm = Realm()
         realm.write {
-            self.realm.deleteAll()
+            realm.deleteAll()
         }
     }
     
@@ -110,19 +83,13 @@ public class EventController: UIViewController, FriendsControllerDelegate, YelpS
     }
     
     public func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) -> Void {
-        brain.setCurrentLocation(locations.last as! CLLocation)
     }
     
-    private func composeFullAddress() -> String {
-        return addressField.text + ", " + cityField.text + ", " + stateField.text
-    }
-    
-    private func addressIsInputted() -> Bool {
-        return addressField.text != "" || cityField.text == "" || stateField.text == ""
-    }
-    
-    private func displayYelpResults(location: String, address: String) {
-        yelpLocationNameLabel.text = location
-        yelpResultAddressButton.setTitle(address, forState: UIControlState())
+    private func invitedFriendsIDs() -> [Int] {
+        var idList = [Int]()
+        for friend in invitedFriends {
+            idList.append(friend.id)
+        }
+        return idList
     }
 }

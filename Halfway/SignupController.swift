@@ -12,7 +12,7 @@ import Alamofire
 import SwiftyJSON
 import RealmSwift
 
-public class SignupController: UIViewController {
+class SignupController: UIViewController {
     
     let url = "http://halfway-db.herokuapp.com/v1/signup"
     let defaults = NSUserDefaults.standardUserDefaults()

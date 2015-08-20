@@ -115,27 +115,6 @@
                                     <rect key="frame" x="44" y="455" width="315" height="30"/>
                                 </variation>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13A-Zk-JSW">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="Invite a friend">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="145" y="69" width="93" height="30"/>
-                                </variation>
-                                <connections>
-                                    <segue destination="vGt-39-Bnc" kind="show" identifier="inviteFriendToEvent" id="0GB-nc-JOj"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGn-W6-uDr">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="30" y="107" width="315" height="21"/>
-                                </variation>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihi-5k-2g2">
                                 <rect key="frame" x="242" y="366" width="89" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="52"/>
@@ -207,18 +186,26 @@
                                     <rect key="frame" x="0.0" y="256" width="375" height="156"/>
                                 </variation>
                             </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGn-W6-uDr">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="30" y="64" width="315" height="85"/>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="Iuk-zv-lyI"/>
-                                <include reference="13A-Zk-JSW"/>
-                                <include reference="oGn-W6-uDr"/>
                                 <include reference="ihi-5k-2g2"/>
                                 <include reference="03H-8Z-9xg"/>
                                 <include reference="yi8-M5-gwk"/>
                                 <include reference="oBV-4Y-U81"/>
                                 <include reference="Cim-NR-Uys"/>
+                                <include reference="oGn-W6-uDr"/>
                             </mask>
                         </variation>
                     </view>
@@ -230,11 +217,12 @@
                         <outlet property="yelpLocationNameLabel" destination="oBV-4Y-U81" id="Aa4-KG-5w6"/>
                         <outlet property="yelpResultAddressButton" destination="Iuk-zv-lyI" id="2n9-B8-apj"/>
                         <outlet property="yelpSearchOption" destination="yi8-M5-gwk" id="0oe-c6-z7U"/>
+                        <segue destination="vGt-39-Bnc" kind="show" identifier="inviteFriendsToEvent" id="Ihu-V8-os5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aUP-br-pQe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1226.25" y="744.5"/>
+            <point key="canvasLocation" x="-1677.75" y="744.5"/>
         </scene>
         <!--Event Manager Path-->
         <scene sceneID="Eor-wS-1c1">
@@ -251,7 +239,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X7Z-P4-LyL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2028.75" y="744.5"/>
+            <point key="canvasLocation" x="-2448.75" y="744.5"/>
         </scene>
         <!--Title-->
         <scene sceneID="oKf-91-8xw">
@@ -261,16 +249,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <button key="tableHeaderView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="c2s-Nt-SZy">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Invite">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="inviteSelectedFriends:" destination="vGt-39-Bnc" eventType="touchUpInside" id="3od-1H-VcG"/>
-                            </connections>
-                        </button>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="Xdx-Dx-MPx">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -300,7 +278,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-401.25" y="549.5"/>
+            <point key="canvasLocation" x="-2100.75" y="1584.5"/>
         </scene>
         <!--Yelp Search Options Controller-->
         <scene sceneID="cfB-pq-YDI">
@@ -327,7 +305,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oVX-lo-p3i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1012.5" y="1566.5"/>
+            <point key="canvasLocation" x="-1317.75" y="1584.5"/>
         </scene>
         <!--Signup Controller-->
         <scene sceneID="JFt-RP-g8X">

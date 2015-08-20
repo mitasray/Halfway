@@ -13,13 +13,11 @@ import SwiftyJSON
 import Alamofire
 import RealmSwift
 
-public class EventController: UIViewController, FriendsControllerDelegate, YelpSearchOptionsDelegate, CLLocationManagerDelegate {
+class EventController: UIViewController, FriendsControllerDelegate, YelpSearchOptionsDelegate, CLLocationManagerDelegate {
     var loggedInUser = Realm().objects(User).first!
     var invitedFriends = [User]()
     let locationManager = CLLocationManager()
     let yelpClient = YelpClient.sharedInstance
-    
-    var yelpJSON = JSON([])
     
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var friendLabel: UILabel!
@@ -27,29 +25,8 @@ public class EventController: UIViewController, FriendsControllerDelegate, YelpS
     @IBOutlet weak var yelpResultAddressButton: UIButton!
     @IBOutlet weak var yelpSearchOption: UIButton!
     
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.locationManager.delegate = self
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        self.locationManager.requestWhenInUseAuthorization()
-        self.locationManager.startUpdatingLocation()
-    }
-    
-    public func createEventWithFriends(friends: [User]) {
-        for friend in friends {
-            friendLabel.text = friendLabel.text! + friend.username + ", "
-        }
-        invitedFriends = friends
-    }
-    
-    public func setSearchOption(searchOption: String) {
-        yelpSearchOption.setTitle(searchOption + " >", forState: UIControlState.Normal)
-        yelpClient.setSearchOption(searchOption)
-    }
-    
-    override public func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "inviteFriendToEvent" {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "inviteFriendsToEvent" {
             let friendsController = segue.destinationViewController as! FriendsController
             friendsController.delegate = self
         }
@@ -57,6 +34,37 @@ public class EventController: UIViewController, FriendsControllerDelegate, YelpS
             let yelpSearchOptionsController = segue.destinationViewController as! YelpSearchOptionsController
             yelpSearchOptionsController.delegate = self
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.locationManager.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.startUpdatingLocation()
+        
+        var leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
+        leftSwipe.direction = .Left
+        view.addGestureRecognizer(leftSwipe)
+    }
+    
+    func handleSwipes(sender: UISwipeGestureRecognizer) {
+        if (sender.direction == .Left) {
+            self.performSegueWithIdentifier("inviteFriendsToEvent", sender: self)
+        }
+    }
+    
+    func createEventWithFriends(friends: [User]) {
+        for friend in friends {
+            friendLabel.text = friendLabel.text! + friend.username + ", "
+        }
+        invitedFriends = friends
+    }
+    
+    func setSearchOption(searchOption: String) {
+        yelpSearchOption.setTitle(searchOption + " >", forState: UIControlState.Normal)
+        yelpClient.setSearchOption(searchOption)
     }
     
     @IBAction func createEvent(sender: AnyObject) -> Void {
@@ -77,12 +85,6 @@ public class EventController: UIViewController, FriendsControllerDelegate, YelpS
         realm.write {
             realm.deleteAll()
         }
-    }
-    
-    @IBAction func removeKeyboardFromScreen(sender: AnyObject) -> Void {
-    }
-    
-    public func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) -> Void {
     }
     
     private func invitedFriendsIDs() -> [Int] {

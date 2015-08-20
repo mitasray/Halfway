@@ -12,7 +12,7 @@ import Alamofire
 import SwiftyJSON
 import RealmSwift
 
-public class LoginController: UIViewController {
+class LoginController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -38,7 +38,7 @@ public class LoginController: UIViewController {
         }
     }
     
-    public func fetch_user_data(logged_in_user: User) {
+    private func fetch_user_data(logged_in_user: User) {
         load_user_friends(logged_in_user)
     }
     

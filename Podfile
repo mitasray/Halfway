@@ -7,5 +7,5 @@ pod 'AFNetworking'
 pod 'Alamofire'
 pod 'AFNetworking-RACExtensions'
 pod 'RealmSwift'
-
+pod 'SWRevealViewController'
 

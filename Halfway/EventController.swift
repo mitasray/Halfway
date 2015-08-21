@@ -12,6 +12,7 @@ import CoreLocation
 import SwiftyJSON
 import Alamofire
 import RealmSwift
+import SWRevealViewController
 
 class EventController: UIViewController, FriendsControllerDelegate, YelpSearchOptionsDelegate, CLLocationManagerDelegate {
     var loggedInUser = Realm().objects(User).first!
@@ -24,6 +25,7 @@ class EventController: UIViewController, FriendsControllerDelegate, YelpSearchOp
     @IBOutlet weak var yelpLocationNameLabel: UILabel!
     @IBOutlet weak var yelpResultAddressButton: UIButton!
     @IBOutlet weak var yelpSearchOption: UIButton!
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "inviteFriendsToEvent" {
@@ -38,6 +40,11 @@ class EventController: UIViewController, FriendsControllerDelegate, YelpSearchOp
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
         
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest

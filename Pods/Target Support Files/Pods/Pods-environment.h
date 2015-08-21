@@ -108,6 +108,12 @@
 #define COCOAPODS_VERSION_MINOR_RealmSwift 94
 #define COCOAPODS_VERSION_PATCH_RealmSwift 1
 
+// SWRevealViewController
+#define COCOAPODS_POD_AVAILABLE_SWRevealViewController
+#define COCOAPODS_VERSION_MAJOR_SWRevealViewController 2
+#define COCOAPODS_VERSION_MINOR_SWRevealViewController 3
+#define COCOAPODS_VERSION_PATCH_SWRevealViewController 0
+
 // SwiftyJSON
 #define COCOAPODS_POD_AVAILABLE_SwiftyJSON
 #define COCOAPODS_VERSION_MAJOR_SwiftyJSON 2

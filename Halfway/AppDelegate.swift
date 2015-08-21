@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         var initialViewController = storyboard.instantiateViewControllerWithIdentifier("LoginNavigation") as! UIViewController
         if user_logged_in() {
-            initialViewController = storyboard.instantiateViewControllerWithIdentifier("MainNavigation") as! UIViewController
+            initialViewController = storyboard.instantiateViewControllerWithIdentifier("reveal") as! UIViewController
         }
         
 

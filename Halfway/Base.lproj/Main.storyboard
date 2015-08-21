@@ -71,6 +71,7 @@
                         <outlet property="loginButton" destination="r7n-9K-4h8" id="NPq-PV-2VZ"/>
                         <outlet property="passwordField" destination="DRf-Np-iLF" id="mtm-Ma-Eo3"/>
                         <outlet property="usernameField" destination="brE-Ll-yh1" id="Qj2-68-UW0"/>
+                        <segue destination="7Lo-1y-60j" kind="show" identifier="login" id="XvA-nR-ptw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BTf-kw-oqn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -129,10 +130,55 @@
                                     <action selector="createEvent:" destination="Pca-aY-PZt" eventType="touchUpInside" id="ogd-cO-Npb"/>
                                 </connections>
                             </button>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="03H-8Z-9xg">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yi8-M5-gwk">
+                                <rect key="frame" x="44" y="463" width="287" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <state key="normal" title="Food &gt;">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="30" y="319" width="287" height="30"/>
+                                </variation>
+                                <connections>
+                                    <segue destination="WkG-TQ-78L" kind="show" identifier="viewSearchOptions" id="Q6r-aC-jb0"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBV-4Y-U81">
+                                <rect key="frame" x="136" y="404" width="195" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="44" y="426" width="287" height="21"/>
+                                </variation>
+                            </label>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Cim-NR-Uys">
+                                <rect key="frame" x="-160" y="-81" width="320" height="162"/>
+                                <date key="date" timeIntervalSinceReferenceDate="458959988.19717801">
+                                    <!--2015-07-19 00:53:08 +0000-->
+                                </date>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="157" width="375" height="156"/>
+                                </variation>
+                            </datePicker>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGn-W6-uDr">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="30" y="64" width="315" height="85"/>
+                                </variation>
+                            </label>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="03H-8Z-9xg" colorLabel="IBBuiltInLabel-Red">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <color key="barTintColor" red="1" green="0.48779309450000002" blue="0.044619602860000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </textAttributes>
                                 <items>
                                     <navigationItem title="Halfway" id="XOI-HV-j66">
+                                        <barButtonItem key="leftBarButtonItem" image="menu" id="BeC-zd-3iH"/>
                                         <barButtonItem key="rightBarButtonItem" style="plain" id="f91-t5-pgY">
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6VF-l9-Jk8">
                                                 <rect key="frame" x="313" y="112" width="56" height="30"/>
@@ -155,57 +201,17 @@
                                     <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 </variation>
                             </navigationBar>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yi8-M5-gwk">
-                                <rect key="frame" x="44" y="463" width="287" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <state key="normal" title="Food &gt;">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="30" y="530" width="287" height="30"/>
-                                </variation>
-                                <connections>
-                                    <segue destination="WkG-TQ-78L" kind="show" identifier="viewSearchOptions" id="Q6r-aC-jb0"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBV-4Y-U81">
-                                <rect key="frame" x="136" y="404" width="195" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="44" y="426" width="287" height="21"/>
-                                </variation>
-                            </label>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Cim-NR-Uys">
-                                <rect key="frame" x="-160" y="-81" width="320" height="162"/>
-                                <date key="date" timeIntervalSinceReferenceDate="458959988.19717801">
-                                    <!--2015-07-19 00:53:08 +0000-->
-                                </date>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="256" width="375" height="156"/>
-                                </variation>
-                            </datePicker>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGn-W6-uDr">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="30" y="64" width="315" height="85"/>
-                                </variation>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="Iuk-zv-lyI"/>
                                 <include reference="ihi-5k-2g2"/>
-                                <include reference="03H-8Z-9xg"/>
                                 <include reference="yi8-M5-gwk"/>
                                 <include reference="oBV-4Y-U81"/>
                                 <include reference="Cim-NR-Uys"/>
                                 <include reference="oGn-W6-uDr"/>
+                                <include reference="03H-8Z-9xg"/>
                             </mask>
                         </variation>
                     </view>
@@ -214,6 +220,7 @@
                     <connections>
                         <outlet property="datePicker" destination="Cim-NR-Uys" id="WPg-7e-U2z"/>
                         <outlet property="friendLabel" destination="oGn-W6-uDr" id="Og8-dW-WtC"/>
+                        <outlet property="menuButton" destination="BeC-zd-3iH" id="9hK-v0-AjW"/>
                         <outlet property="yelpLocationNameLabel" destination="oBV-4Y-U81" id="Aa4-KG-5w6"/>
                         <outlet property="yelpResultAddressButton" destination="Iuk-zv-lyI" id="2n9-B8-apj"/>
                         <outlet property="yelpSearchOption" destination="yi8-M5-gwk" id="0oe-c6-z7U"/>
@@ -239,12 +246,63 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X7Z-P4-LyL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2448.75" y="744.5"/>
+            <point key="canvasLocation" x="-3468.75" y="1128.5"/>
         </scene>
-        <!--Title-->
+        <!--Reveal View Controller-->
+        <scene sceneID="NcY-QQ-rCS">
+            <objects>
+                <viewController storyboardIdentifier="reveal" id="7Lo-1y-60j" customClass="SWRevealViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zIL-y8-ugb"/>
+                        <viewControllerLayoutGuide type="bottom" id="9DV-bu-ZeE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hjU-4u-7af">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <segue destination="07M-BF-Iho" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="at1-9r-5Fw"/>
+                        <segue destination="l9d-lL-OHL" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="anW-3N-XdI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ol8-Xf-LyW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3468.75" y="215.5"/>
+        </scene>
+        <!--Menu Controller-->
+        <scene sceneID="LjB-Zk-HPH">
+            <objects>
+                <tableViewController title="Menu Controller" id="l9d-lL-OHL" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ufh-1C-KWB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="xEN-65-C91">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xEN-65-C91" id="3CE-YS-gEf">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="l9d-lL-OHL" id="3m9-5e-u6B"/>
+                            <outlet property="delegate" destination="l9d-lL-OHL" id="njg-RS-Ylm"/>
+                        </connections>
+                    </tableView>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xI1-4i-I9H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2550.75" y="215.5"/>
+        </scene>
+        <!--Friends Controller-->
         <scene sceneID="oKf-91-8xw">
             <objects>
-                <tableViewController storyboardIdentifier="friends" id="vGt-39-Bnc" customClass="FriendsController" customModule="Halfway" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="friends" title="Friends Controller" id="vGt-39-Bnc" customClass="FriendsController" customModule="Halfway" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="WWC-qM-37v">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -264,21 +322,10 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="2ic-Np-BIO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <connections>
-                        <outlet property="searchDisplayController" destination="was-D4-Bj6" id="OQ1-LZ-qW9"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6F4-EB-UHa" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="was-D4-Bj6">
-                    <connections>
-                        <outlet property="delegate" destination="vGt-39-Bnc" id="rvc-MF-08F"/>
-                        <outlet property="searchContentsController" destination="vGt-39-Bnc" id="wka-Fe-tan"/>
-                        <outlet property="searchResultsDataSource" destination="vGt-39-Bnc" id="0Q5-rm-Wnr"/>
-                        <outlet property="searchResultsDelegate" destination="vGt-39-Bnc" id="PQ3-wR-LGg"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-2100.75" y="1584.5"/>
+            <point key="canvasLocation" x="-1677.75" y="1640.5"/>
         </scene>
         <!--Yelp Search Options Controller-->
         <scene sceneID="cfB-pq-YDI">
@@ -305,7 +352,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oVX-lo-p3i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1317.75" y="1584.5"/>
+            <point key="canvasLocation" x="-981.75" y="1640.5"/>
         </scene>
         <!--Signup Controller-->
         <scene sceneID="JFt-RP-g8X">
@@ -416,7 +463,10 @@
             <point key="canvasLocation" x="-123.75" y="-168.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="menu" width="22" height="22"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AR2-KE-DxE"/>
+        <segue reference="Vm5-Xq-0Jk"/>
     </inferredMetricsTieBreakers>
 </document>

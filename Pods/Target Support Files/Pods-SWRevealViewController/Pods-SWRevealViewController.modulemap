@@ -1,0 +1,6 @@
+framework module SWRevealViewController {
+  umbrella header "Pods-SWRevealViewController-umbrella.h"
+
+  export *
+  module * { export * }
+}

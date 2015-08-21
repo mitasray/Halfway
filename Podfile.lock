@@ -38,6 +38,7 @@ PODS:
   - RealmSwift (0.94.1):
     - Realm (= 0.94.1)
   - SwiftyJSON (2.2.1)
+  - SWRevealViewController (2.3.0)
 
 DEPENDENCIES:
   - AFNetworking
@@ -46,6 +47,7 @@ DEPENDENCIES:
   - OAuthSwift
   - RealmSwift
   - SwiftyJSON
+  - SWRevealViewController
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
@@ -56,5 +58,6 @@ SPEC CHECKSUMS:
   Realm: d999a6cf0b41577a077349c9cc9d496cc62a7d17
   RealmSwift: 06b60ff5b1338755654d39aab44ac38001600f76
   SwiftyJSON: ae2d0a3d68025d136602a33c4ee215091ced3e33
+  SWRevealViewController: 6d3fd97f70112fd7cef9de14df4260eacce4c63a
 
 COCOAPODS: 0.37.2

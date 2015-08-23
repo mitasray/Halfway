@@ -13,10 +13,14 @@ import RealmSwift
 class MenuController: UITableViewController {
     
     @IBOutlet weak var logoutCell: UITableViewCell!
+    @IBOutlet weak var userCell: UITableViewCell!
+    @IBOutlet weak var createEventCell: UITableViewCell!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        userCell.textLabel!.text = logged_in_user().username
         logoutCell.textLabel!.text = "Logout"
+        createEventCell.textLabel!.text = "Create Event"
     }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) -> Void {
         var selectedCell = tableView.cellForRowAtIndexPath(indexPath)
@@ -25,7 +29,12 @@ class MenuController: UITableViewController {
             realm.write {
                 realm.deleteAll()
             }
+            self.performSegueWithIdentifier("logout", sender: self)
         }
-        self.performSegueWithIdentifier("logout", sender: self)
+    }
+    
+    private func logged_in_user() -> User {
+        let realm = Realm()
+        return realm.objects(User).first!
     }
 }

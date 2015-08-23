@@ -9,9 +9,13 @@
 import Foundation
 import UIKit
 import SWRevealViewController
+import RealmSwift
 
 class UserController: UIViewController {
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var numberOfFriendsLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,5 +24,17 @@ class UserController: UIViewController {
             menuButton.action = "revealToggle:"
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
+        displayUserInformation()
+    }
+    
+    private func displayUserInformation() {
+        usernameLabel.text = logged_in_user().username
+        emailLabel.text = logged_in_user().email
+        numberOfFriendsLabel.text = String(logged_in_user().friends.count)
+    }
+    
+    private func logged_in_user() -> User {
+        let realm = Realm()
+        return realm.objects(User).first!
     }
 }

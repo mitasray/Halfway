@@ -12,5 +12,6 @@ import RealmSwift
 public class User: Object {
     dynamic var id = 0
     dynamic var username = ""
+    dynamic var email = ""
     let friends = List<User>()
 }

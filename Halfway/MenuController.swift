@@ -15,12 +15,14 @@ class MenuController: UITableViewController {
     @IBOutlet weak var logoutCell: UITableViewCell!
     @IBOutlet weak var userCell: UITableViewCell!
     @IBOutlet weak var createEventCell: UITableViewCell!
+    @IBOutlet weak var manageEventsCell: UITableViewCell!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         userCell.textLabel!.text = logged_in_user().username
         logoutCell.textLabel!.text = "Logout"
         createEventCell.textLabel!.text = "Create Event"
+        manageEventsCell.textLabel!.text = "My Events"
     }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) -> Void {
         var selectedCell = tableView.cellForRowAtIndexPath(indexPath)

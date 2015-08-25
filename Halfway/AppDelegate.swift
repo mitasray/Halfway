@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        setSchemaVersion(3, Realm.defaultPath, { migration, oldSchemaVersion in
+        setSchemaVersion(4, Realm.defaultPath, { migration, oldSchemaVersion in
             migration.enumerate(User.className()) { oldObject, newObject in
                 if oldSchemaVersion < 1 {
                     newObject!["id"] = oldObject!["user_id"] as! Int
@@ -26,6 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
                 if oldSchemaVersion < 3 {
                     newObject!["email"] = ""
+                }
+                if oldSchemaVersion < 4 {
+                    newObject!["events"] = List<Event>()
                 }
             }
         })
@@ -37,8 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if user_logged_in() {
             initialViewController = storyboard.instantiateViewControllerWithIdentifier("reveal") as! UIViewController
         }
-        
-
         
         self.window?.rootViewController = initialViewController
         self.window?.makeKeyAndVisible()

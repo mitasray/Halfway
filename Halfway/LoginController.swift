@@ -40,6 +40,7 @@ class LoginController: UIViewController {
     
     private func fetch_user_data(logged_in_user: User) {
         load_user_friends(logged_in_user)
+        load_user_events(logged_in_user)
     }
     
     private func load_user_friends(logged_in_user: User) {
@@ -51,6 +52,28 @@ class LoginController: UIViewController {
                 var friend = User(value: friend_attributes)
                 realm.write {
                     logged_in_user.friends.append(friend)
+                }
+            }
+        }
+    }
+    
+    private func load_user_events(logged_in_user: User) {
+        let user_events_index_url = "http://halfway-db.herokuapp.com/v1/users/" + String(logged_in_user.id) + "/events"
+        let realm = Realm()
+        request(.GET, user_events_index_url).responseJSON { (request, response, json, error) in
+            println(json)
+            for event in json as! NSArray {
+                var event_attributes = event as! Dictionary<String, AnyObject>
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                event_attributes["date"] = dateFormatter.dateFromString(String(stringInterpolationSegment: event_attributes["date"]))
+                event_attributes["details"] = event_attributes["description"]
+                event_attributes["latitude"] = 0.0
+                event_attributes["longitude"] = 0.0
+                
+                var newEvent = Event(value: event_attributes)
+                realm.write {
+                    logged_in_user.events.append(newEvent)
                 }
             }
         }

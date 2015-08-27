@@ -230,9 +230,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="JBY-AW-PBN" kind="push" identifier="selectEvent" id="2HO-4W-9wb"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -244,16 +241,17 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="menuButton" destination="f0y-zp-BdE" id="aWg-70-H2U"/>
+                        <segue destination="JBY-AW-PBN" kind="push" identifier="selectEvent" id="EVP-lP-Q4y"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dr4-OO-evB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-391.5" y="2351.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Event Details Controller-->
         <scene sceneID="Usa-kx-dpx">
             <objects>
-                <viewController id="JBY-AW-PBN" sceneMemberID="viewController">
+                <viewController id="JBY-AW-PBN" customClass="EventDetailsController" customModule="Halfway" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BbS-6q-bfz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

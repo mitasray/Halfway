@@ -12,6 +12,8 @@ import RealmSwift
 import SWRevealViewController
 
 class EventManagerController: UITableViewController {
+    var selectedEvent = Event()
+    
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     func listOfAllEvents() -> List<Event> {
@@ -24,6 +26,13 @@ class EventManagerController: UITableViewController {
             menuButton.target = self.revealViewController()
             menuButton.action = "revealToggle:"
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "selectEvent" {
+            var eventDetailsController = segue.destinationViewController as! EventDetailsController
+            eventDetailsController.event = selectedEvent
         }
     }
     
@@ -43,7 +52,9 @@ class EventManagerController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) -> Void {
-        var selectedEvent = self.listOfAllEvents()[indexPath.row]
+        selectedEvent = self.listOfAllEvents()[indexPath.row]
+        
+        self.performSegueWithIdentifier("selectEvent", sender: self)
     }
     
     private func logged_in_user() -> User {

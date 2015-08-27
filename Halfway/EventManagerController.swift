@@ -42,6 +42,10 @@ class EventManagerController: UITableViewController {
         return listOfAllEvents().count
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) -> Void {
+        var selectedEvent = self.listOfAllEvents()[indexPath.row]
+    }
+    
     private func logged_in_user() -> User {
         return Realm().objects(User).first!
     }

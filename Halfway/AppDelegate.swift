@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        setSchemaVersion(4, Realm.defaultPath, { migration, oldSchemaVersion in
+        setSchemaVersion(5, Realm.defaultPath, { migration, oldSchemaVersion in
             migration.enumerate(User.className()) { oldObject, newObject in
                 if oldSchemaVersion < 1 {
                     newObject!["id"] = oldObject!["user_id"] as! Int
@@ -29,6 +29,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
                 if oldSchemaVersion < 4 {
                     newObject!["events"] = List<Event>()
+                }
+                if oldSchemaVersion < 5 {
+                    newObject!["latitude"] = 0.0
+                    newObject!["longitude"] = 0.0
                 }
             }
         })

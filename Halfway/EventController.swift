@@ -76,7 +76,14 @@ class EventController: UIViewController, FriendsControllerDelegate, YelpSearchOp
     
     @IBAction func createEvent(sender: AnyObject) -> Void {
         let event_url = "http://halfway-db.herokuapp.com/v1/users/" + String(loggedInUser.id) + "/events"
-        
+        let realm = Realm()
+        realm.write {
+            self.logged_in_user().latitude = self.locationManager.location.coordinate.latitude
+        }
+        realm.write {
+            self.logged_in_user().longitude = self.locationManager.location.coordinate.longitude
+        }
+        updateUserLocation()
         let parameters = [
             "date": datePicker.date,
             "description": "event",
@@ -87,11 +94,27 @@ class EventController: UIViewController, FriendsControllerDelegate, YelpSearchOp
         }
     }
     
+    func updateUserLocation() {
+        let update_user_url = "http://halfway-db.herokuapp.com/v1/users/" + String(logged_in_user().id)
+        let parameters = [
+            "user": [
+                "latitude": logged_in_user().latitude,
+                "longitude": logged_in_user().longitude
+            ]
+        ]
+        request(.PATCH, update_user_url, parameters: parameters)
+    }
+    
     @IBAction func logOut(sender: AnyObject) -> Void {
         let realm = Realm()
         realm.write {
             realm.deleteAll()
         }
+    }
+    
+    private func logged_in_user() -> User {
+        let realm = Realm()
+        return realm.objects(User).first!
     }
     
     private func invitedFriendsIDs() -> [Int] {

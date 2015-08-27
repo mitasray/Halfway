@@ -14,29 +14,20 @@ import Alamofire
 import RealmSwift
 import SWRevealViewController
 
-class EventController: UIViewController, FriendsControllerDelegate, YelpSearchOptionsDelegate, CLLocationManagerDelegate {
+class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, FriendsControllerDelegate, CLLocationManagerDelegate {
     var loggedInUser = Realm().objects(User).first!
     var invitedFriends = [User]()
     let locationManager = CLLocationManager()
     let yelpClient = YelpClient.sharedInstance
+    var typePickerData: [String] = [String]()
+    var yelpSearchOption: String = "Food"
     
+    @IBOutlet weak var typePicker: UIPickerView!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var friendLabel: UILabel!
     @IBOutlet weak var yelpLocationNameLabel: UILabel!
     @IBOutlet weak var yelpResultAddressButton: UIButton!
-    @IBOutlet weak var yelpSearchOption: UIButton!
     @IBOutlet weak var menuButton: UIBarButtonItem!
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "inviteFriendsToEvent" {
-            let friendsController = segue.destinationViewController as! FriendsController
-            friendsController.delegate = self
-        }
-        if segue.identifier == "viewSearchOptions" {
-            let yelpSearchOptionsController = segue.destinationViewController as! YelpSearchOptionsController
-            yelpSearchOptionsController.delegate = self
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +45,42 @@ class EventController: UIViewController, FriendsControllerDelegate, YelpSearchOp
         var leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
         leftSwipe.direction = .Left
         view.addGestureRecognizer(leftSwipe)
+        
+        self.typePicker.delegate = self
+        self.typePicker.dataSource = self
+        
+        typePickerData = [
+            "Bar",
+            "Chinese",
+            "Coffee",
+            "Food",
+            "Indian",
+            "Japanese",
+            "Korean",
+            "Mall",
+            "Movie",
+            "Park",
+            "Restaurant",
+            "Vietnamese"
+        ]
+        
+        // Set default to food
+        typePicker.selectRow(3, inComponent: 0, animated: true)
+    }
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    // The number of rows of data
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return typePickerData.count
+    }
+    
+    // The data to return for the row and component (column) that's being passed in
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        yelpSearchOption = typePickerData[row]
+        return typePickerData[row]
     }
     
     func handleSwipes(sender: UISwipeGestureRecognizer) {
@@ -67,11 +94,6 @@ class EventController: UIViewController, FriendsControllerDelegate, YelpSearchOp
             friendLabel.text = friendLabel.text! + friend.username + ", "
         }
         invitedFriends = friends
-    }
-    
-    func setSearchOption(searchOption: String) {
-        yelpSearchOption.setTitle(searchOption + " >", forState: UIControlState.Normal)
-        yelpClient.setSearchOption(searchOption)
     }
     
     @IBAction func createEvent(sender: AnyObject) -> Void {

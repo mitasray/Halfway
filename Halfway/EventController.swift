@@ -106,6 +106,7 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             self.logged_in_user().longitude = self.locationManager.location.coordinate.longitude
         }
         updateUserLocation()
+        println(datePicker.date)
         let parameters = [
             "date": datePicker.date,
             "description": "event",

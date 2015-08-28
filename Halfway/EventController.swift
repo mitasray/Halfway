@@ -143,7 +143,7 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     private func invitedFriendsIDs() -> [Int] {
         var idList = [Int]()
         for friend in invitedFriends {
-            idList.append(friend.id)
+            idList.append(friend.id) 
         }
         return idList
     }

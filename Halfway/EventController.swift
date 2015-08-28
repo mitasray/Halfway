@@ -27,6 +27,13 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     @IBOutlet weak var friendLabel: UILabel!
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "inviteFriendsToEvent" {
+            let friendsController = segue.destinationViewController as! FriendsController
+            friendsController.delegate = self
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if self.revealViewController() != nil {

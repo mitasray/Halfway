@@ -19,14 +19,12 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     var invitedFriends = [User]()
     let locationManager = CLLocationManager()
     let yelpClient = YelpClient.sharedInstance
-    var typePickerData: [String] = [String]()
-    var yelpSearchOption: String = "Food"
+    var typePickerData = [String]()
+    var yelpSearchOption = "Food"
     
     @IBOutlet weak var typePicker: UIPickerView!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var friendLabel: UILabel!
-    @IBOutlet weak var yelpLocationNameLabel: UILabel!
-    @IBOutlet weak var yelpResultAddressButton: UIButton!
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     override func viewDidLoad() {
@@ -49,22 +47,7 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         self.typePicker.delegate = self
         self.typePicker.dataSource = self
         
-        typePickerData = [
-            "Bar",
-            "Chinese",
-            "Coffee",
-            "Food",
-            "Indian",
-            "Japanese",
-            "Korean",
-            "Mall",
-            "Movie",
-            "Park",
-            "Restaurant",
-            "Vietnamese"
-        ]
-        
-        // Set default to food
+        typePickerData = yelpSearchOptions()
         typePicker.selectRow(3, inComponent: 0, animated: true)
     }
     
@@ -72,12 +55,10 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         return 1
     }
     
-    // The number of rows of data
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return typePickerData.count
     }
     
-    // The data to return for the row and component (column) that's being passed in
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         yelpSearchOption = typePickerData[row]
         return typePickerData[row]
@@ -146,5 +127,22 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             idList.append(friend.id) 
         }
         return idList
+    }
+    
+    private func yelpSearchOptions() -> [String] {
+        return [
+            "Bar",
+            "Chinese",
+            "Coffee",
+            "Food",
+            "Indian",
+            "Japanese",
+            "Korean",
+            "Mall",
+            "Movie",
+            "Park",
+            "Restaurant",
+            "Vietnamese"
+        ]
     }
 }

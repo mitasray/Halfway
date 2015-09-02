@@ -361,7 +361,7 @@
                         <outlet property="logoutCell" destination="uj6-J4-euB" id="L3R-3G-qRN"/>
                         <outlet property="manageEventsCell" destination="Heq-Qd-Wxg" id="uV2-hB-mYD"/>
                         <outlet property="userCell" destination="sei-Vp-sT2" id="LFL-iS-BEo"/>
-                        <segue destination="2iN-QX-1wz" kind="push" identifier="logout" id="r9J-gS-ZIK"/>
+                        <segue destination="vhY-iB-otL" kind="push" identifier="logout" id="fWE-44-zMP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xI1-4i-I9H" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -630,6 +630,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Vm5-Xq-0Jk"/>
-        <segue reference="at1-9r-5Fw"/>
+        <segue reference="CWa-5Y-5W3"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -90,6 +90,7 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         realm.write {
             self.logged_in_user().latitude = self.locationManager.location.coordinate.latitude
         }
+        
         realm.write {
             self.logged_in_user().longitude = self.locationManager.location.coordinate.longitude
         }

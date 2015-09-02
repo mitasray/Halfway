@@ -25,7 +25,10 @@ class LoginController: UIViewController {
             "password": passwordField.text,
         ]
         request(.POST, login_user_url, parameters: parameters).validate().responseJSON { (request, response, json, error) in
-            var user_attributes = json as! NSDictionary
+            var user_attributes = json as! Dictionary<String, AnyObject>
+            user_attributes["latitude"] = user_attributes["latitude"]!.doubleValue
+            user_attributes["longitude"] = user_attributes["longitude"]!.doubleValue
+            
             var logged_in_user = User(value: user_attributes)
             self.fetch_user_data(logged_in_user)
             
@@ -48,7 +51,9 @@ class LoginController: UIViewController {
         let realm = Realm()
         request(.GET, friendships_index_url).responseJSON { (request, response, json, error) in
             for friend in json as! NSArray {
-                var friend_attributes = friend as! NSDictionary
+                var friend_attributes = friend as! Dictionary<String, AnyObject>
+                friend_attributes["latitude"] = friend_attributes["latitude"]!.doubleValue
+                friend_attributes["longitude"] = friend_attributes["longitude"]!.doubleValue
                 var friend = User(value: friend_attributes)
                 realm.write {
                     logged_in_user.friends.append(friend)

@@ -18,7 +18,6 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     var loggedInUser = Realm().objects(User).first!
     var invitedFriends = [User]()
     let locationManager = CLLocationManager()
-    let yelpClient = YelpClient.sharedInstance
     var typePickerData = [String]()
     var yelpSearchOption = "Food"
     

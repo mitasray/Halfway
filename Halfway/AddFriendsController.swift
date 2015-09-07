@@ -15,6 +15,7 @@ class AddFriendsController: UITableViewController, UISearchResultsUpdating  {
     
     var resultSearchController = UISearchController()
     var all_users = Realm().objects(User)
+    var user_friends = Realm().objects(User).first!.friends
     var filtered_users = [User]()
     
     
@@ -44,9 +45,9 @@ class AddFriendsController: UITableViewController, UISearchResultsUpdating  {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.resultSearchController.active {
-            return self.filtered_users.count
+             return filtered_users.count
         } else {
-            return 0
+            return user_friends.count
         }
     }
     
@@ -56,18 +57,35 @@ class AddFriendsController: UITableViewController, UISearchResultsUpdating  {
         if self.resultSearchController.active {
             cell.textLabel?.text = self.filtered_users[indexPath.row].username
             return cell
+        } else {
+            cell.textLabel?.text = self.user_friends[indexPath.row].username
+            return cell
         }
-        return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var selectedUser = self.filtered_users[indexPath.row]
-        println(selectedUser.username)
+        if self.resultSearchController.active {
+            var selectedUser = self.filtered_users[indexPath.row]
+            let add_friend_url = "http://halfway-db.herokuapp.com/v1/users/" + String(logged_in_user().id) + "/friendships"
+            let parameters = [
+            "friend_id": selectedUser.id
+            ]
+            let realm = Realm()
+            request(.POST, add_friend_url, parameters: parameters).validate().responseJSON { (request, response, json, error) in
+                var friend_attributes = json as! Dictionary<String, AnyObject>
+                var username = friend_attributes["username"]! as! String
+                let predicate = NSPredicate(format: "username = %@", username)
+                var added_user = realm.objects(User).filter(predicate).first!
+            
+                Realm().write {
+                    self.logged_in_user().friends.append(added_user)
+                }
+            }
+        }
     }
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         self.filtered_users.removeAll(keepCapacity: false)
-        
         let predicate = NSPredicate(format: "username = %@", searchController.searchBar.text!)
         var filteredUserResults = Realm().objects(User).filter(predicate)
         
@@ -76,5 +94,10 @@ class AddFriendsController: UITableViewController, UISearchResultsUpdating  {
         self.filtered_users = array as! [User]
         
         self.tableView.reloadData()
+    }
+    
+    private func logged_in_user() -> User {
+        let realm = Realm()
+        return realm.objects(User).first!
     }
 }

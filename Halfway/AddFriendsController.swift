@@ -46,7 +46,7 @@ class AddFriendsController: UITableViewController, UISearchResultsUpdating  {
         if self.resultSearchController.active {
             return self.filtered_users.count
         } else {
-            return self.all_users.count
+            return 0
         }
     }
     
@@ -57,10 +57,12 @@ class AddFriendsController: UITableViewController, UISearchResultsUpdating  {
             cell.textLabel?.text = self.filtered_users[indexPath.row].username
             return cell
         }
-        else {
-            cell.textLabel?.text = self.all_users[indexPath.row].username
-            return cell
-        }
+        return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        var selectedUser = self.filtered_users[indexPath.row]
+        println(selectedUser.username)
     }
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {

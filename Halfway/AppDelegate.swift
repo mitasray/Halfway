@@ -16,26 +16,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        setSchemaVersion(5, Realm.defaultPath, { migration, oldSchemaVersion in
-            migration.enumerate(User.className()) { oldObject, newObject in
+        let config = Realm.Configuration(
+            schemaVersion: 6,
+            migrationBlock: { migration, oldSchemaVersion in
                 if oldSchemaVersion < 1 {
-                    newObject!["id"] = oldObject!["user_id"] as! Int
+                    migration.enumerate(User.className()) { oldObject, newObject in
+                        newObject!["id"] = oldObject!["user_id"] as! Int
+                    }
                 }
                 if oldSchemaVersion < 2 {
-                    newObject!["friends"] = List<User>()
+                    migration.enumerate(User.className()) { oldObject, newObject in
+                        newObject!["friends"] = List<User>()
+                    }
                 }
                 if oldSchemaVersion < 3 {
-                    newObject!["email"] = ""
+                    migration.enumerate(User.className()) { oldObject, newObject in
+                        newObject!["email"] = ""
+                    }
                 }
                 if oldSchemaVersion < 4 {
-                    newObject!["events"] = List<Event>()
+                    migration.enumerate(User.className()) { oldObject, newObject in
+                        newObject!["events"] = List<Event>()
+                    }
                 }
                 if oldSchemaVersion < 5 {
-                    newObject!["latitude"] = 0.0
-                    newObject!["longitude"] = 0.0
+                    migration.enumerate(User.className()) { oldObject, newObject in
+                        newObject!["latitude"] = 0.0
+                        newObject!["longitude"] = 0.0
+                    }
+                }
+                if oldSchemaVersion < 6 {
+                    migration.enumerate(Event.className()) { oldObject, newObject in
+                        newObject!["address"] = ""
+                        newObject!["meeting_point"] = ""
+                    }
                 }
             }
-        })
+        )
+        
+        Realm.Configuration.defaultConfiguration = config
+        
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
         var storyboard = UIStoryboard(name: "Main", bundle: nil)

@@ -70,6 +70,10 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         return typePickerData[row]
     }
     
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        yelpSearchOption = typePickerData[row]
+    }
+    
     func handleSwipes(sender: UISwipeGestureRecognizer) {
         if (sender.direction == .Left) {
             self.performSegueWithIdentifier("inviteFriendsToEvent", sender: self)
@@ -94,11 +98,11 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             self.logged_in_user().longitude = self.locationManager.location.coordinate.longitude
         }
         updateUserLocation()
-        println(datePicker.date)
         let parameters = [
             "date": datePicker.date,
             "description": "event",
-            "users": invitedFriendsIDs()
+            "users": invitedFriendsIDs(),
+            "search_param": self.yelpSearchOption
         ]
         request(.POST, event_url, parameters: parameters).validate().responseJSON { (request, response, json, error) in
             println(json)

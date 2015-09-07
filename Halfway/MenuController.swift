@@ -16,6 +16,7 @@ class MenuController: UITableViewController {
     @IBOutlet weak var userCell: UITableViewCell!
     @IBOutlet weak var createEventCell: UITableViewCell!
     @IBOutlet weak var manageEventsCell: UITableViewCell!
+    @IBOutlet weak var addFriendsCell: UITableViewCell!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,8 @@ class MenuController: UITableViewController {
         logoutCell.textLabel!.text = "Logout"
         createEventCell.textLabel!.text = "Create Event"
         manageEventsCell.textLabel!.text = "My Events"
+        addFriendsCell.textLabel!.text = "Add Friends"
+        
     }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) -> Void {
         var selectedCell = tableView.cellForRowAtIndexPath(indexPath)

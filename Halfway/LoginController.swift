@@ -42,6 +42,7 @@ class LoginController: UIViewController {
     }
     
     private func fetch_user_data(logged_in_user: User) {
+        load_all_users()
         load_user_friends(logged_in_user)
         load_user_events(logged_in_user)
     }
@@ -62,11 +63,33 @@ class LoginController: UIViewController {
         }
     }
     
+    private func load_all_users() {
+        let users_index_url = "http://halfway-db.herokuapp.com/v1/users/"
+        let realm = Realm()
+        request(.GET, users_index_url).responseJSON { (request, response, json, error) in
+            for user_attributes in json as! NSArray {
+                var user_attributes = user_attributes as! Dictionary<String, AnyObject>
+                user_attributes["latitude"] = user_attributes["latitude"]!.doubleValue
+                user_attributes["longitude"] = user_attributes["longitude"]!.doubleValue
+                var user = User(value: user_attributes)
+                if self.user_not_loaded(user) {
+                    realm.write { realm.add(user) }
+                }
+            }
+        }
+    }
+    
+    private func user_not_loaded(user: User) -> Bool {
+        if Realm().objects(User).filter("username = %@", user.username).count == 0 {
+            return true
+        }
+        return false
+    }
+    
     private func load_user_events(logged_in_user: User) {
         let user_events_index_url = "http://halfway-db.herokuapp.com/v1/users/" + String(logged_in_user.id) + "/events"
         let realm = Realm()
         request(.GET, user_events_index_url).responseJSON { (request, response, json, error) in
-            println(json)
             for event in json as! NSArray {
                 var event_attributes = event as! Dictionary<String, AnyObject>
                 let dateFormatter = NSDateFormatter()

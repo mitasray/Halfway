@@ -15,4 +15,6 @@ class Event: Object {
     dynamic var date = NSDate()
     dynamic var latitude: Double = 0.0
     dynamic var longitude: Double = 0.0
+    dynamic var meeting_point: String = ""
+    dynamic var address: String = ""
 }

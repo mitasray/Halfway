@@ -19,6 +19,7 @@
 		0ABBC3F21B3A88540097E1A9 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0ABBC3F11B3A88540097E1A9 /* Info.plist */; };
 		0AE5568A1B47D88C00FF0E1E /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE556891B47D88C00FF0E1E /* LoginController.swift */; };
 		0AE5568C1B48C6BE00FF0E1E /* SignupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE5568B1B48C6BE00FF0E1E /* SignupController.swift */; };
+		0AEA54591B9D3A9700852826 /* AddFriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEA54581B9D3A9700852826 /* AddFriendsController.swift */; };
 		0AFFF3281B8E9D12002631CD /* EventDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFFF3271B8E9D12002631CD /* EventDetailsController.swift */; };
 		3ED80AAD011514123DFF3021 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 883B1CC33CEA71BA24BAF163 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		6094D5941B1F85FA00EAA02A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6094D5931B1F85FA00EAA02A /* AppDelegate.swift */; };
@@ -52,6 +53,7 @@
 		0AD019361B3C735500C79246 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AE556891B47D88C00FF0E1E /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		0AE5568B1B48C6BE00FF0E1E /* SignupController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupController.swift; sourceTree = "<group>"; };
+		0AEA54581B9D3A9700852826 /* AddFriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFriendsController.swift; sourceTree = "<group>"; };
 		0AFFF3271B8E9D12002631CD /* EventDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailsController.swift; sourceTree = "<group>"; };
 		6094D58E1B1F85FA00EAA02A /* Halfway.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Halfway.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6094D5921B1F85FA00EAA02A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				0AA581501B8A787A00909CB5 /* UserController.swift */,
 				0A1F19A81B8C2F1F0097691E /* EventManagerController.swift */,
 				0AFFF3271B8E9D12002631CD /* EventDetailsController.swift */,
+				0AEA54581B9D3A9700852826 /* AddFriendsController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				0AE5568C1B48C6BE00FF0E1E /* SignupController.swift in Sources */,
 				0AA5814F1B8A5E9A00909CB5 /* MenuController.swift in Sources */,
 				0AA581511B8A787A00909CB5 /* UserController.swift in Sources */,
+				0AEA54591B9D3A9700852826 /* AddFriendsController.swift in Sources */,
 				0A9C94D21B58ED6500CBC437 /* EventController.swift in Sources */,
 				6094D5941B1F85FA00EAA02A /* AppDelegate.swift in Sources */,
 				0A4150321B4DCE770043DC33 /* User.swift in Sources */,

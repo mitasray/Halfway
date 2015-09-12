@@ -67,18 +67,23 @@ class AddFriendsController: UITableViewController, UISearchResultsUpdating  {
         if self.resultSearchController.active {
             var selectedUser = self.filtered_users[indexPath.row]
             let add_friend_url = "http://halfway-db.herokuapp.com/v1/users/" + String(logged_in_user().id) + "/friendships"
+            let friendships_index_url = "http://halfway-db.herokuapp.com/v1/users/" + String(logged_in_user().id) + "/friendships"
             let parameters = [
-            "friend_id": selectedUser.id
+                "friend_id": selectedUser.id
             ]
             let realm = Realm()
-            request(.POST, add_friend_url, parameters: parameters).validate().responseJSON { (request, response, json, error) in
-                var friend_attributes = json as! Dictionary<String, AnyObject>
-                var username = friend_attributes["username"]! as! String
-                let predicate = NSPredicate(format: "username = %@", username)
-                var added_user = realm.objects(User).filter(predicate).first!
-            
-                Realm().write {
-                    self.logged_in_user().friends.append(added_user)
+            request(.POST, add_friend_url, parameters: parameters)
+            request(.GET, friendships_index_url).responseJSON { (request, response, json, error) in
+                for friend in json as! NSArray {
+                    var friend_attributes = friend as! Dictionary<String, AnyObject>
+                    var username = friend_attributes["username"]! as! String
+                    let predicate = NSPredicate(format: "username = %@", username)
+                    if self.logged_in_user().friends.filter(predicate).count == 0 {
+                        var new_friend = User(value: friend_attributes)
+                        realm.write {
+                            self.logged_in_user().friends.append(new_friend)
+                        }
+                    }
                 }
             }
         }

@@ -43,8 +43,8 @@ class LoginController: UIViewController {
     
     private func fetch_user_data(logged_in_user: User) {
         load_all_users()
-        load_user_friends(logged_in_user)
         load_user_events(logged_in_user)
+        load_user_friends(logged_in_user)
     }
     
     private func load_user_friends(logged_in_user: User) {
@@ -53,9 +53,9 @@ class LoginController: UIViewController {
         request(.GET, friendships_index_url).responseJSON { (request, response, json, error) in
             for friend in json as! NSArray {
                 var friend_attributes = friend as! Dictionary<String, AnyObject>
-                friend_attributes["latitude"] = friend_attributes["latitude"]!.doubleValue
-                friend_attributes["longitude"] = friend_attributes["longitude"]!.doubleValue
-                var friend = User(value: friend_attributes)
+                var username = friend_attributes["username"]! as! String
+                let predicate = NSPredicate(format: "username = %@", username)
+                var friend = realm.objects(User).filter(predicate).first!
                 realm.write {
                     logged_in_user.friends.append(friend)
                 }

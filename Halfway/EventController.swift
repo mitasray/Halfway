@@ -106,6 +106,15 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         ]
         request(.POST, event_url, parameters: parameters).validate().responseJSON { (request, response, json, error) in
             println(json)
+            var event_details = json as! Dictionary<String, AnyObject>
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            event_details["date"] = dateFormatter.dateFromString(String(stringInterpolationSegment: event_details["date"]))
+            event_details["details"] = event_details["description"]
+            let created_event = Event(value: event_details)
+            realm.write {
+                self.logged_in_user().events.append(created_event)
+            }
         }
     }
     

@@ -12,6 +12,7 @@ import CoreLocation
 import Alamofire
 import RealmSwift
 import SWRevealViewController
+import SVProgressHUD
 
 class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, FriendsControllerDelegate, CLLocationManagerDelegate {
     var loggedInUser = try! Realm().objects(User).first!
@@ -103,6 +104,7 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             "users": invitedFriendsIDs(),
             "search_param": self.yelpSearchOption
         ]
+        SVProgressHUD.show()
         request(.POST, event_url, parameters: parameters).validate().responseJSON { response in
             let json = response.2.value
             var event_details = json as! Dictionary<String, AnyObject>
@@ -114,6 +116,7 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             realm.write {
                 self.logged_in_user().events.append(created_event)
             }
+            SVProgressHUD.dismiss()
         }
     }
     

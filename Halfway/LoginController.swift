@@ -9,8 +9,8 @@
 import UIKit
 import Foundation
 import Alamofire
-import SwiftyJSON
 import RealmSwift
+import SVProgressHUD
 
 class LoginController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
@@ -18,13 +18,15 @@ class LoginController: UIViewController {
     @IBOutlet weak var passwordField: UITextField!
     
     @IBAction func login(sender: AnyObject) {
-        let login_user_url = "http://halfway-db.herokuapp.com/v1/login"
+        let login_user_url = "https://halfway-db.herokuapp.com/v1/login"
 
         let parameters = [
-            "username": usernameField.text,
-            "password": passwordField.text,
+            "username": usernameField.text!,
+            "password": passwordField.text!,
         ]
-        request(.POST, login_user_url, parameters: parameters).validate().responseJSON { (request, response, json, error) in
+        SVProgressHUD.show()
+        request(.POST, login_user_url, parameters: parameters).validate().responseJSON { response in
+            let json = response.2.value
             var user_attributes = json as! Dictionary<String, AnyObject>
             user_attributes["latitude"] = user_attributes["latitude"]!.doubleValue
             user_attributes["longitude"] = user_attributes["longitude"]!.doubleValue
@@ -32,12 +34,13 @@ class LoginController: UIViewController {
             var logged_in_user = User(value: user_attributes)
             self.fetch_user_data(logged_in_user)
             
-            let realm = Realm()
+            let realm = try! Realm()
             realm.write { realm.add(logged_in_user) }
             logged_in_user = realm.objects(User).filter("id = \(logged_in_user.id)").first!
 
-            var MainNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("event") as! UIViewController
+            var MainNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("event") as? UIViewController!
             self.performSegueWithIdentifier("login", sender: self)
+            SVProgressHUD.dismiss()
         }
     }
     
@@ -48,14 +51,15 @@ class LoginController: UIViewController {
     }
     
     private func load_user_friends(logged_in_user: User) {
-        let friendships_index_url = "http://halfway-db.herokuapp.com/v1/users/" + String(logged_in_user.id) + "/friendships"
-        let realm = Realm()
-        request(.GET, friendships_index_url).responseJSON { (request, response, json, error) in
+        let friendships_index_url = "https://halfway-db.herokuapp.com/v1/users/" + String(logged_in_user.id) + "/friendships"
+        let realm = try! Realm()
+        request(.GET, friendships_index_url).responseJSON { response in
+            let json = response.2.value
             for friend in json as! NSArray {
                 var friend_attributes = friend as! Dictionary<String, AnyObject>
-                var username = friend_attributes["username"]! as! String
+                let username = friend_attributes["username"]! as! String
                 let predicate = NSPredicate(format: "username = %@", username)
-                var friend = realm.objects(User).filter(predicate).first!
+                let friend = realm.objects(User).filter(predicate).first!
                 realm.write {
                     logged_in_user.friends.append(friend)
                 }
@@ -64,14 +68,15 @@ class LoginController: UIViewController {
     }
     
     private func load_all_users() {
-        let users_index_url = "http://halfway-db.herokuapp.com/v1/users/"
-        let realm = Realm()
-        request(.GET, users_index_url).responseJSON { (request, response, json, error) in
+        let users_index_url = "https://halfway-db.herokuapp.com/v1/users/"
+        let realm = try! Realm()
+        request(.GET, users_index_url).responseJSON { response in
+            let json = response.2.value
             for user_attributes in json as! NSArray {
                 var user_attributes = user_attributes as! Dictionary<String, AnyObject>
                 user_attributes["latitude"] = user_attributes["latitude"]!.doubleValue
                 user_attributes["longitude"] = user_attributes["longitude"]!.doubleValue
-                var user = User(value: user_attributes)
+                let user = User(value: user_attributes)
                 if self.user_not_loaded(user) {
                     realm.write { realm.add(user) }
                 }
@@ -80,16 +85,18 @@ class LoginController: UIViewController {
     }
     
     private func user_not_loaded(user: User) -> Bool {
-        if Realm().objects(User).filter("username = %@", user.username).count == 0 {
+        let realm = try! Realm()
+        if realm.objects(User).filter("username = %@", user.username).count == 0 {
             return true
         }
         return false
     }
     
     private func load_user_events(logged_in_user: User) {
-        let user_events_index_url = "http://halfway-db.herokuapp.com/v1/users/" + String(logged_in_user.id) + "/events"
-        let realm = Realm()
-        request(.GET, user_events_index_url).responseJSON { (request, response, json, error) in
+        let user_events_index_url = "https://halfway-db.herokuapp.com/v1/users/" + String(logged_in_user.id) + "/events"
+        let realm = try! Realm()
+        request(.GET, user_events_index_url).responseJSON { response in
+            let json = response.2.value
             for event in json as! NSArray {
                 var event_attributes = event as! Dictionary<String, AnyObject>
                 let dateFormatter = NSDateFormatter()
@@ -99,7 +106,8 @@ class LoginController: UIViewController {
                 event_attributes["latitude"] = 0.0
                 event_attributes["longitude"] = 0.0
                 
-                var newEvent = Event(value: event_attributes)
+                let
+                newEvent = Event(value: event_attributes)
                 realm.write {
                     logged_in_user.events.append(newEvent)
                 }

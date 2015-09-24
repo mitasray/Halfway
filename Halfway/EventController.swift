@@ -9,13 +9,12 @@
 import Foundation
 import UIKit
 import CoreLocation
-import SwiftyJSON
 import Alamofire
 import RealmSwift
 import SWRevealViewController
 
 class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, FriendsControllerDelegate, CLLocationManagerDelegate {
-    var loggedInUser = Realm().objects(User).first!
+    var loggedInUser = try! Realm().objects(User).first!
     var invitedFriends = [User]()
     let locationManager = CLLocationManager()
     var typePickerData = [String]()
@@ -46,7 +45,7 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
         
-        var leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
         leftSwipe.direction = .Left
         view.addGestureRecognizer(leftSwipe)
         
@@ -88,14 +87,14 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     }
     
     @IBAction func createEvent(sender: AnyObject) -> Void {
-        let event_url = "http://halfway-db.herokuapp.com/v1/users/" + String(loggedInUser.id) + "/events"
-        let realm = Realm()
+        let event_url = "https://halfway-db.herokuapp.com/v1/users/" + String(loggedInUser.id) + "/events"
+        let realm = try! Realm()
         realm.write {
-            self.logged_in_user().latitude = self.locationManager.location.coordinate.latitude
+            self.logged_in_user().latitude = self.locationManager.location!.coordinate.latitude
         }
         
         realm.write {
-            self.logged_in_user().longitude = self.locationManager.location.coordinate.longitude
+            self.logged_in_user().longitude = self.locationManager.location!.coordinate.longitude
         }
         updateUserLocation()
         let parameters = [
@@ -104,8 +103,8 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             "users": invitedFriendsIDs(),
             "search_param": self.yelpSearchOption
         ]
-        request(.POST, event_url, parameters: parameters).validate().responseJSON { (request, response, json, error) in
-            println(json)
+        request(.POST, event_url, parameters: parameters).validate().responseJSON { response in
+            let json = response.2.value
             var event_details = json as! Dictionary<String, AnyObject>
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -119,7 +118,7 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     }
     
     func updateUserLocation() {
-        let update_user_url = "http://halfway-db.herokuapp.com/v1/users/" + String(logged_in_user().id)
+        let update_user_url = "https://halfway-db.herokuapp.com/v1/users/" + String(logged_in_user().id)
         let parameters = [
             "user": [
                 "latitude": logged_in_user().latitude,
@@ -130,14 +129,14 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     }
     
     @IBAction func logOut(sender: AnyObject) -> Void {
-        let realm = Realm()
+        let realm = try! Realm()
         realm.write {
             realm.deleteAll()
         }
     }
     
     private func logged_in_user() -> User {
-        let realm = Realm()
+        let realm = try! Realm()
         return realm.objects(User).first!
     }
     

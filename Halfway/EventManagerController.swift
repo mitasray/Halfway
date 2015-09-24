@@ -58,6 +58,7 @@ class EventManagerController: UITableViewController {
     }
     
     private func logged_in_user() -> User {
-        return Realm().objects(User).first!
+        let realm = try! Realm()
+        return realm.objects(User).first!
     }
 }

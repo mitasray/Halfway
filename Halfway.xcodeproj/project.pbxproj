@@ -237,6 +237,7 @@
 		6094D5861B1F85FA00EAA02A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = mitas.ray;
 				TargetAttributes = {

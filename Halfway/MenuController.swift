@@ -28,9 +28,9 @@ class MenuController: UITableViewController {
         
     }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) -> Void {
-        var selectedCell = tableView.cellForRowAtIndexPath(indexPath)
+        let selectedCell = tableView.cellForRowAtIndexPath(indexPath)
         if selectedCell?.textLabel?.text as String! == "Logout"  {
-            let realm = Realm()
+            let realm = try! Realm()
             realm.write {
                 realm.deleteAll()
             }
@@ -39,7 +39,7 @@ class MenuController: UITableViewController {
     }
     
     private func logged_in_user() -> User {
-        let realm = Realm()
+        let realm = try! Realm()
         return realm.objects(User).first!
     }
 }

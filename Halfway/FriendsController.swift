@@ -66,7 +66,7 @@ class FriendsController: UITableViewController {
     }
     
     private func logged_in_user() -> User {
-        let realm = Realm()
+        let realm = try! Realm()
         return realm.objects(User).first!
     }
 }

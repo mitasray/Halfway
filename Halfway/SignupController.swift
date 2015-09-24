@@ -1,3 +1,4 @@
+
 //
 //  SignupController.swift
 //  Halfway
@@ -9,14 +10,12 @@
 import UIKit
 import Foundation
 import Alamofire
-import SwiftyJSON
 import RealmSwift
 import CoreLocation
+import SVProgressHUD
 
 class SignupController: UIViewController, CLLocationManagerDelegate {
     
-    let url = "http://halfway-db.herokuapp.com/v1/signup"
-    let defaults = NSUserDefaults.standardUserDefaults()
     let locationManager = CLLocationManager()
     
     @IBOutlet weak var emailField: UITextField!
@@ -25,24 +24,31 @@ class SignupController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var usernameField: UITextField!
     
     @IBAction func signup(sender: AnyObject) {
+        let signup_url = "https://halfway-db.herokuapp.com/v1/signup"
         let parameters = [
-            "username": usernameField.text,
-            "email": emailField.text,
-            "password": passwordField.text,
-            "password_confirmation": confirmPasswordField.text,
+            "username": usernameField.text!,
+            "email": emailField.text!,
+            "password": passwordField.text!,
+            "password_confirmation": confirmPasswordField.text!,
+            "latitude": String(stringInterpolationSegment: locationManager.location!.coordinate.latitude),
+            "longitude": String(stringInterpolationSegment: locationManager.location!.coordinate.longitude),
         ]
-        request(.POST, self.url, parameters: parameters).validate().responseJSON { (request, response, json, error) in
+        SVProgressHUD.show()
+        request(.POST, signup_url, parameters: parameters).validate().responseJSON { response in
+            let json = response.2.value
             var new_user_attributes = json as! Dictionary<String, AnyObject>
             
-            new_user_attributes["latitude"] = self.locationManager.location.coordinate.latitude
-            new_user_attributes["longitude"] = self.locationManager.location.coordinate.longitude
-            var logged_in_user = User(value: new_user_attributes)
+            new_user_attributes["latitude"] = new_user_attributes["latitude"]!.doubleValue
+            new_user_attributes["longitude"] = new_user_attributes["longitude"]!.doubleValue
             
-            let realm = Realm()
+            let logged_in_user = User(value: new_user_attributes)
+            
+            let realm = try! Realm()
             realm.write { realm.add(logged_in_user) }
             
-            var MainNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("event") as! UIViewController
-            self.navigationController?.pushViewController(MainNavigationController, animated: true)
+            var MainNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("event") as? UIViewController!
+            self.performSegueWithIdentifier("signup", sender: self)
+            SVProgressHUD.dismiss()
         }
     }
     

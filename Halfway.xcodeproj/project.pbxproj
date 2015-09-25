@@ -12,7 +12,6 @@
 		0A4150321B4DCE770043DC33 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4150311B4DCE770043DC33 /* User.swift */; };
 		0A6D7C651B3A75E500AA09C4 /* Podfile.lock in Resources */ = {isa = PBXBuildFile; fileRef = 0A6D7C641B3A75E500AA09C4 /* Podfile.lock */; };
 		0A6D7C691B3A764900AA09C4 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 0A6D7C681B3A764900AA09C4 /* Podfile */; };
-		0A862CD01B4F4BD800841345 /* FriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A862CCF1B4F4BD800841345 /* FriendsController.swift */; };
 		0A9C94D21B58ED6500CBC437 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9C94D11B58ED6500CBC437 /* EventController.swift */; };
 		0AA5814F1B8A5E9A00909CB5 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA5814E1B8A5E9A00909CB5 /* MenuController.swift */; };
 		0AA581511B8A787A00909CB5 /* UserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA581501B8A787A00909CB5 /* UserController.swift */; };
@@ -45,7 +44,6 @@
 		0A6D7C601B3A74A100AA09C4 /* Halfway-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Halfway-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		0A6D7C641B3A75E500AA09C4 /* Podfile.lock */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
 		0A6D7C681B3A764900AA09C4 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		0A862CCF1B4F4BD800841345 /* FriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsController.swift; sourceTree = "<group>"; };
 		0A9C94D11B58ED6500CBC437 /* EventController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
 		0AA5814E1B8A5E9A00909CB5 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		0AA581501B8A787A00909CB5 /* UserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
@@ -108,7 +106,6 @@
 			children = (
 				0AE556891B47D88C00FF0E1E /* LoginController.swift */,
 				0AE5568B1B48C6BE00FF0E1E /* SignupController.swift */,
-				0A862CCF1B4F4BD800841345 /* FriendsController.swift */,
 				0A9C94D11B58ED6500CBC437 /* EventController.swift */,
 				0AA5814E1B8A5E9A00909CB5 /* MenuController.swift */,
 				0AA581501B8A787A00909CB5 /* UserController.swift */,
@@ -345,7 +342,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A862CD01B4F4BD800841345 /* FriendsController.swift in Sources */,
 				0A1F19A91B8C2F1F0097691E /* EventManagerController.swift in Sources */,
 				0AE5568C1B48C6BE00FF0E1E /* SignupController.swift in Sources */,
 				0AA5814F1B8A5E9A00909CB5 /* MenuController.swift in Sources */,

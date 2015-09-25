@@ -14,24 +14,19 @@ import RealmSwift
 import SWRevealViewController
 import SVProgressHUD
 
-class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, FriendsControllerDelegate, CLLocationManagerDelegate {
+class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDataSource, CLLocationManagerDelegate, UITableViewDelegate {
     var loggedInUser = try! Realm().objects(User).first!
     var invitedFriends = [User]()
     let locationManager = CLLocationManager()
     var typePickerData = [String]()
     var yelpSearchOption = "Food"
     
+    @IBOutlet weak var friendsTableView: UITableView!
+    @IBOutlet weak var detailsTextField: UITextField!
     @IBOutlet weak var typePicker: UIPickerView!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var friendLabel: UILabel!
     @IBOutlet weak var menuButton: UIBarButtonItem!
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "inviteFriendsToEvent" {
-            let friendsController = segue.destinationViewController as! FriendsController
-            friendsController.delegate = self
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,20 +36,46 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         
+        friendsTableView.allowsMultipleSelection = true
+
+        friendsTableView.delegate = self
+        friendsTableView.dataSource = self
+        
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
-        
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: Selector("handleSwipes:"))
-        leftSwipe.direction = .Left
-        view.addGestureRecognizer(leftSwipe)
         
         self.typePicker.delegate = self
         self.typePicker.dataSource = self
         
         typePickerData = yelpSearchOptions()
         typePicker.selectRow(3, inComponent: 0, animated: true)
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return listOfAllFriends().count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
+        
+        let friend_username = listOfAllFriends()[indexPath.row].username
+
+        cell.textLabel?.text = friend_username
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        let friend = self.listOfAllFriends()[indexPath.row]
+        invite(friend)
+        
     }
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -72,12 +93,6 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         yelpSearchOption = typePickerData[row]
-    }
-    
-    func handleSwipes(sender: UISwipeGestureRecognizer) {
-        if (sender.direction == .Left) {
-            self.performSegueWithIdentifier("inviteFriendsToEvent", sender: self)
-        }
     }
     
     func createEventWithFriends(friends: [User]) {
@@ -100,7 +115,7 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         updateUserLocation()
         let parameters = [
             "date": datePicker.date,
-            "description": "event",
+            "description": detailsTextField.text!   ,
             "users": invitedFriendsIDs(),
             "search_param": self.yelpSearchOption
         ]
@@ -138,6 +153,10 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         }
     }
     
+    private func invite(friend: User) {
+        invitedFriends.append(friend)
+    }
+    
     private func logged_in_user() -> User {
         let realm = try! Realm()
         return realm.objects(User).first!
@@ -166,5 +185,9 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             "Restaurant",
             "Vietnamese"
         ]
+    }
+    
+    private func listOfAllFriends() -> List<User> {
+        return logged_in_user().friends
     }
 }

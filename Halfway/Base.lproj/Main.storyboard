@@ -592,6 +592,10 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="tiI-SU-hZx">
+                                <rect key="frame" x="0.0" y="228" width="375" height="315"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -599,6 +603,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="emailLabel" destination="UTO-CE-z1l" id="cGf-tL-C8z"/>
+                        <outlet property="mapView" destination="tiI-SU-hZx" id="oQg-Cd-ca2"/>
                         <outlet property="menuButton" destination="EmQ-EZ-cMg" id="PsC-Al-vGv"/>
                         <outlet property="numberOfFriendsLabel" destination="bJl-A6-dg2" id="d4C-ZG-zng"/>
                         <outlet property="usernameLabel" destination="lNK-cw-WY4" id="mwb-91-MIG"/>
@@ -606,7 +611,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QuV-WL-MDg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-391.5" y="1571.5"/>
+            <point key="canvasLocation" x="-357.5" y="1571.5"/>
         </scene>
         <!--Signup Controller-->
         <scene sceneID="JFt-RP-g8X">

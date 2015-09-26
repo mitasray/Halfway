@@ -24,6 +24,29 @@ class SignupController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var usernameField: UITextField!
     
     @IBAction func signup(sender: AnyObject) {
+        let alert = UIAlertView()
+        if emailField.text!.isEmpty {
+            alert.title = "Please Enter a Email"
+            alert.addButtonWithTitle("Ok")
+            alert.show()
+            return
+        } else if usernameField.text!.isEmpty {
+            alert.title = "Please Enter a Username"
+            alert.addButtonWithTitle("Ok")
+            alert.show()
+            return
+        } else if passwordField.text!.isEmpty {
+            alert.title = "Please Enter a Password"
+            alert.addButtonWithTitle("Ok")
+            alert.show()
+            return
+        } else if confirmPasswordField.text!.isEmpty {
+            alert.title = "Please Confirm your Password"
+            alert.addButtonWithTitle("Ok")
+            alert.show()
+            return
+        }
+        
         let signup_url = "https://halfway-db.herokuapp.com/v1/signup"
         let parameters = [
             "username": usernameField.text!,

@@ -18,8 +18,20 @@ class LoginController: UIViewController {
     @IBOutlet weak var passwordField: UITextField!
     
     @IBAction func login(sender: AnyObject) {
+        let alert = UIAlertView()
+        if usernameField.text!.isEmpty {
+            alert.title = "Please Enter Your Username"
+            alert.addButtonWithTitle("Ok")
+            alert.show()
+            return
+        } else if passwordField.text!.isEmpty {
+            alert.title = "Please Enter Your Password"
+            alert.addButtonWithTitle("Ok")
+            alert.show()
+            return
+        }
+        
         let login_user_url = "https://halfway-db.herokuapp.com/v1/login"
-
         let parameters = [
             "username": usernameField.text!,
             "password": passwordField.text!,

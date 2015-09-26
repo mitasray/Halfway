@@ -6,4 +6,3 @@ pod 'Alamofire'
 pod 'RealmSwift'
 pod 'SWRevealViewController'
 pod 'SVProgressHUD'
-

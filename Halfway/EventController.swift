@@ -20,7 +20,7 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     let locationManager = CLLocationManager()
     var typePickerData = [String]()
     var yelpSearchOption = "Food"
-    
+        
     @IBOutlet weak var friendsTableView: UITableView!
     @IBOutlet weak var detailsTextField: UITextField!
     @IBOutlet weak var typePicker: UIPickerView!
@@ -75,7 +75,6 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         
         let friend = self.listOfAllFriends()[indexPath.row]
         invite(friend)
-        
     }
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {

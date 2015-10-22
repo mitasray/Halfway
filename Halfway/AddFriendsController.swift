@@ -74,14 +74,14 @@ class AddFriendsController: UITableViewController, UISearchResultsUpdating  {
             let realm = try! Realm()
             request(.POST, add_friend_url, parameters: parameters)
             request(.GET, friendships_index_url).responseJSON { response in
-                let json = response.2.value
+                let json = response.result.value
                 for friend in json as! NSArray {
                     var friend_attributes = friend as! Dictionary<String, AnyObject>
                     var username = friend_attributes["username"]! as! String
                     let predicate = NSPredicate(format: "username = %@", username)
                     if self.logged_in_user().friends.filter(predicate).count == 0 {
                         var new_friend = User(value: friend_attributes)
-                        realm.write {
+                        try! realm.write {
                             self.logged_in_user().friends.append(new_friend)
                         }
                     }

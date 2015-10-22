@@ -31,7 +31,7 @@ class MenuController: UITableViewController {
         let selectedCell = tableView.cellForRowAtIndexPath(indexPath)
         if selectedCell?.textLabel?.text as String! == "Logout"  {
             let realm = try! Realm()
-            realm.write {
+            try! realm.write {
                 realm.deleteAll()
             }
             self.performSegueWithIdentifier("logout", sender: self)

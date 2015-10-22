@@ -58,7 +58,7 @@ class SignupController: UIViewController, CLLocationManagerDelegate {
         ]
         SVProgressHUD.show()
         request(.POST, signup_url, parameters: parameters).validate().responseJSON { response in
-            let json = response.2.value
+            let json = response.result.value
             var new_user_attributes = json as! Dictionary<String, AnyObject>
             
             new_user_attributes["latitude"] = new_user_attributes["latitude"]!.doubleValue
@@ -67,7 +67,7 @@ class SignupController: UIViewController, CLLocationManagerDelegate {
             let logged_in_user = User(value: new_user_attributes)
             
             let realm = try! Realm()
-            realm.write { realm.add(logged_in_user) }
+            try! realm.write { realm.add(logged_in_user) }
             
             var MainNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("event") as? UIViewController!
             self.performSegueWithIdentifier("signup", sender: self)

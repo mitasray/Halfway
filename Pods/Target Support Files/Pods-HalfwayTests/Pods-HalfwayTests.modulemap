@@ -1,0 +1,6 @@
+framework module Pods_HalfwayTests {
+  umbrella header "Pods-HalfwayTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -104,11 +104,11 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     @IBAction func createEvent(sender: AnyObject) -> Void {
         let event_url = "https://halfway-db.herokuapp.com/v1/users/" + String(loggedInUser.id) + "/events"
         let realm = try! Realm()
-        realm.write {
+        try!realm.write {
             self.logged_in_user().latitude = self.locationManager.location!.coordinate.latitude
         }
         
-        realm.write {
+        try! realm.write {
             self.logged_in_user().longitude = self.locationManager.location!.coordinate.longitude
         }
         updateUserLocation()
@@ -120,14 +120,14 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         ]
         SVProgressHUD.show()
         request(.POST, event_url, parameters: parameters).validate().responseJSON { response in
-            let json = response.2.value
+            let json = response.result.value
             var event_details = json as! Dictionary<String, AnyObject>
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             event_details["date"] = dateFormatter.dateFromString(String(stringInterpolationSegment: event_details["date"]))
             event_details["details"] = event_details["description"]
             let created_event = Event(value: event_details)
-            realm.write {
+            try! realm.write {
                 self.logged_in_user().events.append(created_event)
             }
             SVProgressHUD.dismiss()
@@ -147,7 +147,7 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     
     @IBAction func logOut(sender: AnyObject) -> Void {
         let realm = try! Realm()
-        realm.write {
+        try! realm.write {
             realm.deleteAll()
         }
     }

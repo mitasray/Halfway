@@ -61,9 +61,10 @@ public class OAuth1Swift: NSObject {
                 let url = notification.userInfo![CallbackNotification.optionsURLKey] as! NSURL
                 var parameters: Dictionary<String, String> = Dictionary()
                 if ((url.query) != nil){
-                    parameters = url.query!.parametersFromQueryString()
-                } else if ((url.fragment) != nil && url.fragment!.isEmpty == false) {
-                    parameters = url.fragment!.parametersFromQueryString()
+                    parameters += url.query!.parametersFromQueryString()
+                }
+                if ((url.fragment) != nil && url.fragment!.isEmpty == false) {
+                    parameters += url.fragment!.parametersFromQueryString()
                 }
                 if let token = parameters["token"] {
                     parameters["oauth_token"] = token
@@ -97,6 +98,7 @@ public class OAuth1Swift: NSObject {
         if let callbackURLString: String = callbackURL.absoluteString {
             parameters["oauth_callback"] = callbackURLString
         }
+        self.client.credential.oauth_header_type = "oauth1"
         self.client.post(self.request_token_url, parameters: parameters, success: {
             data, response in
             let responseString = NSString(data: data, encoding: NSUTF8StringEncoding) as String!

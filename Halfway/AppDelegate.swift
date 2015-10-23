@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         let config = Realm.Configuration(
-            schemaVersion: 6,
+            schemaVersion: 7,
             migrationBlock: { migration, oldSchemaVersion in
                 if oldSchemaVersion < 1 {
                     migration.enumerate(User.className()) { oldObject, newObject in
@@ -49,6 +49,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     migration.enumerate(Event.className()) { oldObject, newObject in
                         newObject!["address"] = ""
                         newObject!["meeting_point"] = ""
+                    }
+                }
+                if oldSchemaVersion < 7 {
+                    migration.enumerate(User.className()) { oldObject, newObject in
+                        newObject!["access_token"] = ""
                     }
                 }
             }

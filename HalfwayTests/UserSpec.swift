@@ -19,6 +19,7 @@ class UserSpec: QuickSpec {
                 "email": "foo@bar.com",
                 "latitude": 100.5,
                 "longitude": 10.5,
+                "access_token": "1234",
             ]
             let user = User(value: user_attributes)
             
@@ -28,6 +29,7 @@ class UserSpec: QuickSpec {
                 expect(user.email).to(equal("foo@bar.com"))
                 expect(user.latitude).to(equal(100.5))
                 expect(user.longitude).to(equal(10.5))
+                expect(user.access_token).to(equal("1234"))
             }
         }
     }

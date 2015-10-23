@@ -119,7 +119,8 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
             "search_param": self.yelpSearchOption
         ]
         SVProgressHUD.show()
-        request(.POST, event_url, parameters: parameters).validate().responseJSON { response in
+        let headers = ["Authorization": logged_in_user().access_token]
+        request(.POST, event_url, parameters: parameters, headers: headers).validate().responseJSON { response in
             let json = response.result.value
             var event_details = json as! Dictionary<String, AnyObject>
             let dateFormatter = NSDateFormatter()

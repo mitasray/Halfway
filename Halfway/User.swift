@@ -15,6 +15,7 @@ class User: Object {
     dynamic var email = ""
     dynamic var latitude: Double = 0.0
     dynamic var longitude: Double = 0.0
+    dynamic var access_token = ""
     let friends = List<User>()
     let events = List<Event>()
 }

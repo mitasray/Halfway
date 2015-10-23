@@ -57,7 +57,7 @@ class LoginController: UIViewController {
     }
     
     private func fetch_user_data(logged_in_user: User) {
-        load_all_users()
+        load_all_users(logged_in_user)
         load_user_events(logged_in_user)
         load_user_friends(logged_in_user)
     }
@@ -65,7 +65,8 @@ class LoginController: UIViewController {
     private func load_user_friends(logged_in_user: User) {
         let friendships_index_url = "https://halfway-db.herokuapp.com/v1/users/" + String(logged_in_user.id) + "/friendships"
         let realm = try! Realm()
-        request(.GET, friendships_index_url).responseJSON { response in
+        let headers = ["Authorization": logged_in_user.access_token]
+        request(.GET, friendships_index_url, headers: headers).responseJSON { response in
             let json = response.result.value
             for friend in json as! NSArray {
                 var friend_attributes = friend as! Dictionary<String, AnyObject>
@@ -79,10 +80,11 @@ class LoginController: UIViewController {
         }
     }
     
-    private func load_all_users() {
+    private func load_all_users(logged_in_user: User) {
         let users_index_url = "https://halfway-db.herokuapp.com/v1/users/"
         let realm = try! Realm()
-        request(.GET, users_index_url).responseJSON { response in
+        let headers = ["Authorization": logged_in_user.access_token]
+        request(.GET, users_index_url, headers: headers).responseJSON { response in
             let json = response.result.value
             for user_attributes in json as! NSArray {
                 var user_attributes = user_attributes as! Dictionary<String, AnyObject>
@@ -107,7 +109,8 @@ class LoginController: UIViewController {
     private func load_user_events(logged_in_user: User) {
         let user_events_index_url = "https://halfway-db.herokuapp.com/v1/users/" + String(logged_in_user.id) + "/events"
         let realm = try! Realm()
-        request(.GET, user_events_index_url).responseJSON { response in
+        let headers = ["Authorization": logged_in_user.access_token]
+        request(.GET, user_events_index_url, headers: headers).responseJSON { response in
             let json = response.result.value
             for event in json as! NSArray {
                 var event_attributes = event as! Dictionary<String, AnyObject>

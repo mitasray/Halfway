@@ -72,8 +72,10 @@ class AddFriendsController: UITableViewController, UISearchResultsUpdating  {
                 "friend_id": selectedUser.id
             ]
             let realm = try! Realm()
-            request(.POST, add_friend_url, parameters: parameters)
-            request(.GET, friendships_index_url).responseJSON { response in
+            let headers = ["Authorization": logged_in_user().access_token]
+            request(.POST, add_friend_url, parameters: parameters, headers: headers)
+            request(.GET, friendships_index_url, headers: headers
+                ).responseJSON { response in
                 let json = response.result.value
                 for friend in json as! NSArray {
                     var friend_attributes = friend as! Dictionary<String, AnyObject>

@@ -1,8 +1,6 @@
 PODS:
   - Alamofire (3.0.1)
-  - Nimble (2.0.0)
   - OAuthSwift (0.4.6)
-  - Quick (0.7.0)
   - Realm (0.96.1):
     - Realm/Headers (= 0.96.1)
   - Realm/Headers (0.96.1)
@@ -13,18 +11,14 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
-  - Nimble
   - OAuthSwift
-  - Quick
   - RealmSwift
   - SVProgressHUD
   - SWRevealViewController
 
 SPEC CHECKSUMS:
   Alamofire: 2457e1b2e6c46bb05c3a598c542b7bfd08893775
-  Nimble: 472e75466819eb8c06299233e87c694a9b51328a
   OAuthSwift: 8c738cc56c942a541f5c6d0362a892cb149d10b1
-  Quick: 906d8aa995ee0afa96f1f7f01170f40fccfa5898
   Realm: d05e4621f67fb1c36acd4e573ac5b52a407fc2cc
   RealmSwift: 6c96a72b385027d9593b69f6821c697fe843eb68
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1

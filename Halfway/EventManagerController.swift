@@ -31,15 +31,15 @@ class EventManagerController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "selectEvent" {
-            var eventDetailsController = segue.destinationViewController as! EventDetailsController
+            let eventDetailsController = segue.destinationViewController as! EventDetailsController
             eventDetailsController.event = selectedEvent
         }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = self.tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) 
         
-        var event = listOfAllEvents()[indexPath.row].details
+        let event = listOfAllEvents()[indexPath.row].details
         
         cell.textLabel?.text = event
         cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator

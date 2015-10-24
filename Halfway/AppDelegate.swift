@@ -63,11 +63,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
-        var storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        var initialViewController = storyboard.instantiateViewControllerWithIdentifier("LoginNavigation") as! UIViewController
+        var initialViewController = storyboard.instantiateViewControllerWithIdentifier("LoginNavigation") 
         if user_logged_in() {
-            initialViewController = storyboard.instantiateViewControllerWithIdentifier("reveal") as! UIViewController
+            initialViewController = storyboard.instantiateViewControllerWithIdentifier("reveal") 
         }
         
         self.window?.rootViewController = initialViewController

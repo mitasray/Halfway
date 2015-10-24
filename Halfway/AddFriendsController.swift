@@ -52,7 +52,7 @@ class AddFriendsController: UITableViewController, UISearchResultsUpdating  {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) 
         
         if self.resultSearchController.active {
             cell.textLabel?.text = self.filtered_users[indexPath.row].username
@@ -65,7 +65,7 @@ class AddFriendsController: UITableViewController, UISearchResultsUpdating  {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if self.resultSearchController.active {
-            var selectedUser = self.filtered_users[indexPath.row]
+            let selectedUser = self.filtered_users[indexPath.row]
             let add_friend_url = "https://halfway-db.herokuapp.com/v1/users/" + String(logged_in_user().id) + "/friendships"
             let friendships_index_url = "https://halfway-db.herokuapp.com/v1/users/" + String(logged_in_user().id) + "/friendships"
             let parameters = [
@@ -79,10 +79,10 @@ class AddFriendsController: UITableViewController, UISearchResultsUpdating  {
                 let json = response.result.value
                 for friend in json as! NSArray {
                     var friend_attributes = friend as! Dictionary<String, AnyObject>
-                    var username = friend_attributes["username"]! as! String
+                    let username = friend_attributes["username"]! as! String
                     let predicate = NSPredicate(format: "username = %@", username)
                     if self.logged_in_user().friends.filter(predicate).count == 0 {
-                        var new_friend = User(value: friend_attributes)
+                        let new_friend = User(value: friend_attributes)
                         try! realm.write {
                             self.logged_in_user().friends.append(new_friend)
                         }
@@ -96,7 +96,7 @@ class AddFriendsController: UITableViewController, UISearchResultsUpdating  {
         self.filtered_users.removeAll(keepCapacity: false)
         let predicate = NSPredicate(format: "username = %@", searchController.searchBar.text!)
         let realm = try! Realm()
-        var filteredUserResults = realm.objects(User).filter(predicate)
+        let filteredUserResults = realm.objects(User).filter(predicate)
         
         let array = filteredUserResults.map { $0 } as NSArray
         

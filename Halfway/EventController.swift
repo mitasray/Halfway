@@ -16,7 +16,7 @@ import SVProgressHUD
 
 class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDataSource, CLLocationManagerDelegate, UITableViewDelegate {
     var loggedInUser = try! Realm().objects(User).first!
-    var invitedFriends = [User]()
+    var invitedFriends = [Bool]()
     let locationManager = CLLocationManager()
     var typePickerData = [String]()
     var yelpSearchOption = "Food"
@@ -28,8 +28,15 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     @IBOutlet weak var friendLabel: UILabel!
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
+    private func initializeInvitedFriends() -> [Bool] {
+        let checked = [Bool](count: listOfAllFriends().count, repeatedValue: false)
+        return checked
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        invitedFriends = initializeInvitedFriends()
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
             menuButton.action = "revealToggle:"
@@ -37,6 +44,7 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         }
         
         friendsTableView.allowsMultipleSelection = true
+        
 
         friendsTableView.delegate = self
         friendsTableView.dataSource = self
@@ -65,6 +73,13 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
         
         let friend_username = listOfAllFriends()[indexPath.row].username
+        
+        if invitedFriends[indexPath.row] == false {
+            cell.accessoryType = .None
+        }
+        else if invitedFriends[indexPath.row] == true {
+            cell.accessoryType = .Checkmark
+        }
 
         cell.textLabel?.text = friend_username
         return cell
@@ -72,9 +87,18 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
-        let friend = self.listOfAllFriends()[indexPath.row]
-        invite(friend)
+        if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+            if cell.accessoryType == .Checkmark
+            {
+                cell.accessoryType = .None
+                invitedFriends[indexPath.row] = false
+            }
+            else
+            {
+                cell.accessoryType = .Checkmark
+                invitedFriends[indexPath.row] = true
+            }
+        }
     }
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -94,17 +118,10 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         yelpSearchOption = typePickerData[row]
     }
     
-    func createEventWithFriends(friends: [User]) {
-        for friend in friends {
-            friendLabel.text = friendLabel.text! + friend.username + ", "
-        }
-        invitedFriends = friends
-    }
-    
     @IBAction func createEvent(sender: AnyObject) -> Void {
         let event_url = "https://halfway-db.herokuapp.com/v1/users/" + String(loggedInUser.id) + "/events"
         let realm = try! Realm()
-        try!realm.write {
+        try! realm.write {
             self.logged_in_user().latitude = self.locationManager.location!.coordinate.latitude
         }
         
@@ -113,14 +130,24 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         }
         updateUserLocation()
         let parameters = [
-            "date": datePicker.date,
-            "description": detailsTextField.text!   ,
+            "event": [
+                "date": datePicker.date,
+                "description": detailsTextField.text!,
+                "search_param": self.yelpSearchOption,
+            ],
+            
             "users": invitedFriendsIDs(),
-            "search_param": self.yelpSearchOption
         ]
+        let alert = UIAlertView()
+        if parameters["users"]?.length == 0 {
+            alert.title = "Please Invite At Least One Friend"
+            alert.addButtonWithTitle("Ok")
+            alert.show()
+            return
+        }
         SVProgressHUD.show()
         let headers = ["Authorization": logged_in_user().access_token]
-        request(.POST, event_url, parameters: parameters, headers: headers).validate().responseJSON { response in
+        request(.POST, event_url, parameters: parameters as? [String : AnyObject], headers: headers).validate().responseJSON { response in
             let json = response.result.value
             var event_details = json as! Dictionary<String, AnyObject>
             let dateFormatter = NSDateFormatter()
@@ -153,19 +180,17 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
         }
     }
     
-    private func invite(friend: User) {
-        invitedFriends.append(friend)
-    }
-    
     private func logged_in_user() -> User {
         let realm = try! Realm()
         return realm.objects(User).first!
     }
     
     private func invitedFriendsIDs() -> [Int] {
-        var idList = [Int]()
-        for friend in invitedFriends {
-            idList.append(friend.id) 
+        var idList = [Int](count: invitedFriends.count, repeatedValue: 0)
+        for invitedFriendsIndex in 0...(invitedFriends.count - 1) {
+            if invitedFriends[invitedFriendsIndex] {
+                idList[invitedFriendsIndex] = listOfAllFriends()[invitedFriendsIndex].id
+            }
         }
         return idList
     }
@@ -173,6 +198,7 @@ class EventController: UIViewController, UIPickerViewDelegate, UIPickerViewDataS
     private func yelpSearchOptions() -> [String] {
         return [
             "Bar",
+            "Boba",
             "Chinese",
             "Coffee",
             "Food",

@@ -90,8 +90,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-HalfwayTests/RealmSwift.framework"
   install_framework "Pods-HalfwayTests/SVProgressHUD.framework"
   install_framework "Pods-HalfwayTests/SWRevealViewController.framework"
-  install_framework "Pods-HalfwayTests/Nimble.framework"
-  install_framework "Pods-HalfwayTests/Quick.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-HalfwayTests/Alamofire.framework"
@@ -100,6 +98,4 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-HalfwayTests/RealmSwift.framework"
   install_framework "Pods-HalfwayTests/SVProgressHUD.framework"
   install_framework "Pods-HalfwayTests/SWRevealViewController.framework"
-  install_framework "Pods-HalfwayTests/Nimble.framework"
-  install_framework "Pods-HalfwayTests/Quick.framework"
 fi

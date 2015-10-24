@@ -8,6 +8,6 @@ pod 'SWRevealViewController'
 pod 'SVProgressHUD'
 
 target 'HalfwayTests' do
-    pod 'Quick'
-    pod 'Nimble'
+#    pod 'Quick'
+#    pod 'Nimble'
 end

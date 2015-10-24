@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		0A1F19A91B8C2F1F0097691E /* EventManagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1F19A81B8C2F1F0097691E /* EventManagerController.swift */; };
 		0A1F19AD1B8C350B0097691E /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1F19AC1B8C350B0097691E /* Event.swift */; };
-		0A2127391BD86B8400D135A4 /* UserSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2127381BD86B8400D135A4 /* UserSpec.swift */; settings = {ASSET_TAGS = (); }; };
 		0A4150321B4DCE770043DC33 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4150311B4DCE770043DC33 /* User.swift */; };
-		0A436D291BD85F43009A73E0 /* LoginControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A436D281BD85F43009A73E0 /* LoginControllerSpec.swift */; settings = {ASSET_TAGS = (); }; };
 		0A6D7C651B3A75E500AA09C4 /* Podfile.lock in Resources */ = {isa = PBXBuildFile; fileRef = 0A6D7C641B3A75E500AA09C4 /* Podfile.lock */; };
 		0A6D7C691B3A764900AA09C4 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 0A6D7C681B3A764900AA09C4 /* Podfile */; };
 		0A9C94D21B58ED6500CBC437 /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9C94D11B58ED6500CBC437 /* EventController.swift */; };
@@ -44,9 +42,7 @@
 		0003B9DEC28A04F94F8D02E6 /* Pods-HalfwayTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HalfwayTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HalfwayTests/Pods-HalfwayTests.debug.xcconfig"; sourceTree = "<group>"; };
 		0A1F19A81B8C2F1F0097691E /* EventManagerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventManagerController.swift; sourceTree = "<group>"; };
 		0A1F19AC1B8C350B0097691E /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		0A2127381BD86B8400D135A4 /* UserSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSpec.swift; sourceTree = "<group>"; };
 		0A4150311B4DCE770043DC33 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		0A436D281BD85F43009A73E0 /* LoginControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginControllerSpec.swift; sourceTree = "<group>"; };
 		0A6D7C601B3A74A100AA09C4 /* Halfway-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Halfway-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		0A6D7C641B3A75E500AA09C4 /* Podfile.lock */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
 		0A6D7C681B3A764900AA09C4 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -54,7 +50,6 @@
 		0AA5814E1B8A5E9A00909CB5 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		0AA581501B8A787A00909CB5 /* UserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserController.swift; sourceTree = "<group>"; };
 		0ABBC3F11B3A88540097E1A9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HalfwayTests/Info.plist; sourceTree = "<group>"; };
-		0AD019361B3C735500C79246 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AE556891B47D88C00FF0E1E /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		0AE5568B1B48C6BE00FF0E1E /* SignupController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupController.swift; sourceTree = "<group>"; };
 		0AEA54581B9D3A9700852826 /* AddFriendsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFriendsController.swift; sourceTree = "<group>"; };
@@ -127,16 +122,6 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
-		0AD019331B3C735500C79246 /* HalfwayTests */ = {
-			isa = PBXGroup;
-			children = (
-				0AD019361B3C735500C79246 /* Info.plist */,
-				0A436D281BD85F43009A73E0 /* LoginControllerSpec.swift */,
-				0A2127381BD86B8400D135A4 /* UserSpec.swift */,
-			);
-			path = HalfwayTests;
-			sourceTree = "<group>";
-		};
 		0AEC20AB1B23C30000E37E21 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,7 +140,6 @@
 				6094D5901B1F85FA00EAA02A /* Halfway */,
 				6094D58F1B1F85FA00EAA02A /* Products */,
 				6F364EE1EC443408952A57E7 /* Frameworks */,
-				0AD019331B3C735500C79246 /* HalfwayTests */,
 				090C98F722CE3239EBDFE6B7 /* Pods */,
 			);
 			sourceTree = "<group>";
@@ -422,8 +406,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A436D291BD85F43009A73E0 /* LoginControllerSpec.swift in Sources */,
-				0A2127391BD86B8400D135A4 /* UserSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

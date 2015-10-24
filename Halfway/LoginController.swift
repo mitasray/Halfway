@@ -50,7 +50,7 @@ class LoginController: UIViewController {
             try! realm.write { realm.add(logged_in_user) }
             logged_in_user = realm.objects(User).filter("id = \(logged_in_user.id)").first!
 
-            var MainNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("event") as? UIViewController!
+            _ = self.storyboard?.instantiateViewControllerWithIdentifier("event") 
             self.performSegueWithIdentifier("login", sender: self)
             SVProgressHUD.dismiss()
         }

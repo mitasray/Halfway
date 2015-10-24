@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Nimble.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>OAuthSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -25,11 +20,6 @@
 			<false/>
 		</dict>
 		<key>Pods.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Quick.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -62,11 +52,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>23B4F3E82B3559DB83116C202F9B7D34</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>38A1825F09970FB674746FB416771493</key>
 		<dict>
 			<key>primary</key>
@@ -92,17 +77,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C5DB5104FED3C10F78978AFC810982B9</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D6AF6D839FB3EBDB5AB761758F9EAF60</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>DE93970FB68874F2C2C5274B42422D36</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FDA5DAABF7F5B78258EFE306EB66EDD7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

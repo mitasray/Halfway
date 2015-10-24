@@ -69,7 +69,7 @@ class SignupController: UIViewController, CLLocationManagerDelegate {
             let realm = try! Realm()
             try! realm.write { realm.add(logged_in_user) }
             
-            var MainNavigationController = self.storyboard?.instantiateViewControllerWithIdentifier("event") as? UIViewController!
+            _ = self.storyboard?.instantiateViewControllerWithIdentifier("event")
             self.performSegueWithIdentifier("signup", sender: self)
             SVProgressHUD.dismiss()
         }
